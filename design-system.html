@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>CraftIQ Design System</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+:root {
+  /* Primary Palette */
+  --primary: #0F172A;
+  --on-primary: #FFFFFF;
+  --primary-container: #1E293B;
+  --on-primary-container: #CBD5E1;
+
+  /* Secondary - Craftsman Ochre */
+  --secondary: #D97706;
+  --on-secondary: #FFFFFF;
+  --secondary-container: #FEF3C7;
+  --on-secondary-container: #92400E;
+  --secondary-light: #F59E0B;
+
+  /* Tertiary - Trust Blue */
+  --tertiary: #2563EB;
+  --on-tertiary: #FFFFFF;
+  --tertiary-container: #DBEAFE;
+  --on-tertiary-container: #1E40AF;
+
+  /* Success - Emerald */
+  --success: #059669;
+  --on-success: #FFFFFF;
+  --success-container: #D1FAE5;
+  --on-success-container: #065F46;
+
+  /* Error */
+  --error: #DC2626;
+  --on-error: #FFFFFF;
+  --error-container: #FEE2E2;
+  --on-error-container: #991B1B;
+
+  /* Warning */
+  --warning: #F59E0B;
+  --warning-container: #FEF3C7;
+
+  /* Surfaces */
+  --surface: #F8FAFC;
+  --surface-dim: #F1F5F9;
+  --surface-bright: #FFFFFF;
+  --surface-container-lowest: #FFFFFF;
+  --surface-container-low: #F8FAFC;
+  --surface-container: #F1F5F9;
+  --surface-container-high: #E2E8F0;
+  --surface-container-highest: #CBD5E1;
+
+  /* On Surface */
+  --on-surface: #0F172A;
+  --on-surface-variant: #475569;
+  --on-surface-muted: #94A3B8;
+
+  /* Outline */
+  --outline: #CBD5E1;
+  --outline-variant: #E2E8F0;
+
+  /* Inverse */
+  --inverse-surface: #1E293B;
+  --inverse-on-surface: #F8FAFC;
+
+  /* Shadows */
+  --shadow-xs: 0px 1px 2px rgba(15, 23, 42, 0.05);
+  --shadow-sm: 0px 2px 4px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0px 4px 8px -2px rgba(15, 23, 42, 0.06), 0px 2px 4px -2px rgba(15, 23, 42, 0.03);
+  --shadow-lg: 0px 8px 16px -4px rgba(15, 23, 42, 0.08), 0px 2px 4px -1px rgba(15, 23, 42, 0.03);
+  --shadow-xl: 0px 12px 24px -4px rgba(15, 23, 42, 0.12), 0px 4px 8px -2px rgba(15, 23, 42, 0.04);
+  --shadow-2xl: 0px 20px 24px -4px rgba(15, 23, 42, 0.12);
+
+  /* Border Radius */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Typography */
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font-body); background: var(--surface); color: var(--on-surface); }
+
+/* ========== DESIGN SYSTEM PAGE ========== */
+.ds-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-6);
+}
+
+.ds-title {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: var(--space-2);
+  color: var(--primary);
+}
+
+.ds-subtitle {
+  font-size: 16px;
+  color: var(--on-surface-variant);
+  margin-bottom: var(--space-12);
+  line-height: 1.6;
+}
+
+.ds-section {
+  margin-bottom: var(--space-12);
+}
+
+.ds-section-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: var(--space-6);
+  color: var(--primary);
+  padding-bottom: var(--space-3);
+  border-bottom: 2px solid var(--outline-variant);
+}
+
+.ds-subsection {
+  margin-bottom: var(--space-8);
+}
+
+.ds-subsection-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: var(--space-4);
+  color: var(--on-surface);
+}
+
+/* Color Swatches */
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-4);
+}
+
+.color-swatch {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--outline-variant);
+}
+
+.color-swatch-fill {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.color-swatch-info {
+  padding: var(--space-3);
+  background: white;
+}
+
+.color-swatch-name {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.color-swatch-hex {
+  font-size: 12px;
+  color: var(--on-surface-variant);
+  font-family: monospace;
+}
+
+/* Typography Samples */
+.type-sample {
+  margin-bottom: var(--space-6);
+  padding: var(--space-5);
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xs);
+  border: 1px solid var(--outline-variant);
+}
+
+.type-sample-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--on-surface-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-2);
+}
+
+.type-sample-meta {
+  font-size: 11px;
+  color: var(--on-surface-muted);
+  margin-top: var(--space-2);
+  font-family: monospace;
+}
+
+/* Component Samples */
+.component-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  align-items: flex-start;
+  margin-bottom: var(--space-6);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  height: 48px;
+  padding: 0 var(--space-6);
+  border-radius: var(--radius-md);
+  background: var(--primary);
+  color: var(--on-primary);
+  font-size: 15px;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover { box-shadow: var(--shadow-lg); transform: translateY(-1px); }
+.btn-primary:active { transform: scale(0.98); }
+
+.btn-secondary {
+  height: 48px;
+  padding: 0 var(--space-6);
+  border-radius: var(--radius-md);
+  background: var(--secondary);
+  color: var(--on-secondary);
+  font-size: 15px;
+}
+
+.btn-outline {
+  height: 48px;
+  padding: 0 var(--space-6);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--primary);
+  font-size: 15px;
+  border: 1.5px solid var(--outline);
+}
+
+.btn-ghost {
+  height: 44px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--on-surface-variant);
+  font-size: 14px;
+}
+
+.btn-sm {
+  height: 36px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+}
+
+.btn-lg {
+  height: 52px;
+  padding: 0 var(--space-8);
+  border-radius: var(--radius-md);
+  font-size: 16px;
+}
+
+/* Chips / Badges */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--font-display);
+}
+
+.chip-primary { background: var(--primary); color: var(--on-primary); }
+.chip-secondary { background: var(--secondary-container); color: var(--on-secondary-container); }
+.chip-success { background: var(--success-container); color: var(--on-success-container); }
+.chip-error { background: var(--error-container); color: var(--on-error-container); }
+.chip-tertiary { background: var(--tertiary-container); color: var(--on-tertiary-container); }
+.chip-outline { background: transparent; border: 1.5px solid var(--outline); color: var(--on-surface-variant); }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.badge-verified { background: var(--tertiary-container); color: var(--on-tertiary-container); }
+.badge-premium { background: var(--secondary-container); color: var(--on-secondary-container); }
+.badge-new { background: var(--success-container); color: var(--on-success-container); }
+
+/* Input Fields */
+.input-group {
+  margin-bottom: var(--space-4);
+}
+
+.input-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--on-surface);
+  margin-bottom: var(--space-2);
+  font-family: var(--font-display);
+}
+
+.input-field {
+  width: 100%;
+  height: 48px;
+  padding: 0 var(--space-4);
+  border: 1.5px solid var(--outline);
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-family: var(--font-body);
+  color: var(--on-surface);
+  background: white;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.input-field::placeholder { color: var(--on-surface-muted); }
+.input-field:focus { border-color: var(--tertiary); box-shadow: 0 0 0 3px var(--tertiary-container); }
+
+.input-field-lg {
+  height: 56px;
+  font-size: 17px;
+  padding: 0 var(--space-5);
+}
+
+/* Cards */
+.card {
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--outline-variant);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.card-elevated {
+  box-shadow: var(--shadow-md);
+  border: none;
+}
+
+.card-flat {
+  box-shadow: none;
+  border: 1px solid var(--outline-variant);
+}
+
+/* Rating */
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.rating-star { color: var(--secondary); font-size: 16px; }
+.rating-star-empty { color: var(--surface-container-high); font-size: 16px; }
+.rating-value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  margin-left: var(--space-1);
+}
+.rating-count {
+  font-size: 12px;
+  color: var(--on-surface-muted);
+  margin-left: var(--space-1);
+}
+
+/* Avatar */
+.avatar {
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  background: var(--surface-container-high);
+}
+
+.avatar-xs { width: 24px; height: 24px; }
+.avatar-sm { width: 32px; height: 32px; }
+.avatar-md { width: 40px; height: 40px; }
+.avatar-lg { width: 56px; height: 56px; }
+.avatar-xl { width: 72px; height: 72px; }
+.avatar-2xl { width: 96px; height: 96px; }
+
+/* Status Indicators */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  display: inline-block;
+}
+
+.status-online { background: var(--success); }
+.status-offline { background: var(--surface-container-highest); }
+.status-busy { background: var(--warning); }
+.status-error { background: var(--error); }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.status-pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: var(--outline-variant);
+  margin: var(--space-4) 0;
+}
+
+/* Spacer */
+.spacer-sm { height: var(--space-2); }
+.spacer-md { height: var(--space-4); }
+.spacer-lg { height: var(--space-6); }
+.spacer-xl { height: var(--space-8); }
+</style>
+</head>
+<body>
+<div class="ds-page">
+  <h1 class="ds-title">CraftIQ Design System</h1>
+  <p class="ds-subtitle">Complete design system for the CraftIQ Service Marketplace application. This document defines all visual tokens, components, and patterns used across the Customer and Technician apps.</p>
+
+  <!-- COLORS -->
+  <section class="ds-section">
+    <h2 class="ds-section-title">Colors</h2>
+
+    <div class="ds-subsection">
+      <h3 class="ds-subsection-title">Primary</h3>
+      <div class="color-grid">
+        <div class="color-swatch">
+          <div class="color-swatch-fill" style="background:#0F172A;color:#FFF">Primary</div>
+          <div class="color-swatch-info"><div class="color-swatch-name">Deep Slate Navy</div><div class="color-swatch-hex">#0F172A</div></div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-fill" style="background:#FFFFFF;border:1px solid #E2E8F0;color:#0F172A">On Primary</div>
+          <div class="color-swatch-info"><div class="color-swatch-name">On Primary</div><div class="color-swatch-hex">#FFFFFF</div></div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-fill" style="background:#1E293B;color:#CBD5E1">Container</div>
+          <div class="color-swatch-info"><div class="color-swatch-name">Primary Container</div><div class="color-swatch-hex">#1E293B</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-subsection">
+      <h3 class="ds-subsection-title">Secondary - Craftsman Ochre</h3>
+      <div class="color-grid">
+        <div class="color-swatch">
+          <div class="color-swatch-fill" style="background:#D97706;color:#FFF">Secondary</div>
+          <div class="color-swatch-info"><div class="color-swatch-name">Craftsman Ochre</div><div class="color-swatch-hex">#D97706</div></div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-fill" style="background:#FEF3C7;color:#92400E">Container</div>
+          <div class="color-swatch-info"><div class="color-swatch-name">Secondary Container</div><div class="color-swatch-hex">#FEF3C7</div></div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-fill" style="background:#F59E0B;color:#FFF">Light</div>
+          <div class="color-swatch-info"><div class="color-swatch-name">Secondary Light</div><div class="color-swatch-hex">#F59E0B</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-subsection">
+      <h3 class="ds-subsection-title">Tertiary - Trust Blue</h3>
+      <div class="color-grid">
+        <div class="color-swatch">
+          <div class="color-swatch-fill" style="background:#2563EB;color:#FFF">Tertiary</div>
+          <div class="color-swatch-info"><div class="color-swatch-name">Trust Royal Blue</div><div class="color-swatch-hex">#2563EB</div></div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-fill" style="background:#DBEAFE;color:#1E40AF">Container</div>
+          <div class="color-swatch-info"><div class="color-swatch-name">Tertiary Container</div><div class="color-swatch-hex">#DBEAFE</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-subsection">
+      <h3 class="ds-subsection-title">Success - Emerald</h3>
+      <div class="color-grid">
+        <div class="color-swatch">
+          <div class="color-swatch-fill" style="background:#059669;color:#FFF">Success</div>
+          <div class="color-swatch-info"><div class="color-swatch-name">Success Emerald</div><div class="color-swatch-hex">#059669</div></div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-fill" style="background:#D1FAE5;color:#065F46">Container</div>
+          <div class="color-swatch-info"><div class="color-swatch-name">Success Container</div><div class="color-swatch-hex">#D1FAE5</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-subsection">
+      <h3 class="ds-subsection-title">Surfaces</h3>
+      <div class="color-grid">
+        <div class="color-swatch">
+          <div class="color-swatch-fill" style="background:#F8FAFC;border:1px solid #E2E8F0;color:#0F172A">Surface</div>
+          <div class="color-swatch-info"><div class="color-swatch-name">Surface</div><div class="color-swatch-hex">#F8FAFC</div></div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-fill" style="background:#FFFFFF;border:1px solid #E2E8F0;color:#0F172A">White</div>
+          <div class="color-swatch-info"><div class="color-swatch-name">Surface Container Lowest</div><div class="color-swatch-hex">#FFFFFF</div></div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-fill" style="background:#F1F5F9;color:#0F172A">Light</div>
+          <div class="color-swatch-info"><div class="color-swatch-name">Surface Container</div><div class="color-swatch-hex">#F1F5F9</div></div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-fill" style="background:#E2E8F0;color:#0F172A">High</div>
+          <div class="color-swatch-info"><div class="color-swatch-name">Surface Container High</div><div class="color-swatch-hex">#E2E8F0</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="ds-section">
+    <h2 class="ds-section-title">Typography</h2>
+
+    <div class="type-sample">
+      <div class="type-sample-label">Display / Hero</div>
+      <div style="font-family:var(--font-display);font-size:36px;font-weight:800;line-height:1.2">Honest Craftsmanship.</div>
+      <div class="type-sample-meta">Plus Jakarta Sans | 36px / 44px | Weight 800</div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-sample-label">Headline XL</div>
+      <div style="font-family:var(--font-display);font-size:28px;font-weight:700;line-height:1.22">Find Trusted Technicians</div>
+      <div class="type-sample-meta">Plus Jakarta Sans | 28px / 34px | Weight 700</div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-sample-label">Headline LG</div>
+      <div style="font-family:var(--font-display);font-size:24px;font-weight:700;line-height:1.33">Service Categories</div>
+      <div class="type-sample-meta">Plus Jakarta Sans | 24px / 32px | Weight 700</div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-sample-label">Headline MD</div>
+      <div style="font-family:var(--font-display);font-size:20px;font-weight:600;line-height:1.4">Available Technicians</div>
+      <div class="type-sample-meta">Plus Jakarta Sans | 20px / 28px | Weight 600</div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-sample-label">Headline SM</div>
+      <div style="font-family:var(--font-display);font-size:18px;font-weight:600;line-height:1.33">Technician Profile</div>
+      <div class="type-sample-meta">Plus Jakarta Sans | 18px / 24px | Weight 600</div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-sample-label">Body LG</div>
+      <div style="font-family:var(--font-body);font-size:16px;font-weight:400;line-height:1.5">Direct connections with vetted, independent master craftsmen. No middlemen, transparent pricing.</div>
+      <div class="type-sample-meta">Inter | 16px / 24px | Weight 400</div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-sample-label">Body MD</div>
+      <div style="font-family:var(--font-body);font-size:14px;font-weight:400;line-height:1.43">Hire vetted pros directly with fixed quotes, clear milestones, and insured work.</div>
+      <div class="type-sample-meta">Inter | 14px / 20px | Weight 400</div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-sample-label">Body SM</div>
+      <div style="font-family:var(--font-body);font-size:12px;font-weight:400;line-height:1.33">Standard SMS rates apply. We'll send a 6-digit one-time passcode.</div>
+      <div class="type-sample-meta">Inter | 12px / 16px | Weight 400</div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-sample-label">Label LG</div>
+      <div style="font-family:var(--font-display);font-size:14px;font-weight:600;line-height:1.43">Continue as Customer</div>
+      <div class="type-sample-meta">Plus Jakarta Sans | 14px / 20px | Weight 600</div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-sample-label">Label MD</div>
+      <div style="font-family:var(--font-display);font-size:12px;font-weight:600;line-height:1.33">QUICK PHONE VERIFICATION</div>
+      <div class="type-sample-meta">Plus Jakarta Sans | 12px / 16px | Weight 600</div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-sample-label">Label SM (Badge)</div>
+      <div style="font-family:var(--font-display);font-size:11px;font-weight:700;line-height:1.27;letter-spacing:0.04em;text-transform:uppercase">CRAFTIQ CERTIFIED</div>
+      <div class="type-sample-meta">Plus Jakarta Sans | 11px / 14px | Weight 700 | LS: 0.04em</div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-sample-label">Stat Display</div>
+      <div style="font-family:var(--font-display);font-size:22px;font-weight:800;line-height:1.18">$45</div>
+      <div class="type-sample-meta">Plus Jakarta Sans | 22px / 26px | Weight 800</div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="ds-section">
+    <h2 class="ds-section-title">Components</h2>
+
+    <div class="ds-subsection">
+      <h3 class="ds-subsection-title">Buttons</h3>
+      <div class="component-row">
+        <button class="btn btn-primary">Continue</button>
+        <button class="btn btn-secondary">Hire Pro</button>
+        <button class="btn btn-outline">Get Quote</button>
+        <button class="btn btn-ghost">Cancel</button>
+      </div>
+      <div class="component-row">
+        <button class="btn btn-primary btn-sm">Small</button>
+        <button class="btn btn-primary">Default</button>
+        <button class="btn btn-primary btn-lg">Large</button>
+      </div>
+    </div>
+
+    <div class="ds-subsection">
+      <h3 class="ds-subsection-title">Chips & Badges</h3>
+      <div class="component-row">
+        <span class="chip chip-primary">Plumbing</span>
+        <span class="chip chip-secondary">Available Now</span>
+        <span class="chip chip-success">Verified</span>
+        <span class="chip chip-error">Urgent</span>
+        <span class="chip chip-tertiary">Certified</span>
+        <span class="chip chip-outline">Filter</span>
+      </div>
+      <div class="component-row">
+        <span class="badge badge-verified">
+          <span class="material-symbols-outlined" style="font-size:12px">verified</span>
+          CraftIQ Certified
+        </span>
+        <span class="badge badge-premium">Premium</span>
+        <span class="badge badge-new">New</span>
+      </div>
+    </div>
+
+    <div class="ds-subsection">
+      <h3 class="ds-subsection-title">Rating</h3>
+      <div class="component-row">
+        <div class="rating">
+          <span class="material-symbols-outlined rating-star" style="font-variation-settings:'FILL' 1">star</span>
+          <span class="material-symbols-outlined rating-star" style="font-variation-settings:'FILL' 1">star</span>
+          <span class="material-symbols-outlined rating-star" style="font-variation-settings:'FILL' 1">star</span>
+          <span class="material-symbols-outlined rating-star" style="font-variation-settings:'FILL' 1">star</span>
+          <span class="material-symbols-outlined rating-star" style="font-variation-settings:'FILL' 1">star_half</span>
+          <span class="rating-value">4.8</span>
+          <span class="rating-count">(324 reviews)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-subsection">
+      <h3 class="ds-subsection-title">Avatars</h3>
+      <div class="component-row" style="align-items:center">
+        <div class="avatar avatar-xs" style="background:var(--secondary-container)"></div>
+        <div class="avatar avatar-sm" style="background:var(--tertiary-container)"></div>
+        <div class="avatar avatar-md" style="background:var(--success-container)"></div>
+        <div class="avatar avatar-lg" style="background:var(--primary-container)"></div>
+        <div class="avatar avatar-xl" style="background:var(--secondary-container)"></div>
+        <div class="avatar avatar-2xl" style="background:var(--surface-container-high)"></div>
+      </div>
+    </div>
+
+    <div class="ds-subsection">
+      <h3 class="ds-subsection-title">Status Indicators</h3>
+      <div class="component-row" style="align-items:center;gap:var(--space-6)">
+        <div style="display:flex;align-items:center;gap:var(--space-2)">
+          <span class="status-dot status-online"></span>
+          <span style="font-size:13px">Online</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:var(--space-2)">
+          <span class="status-dot status-offline"></span>
+          <span style="font-size:13px">Offline</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:var(--space-2)">
+          <span class="status-dot status-busy"></span>
+          <span style="font-size:13px">Busy</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:var(--space-2)">
+          <span class="status-dot status-online status-pulse"></span>
+          <span style="font-size:13px">Available Now</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-subsection">
+      <h3 class="ds-subsection-title">Input Fields</h3>
+      <div style="max-width:400px">
+        <div class="input-group">
+          <label class="input-label">Service Address</label>
+          <input class="input-field" type="text" placeholder="Enter your address"/>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Describe your issue</label>
+          <input class="input-field input-field-lg" type="text" placeholder="e.g. My kitchen faucet is leaking"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ELEVATION -->
+  <section class="ds-section">
+    <h2 class="ds-section-title">Elevation & Depth</h2>
+    <div class="component-row">
+      <div style="width:160px;height:80px;background:white;border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;box-shadow:var(--shadow-xs)">Level 0 - Base</div>
+      <div style="width:160px;height:80px;background:white;border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;box-shadow:var(--shadow-sm)">Level 1 - Card</div>
+      <div style="width:160px;height:80px;background:white;border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;box-shadow:var(--shadow-lg)">Level 2 - Active</div>
+      <div style="width:160px;height:80px;background:white;border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;box-shadow:var(--shadow-2xl)">Level 3 - Modal</div>
+    </div>
+  </section>
+
+  <!-- SPACING -->
+  <section class="ds-section">
+    <h2 class="ds-section-title">Spacing System</h2>
+    <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+      <div style="display:flex;align-items:center;gap:var(--space-4)">
+        <span style="font-size:12px;color:var(--on-surface-muted);width:60px;font-family:monospace">4px</span>
+        <div style="width:4px;height:16px;background:var(--secondary);border-radius:2px"></div>
+        <span style="font-size:12px;color:var(--on-surface-muted)">space-1</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:var(--space-4)">
+        <span style="font-size:12px;color:var(--on-surface-muted);width:60px;font-family:monospace">8px</span>
+        <div style="width:8px;height:16px;background:var(--secondary);border-radius:2px"></div>
+        <span style="font-size:12px;color:var(--on-surface-muted)">space-2</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:var(--space-4)">
+        <span style="font-size:12px;color:var(--on-surface-muted);width:60px;font-family:monospace">12px</span>
+        <div style="width:12px;height:16px;background:var(--secondary);border-radius:2px"></div>
+        <span style="font-size:12px;color:var(--on-surface-muted)">space-3</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:var(--space-4)">
+        <span style="font-size:12px;color:var(--on-surface-muted);width:60px;font-family:monospace">16px</span>
+        <div style="width:16px;height:16px;background:var(--secondary);border-radius:2px"></div>
+        <span style="font-size:12px;color:var(--on-surface-muted)">space-4</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:var(--space-4)">
+        <span style="font-size:12px;color:var(--on-surface-muted);width:60px;font-family:monospace">24px</span>
+        <div style="width:24px;height:16px;background:var(--secondary);border-radius:2px"></div>
+        <span style="font-size:12px;color:var(--on-surface-muted)">space-6</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:var(--space-4)">
+        <span style="font-size:12px;color:var(--on-surface-muted);width:60px;font-family:monospace">32px</span>
+        <div style="width:32px;height:16px;background:var(--secondary);border-radius:2px"></div>
+        <span style="font-size:12px;color:var(--on-surface-muted)">space-8</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:var(--space-4)">
+        <span style="font-size:12px;color:var(--on-surface-muted);width:60px;font-family:monospace">48px</span>
+        <div style="width:48px;height:16px;background:var(--secondary);border-radius:2px"></div>
+        <span style="font-size:12px;color:var(--on-surface-muted)">space-12</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- BORDER RADIUS -->
+  <section class="ds-section">
+    <h2 class="ds-section-title">Border Radius</h2>
+    <div class="component-row">
+      <div style="width:64px;height:64px;background:var(--primary);border-radius:var(--radius-xs);display:flex;align-items:center;justify-content:center;color:white;font-size:10px">4px</div>
+      <div style="width:64px;height:64px;background:var(--primary);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;color:white;font-size:10px">8px</div>
+      <div style="width:64px;height:64px;background:var(--primary);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;color:white;font-size:10px">12px</div>
+      <div style="width:64px;height:64px;background:var(--primary);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;color:white;font-size:10px">16px</div>
+      <div style="width:64px;height:64px;background:var(--primary);border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:center;color:white;font-size:10px">24px</div>
+      <div style="width:64px;height:64px;background:var(--primary);border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;color:white;font-size:10px">Full</div>
+    </div>
+  </section>
+</div>
+</body>
+</html>

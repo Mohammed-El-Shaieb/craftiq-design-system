@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>CraftIQ - Technician App Screens</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: { DEFAULT: '#0F172A', container: '#1E293B', on: '#FFFFFF', 'on-container': '#CBD5E1' },
+        secondary: { DEFAULT: '#D97706', container: '#FEF3C7', on: '#FFFFFF', 'on-container': '#92400E', light: '#F59E0B' },
+        tertiary: { DEFAULT: '#2563EB', container: '#DBEAFE', on: '#FFFFFF', 'on-container': '#1E40AF' },
+        success: { DEFAULT: '#059669', container: '#D1FAE5', on: '#FFFFFF', 'on-container': '#065F46' },
+        error: { DEFAULT: '#DC2626', container: '#FEE2E2', on: '#FFFFFF', 'on-container': '#991B1B' },
+        surface: { DEFAULT: '#F8FAFC', dim: '#F1F5F9', bright: '#FFFFFF', low: '#F8FAFC', mid: '#F1F5F9', high: '#E2E8F0', highest: '#CBD5E1' },
+        'on-surface': { DEFAULT: '#0F172A', variant: '#475569', muted: '#94A3B8' },
+        outline: { DEFAULT: '#CBD5E1', variant: '#E2E8F0' },
+      },
+      fontFamily: {
+        display: ['"Plus Jakarta Sans"', 'sans-serif'],
+        body: ['Inter', 'sans-serif'],
+      },
+    }
+  }
+}
+</script>
+<style>
+@layer base { html, body { width: 100%; margin: 0; padding: 0; min-height: 100%; } }
+::-webkit-scrollbar { display: none; }
+body { min-height: max(884px, 100dvh); }
+
+.screen-frame {
+  width: 375px;
+  height: 812px;
+  border-radius: 40px;
+  border: 8px solid #1a1a1a;
+  overflow: hidden;
+  position: relative;
+  background: #F8FAFC;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  flex-shrink: 0;
+}
+
+.screen-label {
+  position: absolute;
+  top: -30px;
+  left: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: #64748B;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.screens-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 60px;
+  padding: 40px;
+  align-items: flex-start;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.5; }
+}
+.pulse-dot { animation: pulse-dot 2s infinite; }
+
+.bottom-nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-top: 1px solid #E2E8F0;
+  display: flex;
+  justify-content: space-around;
+  padding: 8px 0 20px;
+  z-index: 50;
+}
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #94A3B8;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.nav-item.active { color: #0F172A; }
+.nav-item .material-symbols-outlined { font-size: 22px; }
+
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px 4px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.status-icons { display: flex; gap: 4px; align-items: center; }
+.screen-content {
+  padding: 0 16px;
+  height: calc(100% - 40px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+</style>
+</head>
+<body class="bg-gray-900 font-body">
+
+<div class="screens-grid">
+
+<!-- ============================================ -->
+<!-- SCREEN 1: TECHNICIAN REGISTRATION -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">T01 - Registration</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <div class="screen-content">
+      <!-- Header -->
+      <div class="flex items-center gap-3 mb-5 pt-2">
+        <div class="w-10 h-10 rounded-full bg-surface-mid flex items-center justify-center">
+          <span class="material-symbols-outlined text-primary" style="font-size:20px">arrow_back</span>
+        </div>
+        <div>
+          <h2 class="font-display text-xl font-bold text-primary">Join as Technician</h2>
+          <p class="text-xs text-on-surface-variant">Start earning with CraftIQ</p>
+        </div>
+      </div>
+
+      <!-- Profile Photo -->
+      <div class="text-center mb-5">
+        <div class="w-20 h-20 rounded-full bg-surface-mid border-2 border-dashed border-outline flex items-center justify-center mx-auto mb-2">
+          <span class="material-symbols-outlined text-on-surface-muted" style="font-size:32px">add_a_photo</span>
+        </div>
+        <p class="text-xs text-on-surface-muted">Add profile photo</p>
+      </div>
+
+      <!-- Form -->
+      <div class="flex flex-col gap-3 mb-4">
+        <div>
+          <label class="text-xs font-bold text-primary mb-1 block font-display">Full Name</label>
+          <input class="w-full h-11 px-3 rounded-lg bg-white border border-outline text-sm outline-none focus:border-tertiary focus:ring-2 focus:ring-tertiary-container" placeholder="John Smith"/>
+        </div>
+        <div>
+          <label class="text-xs font-bold text-primary mb-1 block font-display">Phone Number</label>
+          <input class="w-full h-11 px-3 rounded-lg bg-white border border-outline text-sm outline-none focus:border-tertiary focus:ring-2 focus:ring-tertiary-container" placeholder="+1 (555) 000-0000"/>
+        </div>
+        <div>
+          <label class="text-xs font-bold text-primary mb-1 block font-display">Email</label>
+          <input class="w-full h-11 px-3 rounded-lg bg-white border border-outline text-sm outline-none focus:border-tertiary focus:ring-2 focus:ring-tertiary-container" placeholder="john@example.com"/>
+        </div>
+        <div>
+          <label class="text-xs font-bold text-primary mb-1 block font-display">Primary Trade</label>
+          <div class="w-full h-11 px-3 rounded-lg bg-white border border-outline text-sm flex items-center justify-between">
+            <span class="text-on-surface-muted">Select your trade</span>
+            <span class="material-symbols-outlined text-on-surface-muted" style="font-size:18px">expand_more</span>
+          </div>
+        </div>
+        <div>
+          <label class="text-xs font-bold text-primary mb-1 block font-display">Years of Experience</label>
+          <div class="w-full h-11 px-3 rounded-lg bg-white border border-outline text-sm flex items-center justify-between">
+            <span class="text-on-surface-muted">Select experience</span>
+            <span class="material-symbols-outlined text-on-surface-muted" style="font-size:18px">expand_more</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-auto pb-4">
+        <button class="w-full h-12 rounded-lg bg-primary text-white font-display font-bold text-sm flex items-center justify-center gap-2 shadow-md mb-3">
+          Continue <span class="material-symbols-outlined" style="font-size:18px">arrow_forward</span>
+        </button>
+        <p class="text-center text-xs text-on-surface-muted">Already have an account? <span class="font-semibold text-tertiary">Sign in</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 2: TECHNICIAN DASHBOARD -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">T02 - Dashboard</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <div class="screen-content">
+      <!-- Header -->
+      <div class="flex items-center justify-between mb-3 pt-2">
+        <div>
+          <p class="text-xs text-on-surface-muted font-medium">Good morning</p>
+          <h1 class="font-display text-lg font-bold text-primary">Mike Rodriguez</h1>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="w-10 h-10 rounded-full bg-surface-mid flex items-center justify-center relative">
+            <span class="material-symbols-outlined text-primary" style="font-size:20px">notifications</span>
+            <div class="absolute top-1 right-1 w-2.5 h-2.5 bg-error rounded-full border-2 border-white"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Online Status Toggle -->
+      <div class="bg-success rounded-xl p-3 mb-3 flex items-center justify-between shadow-md">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+            <span class="material-symbols-outlined text-white" style="font-variation-settings:'FILL' 1;font-size:22px">power_settings_new</span>
+          </div>
+          <div>
+            <p class="text-sm font-bold text-white font-display">You're Online</p>
+            <p class="text-xs text-white/70">Ready to receive requests</p>
+          </div>
+        </div>
+        <div class="w-14 h-8 bg-white/20 rounded-full flex items-center p-1 cursor-pointer">
+          <div class="w-6 h-6 bg-white rounded-full shadow-md flex items-center justify-center ml-auto">
+            <span class="material-symbols-outlined text-success" style="font-size:14px">check</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service Area Map (First) -->
+      <div class="bg-white rounded-xl shadow-sm border border-outline-variant mb-3 overflow-hidden">
+        <div id="techMap" style="width:100%;height:160px;background:#E2E8F0;position:relative">
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:400">
+            <span class="material-symbols-outlined text-on-surface-muted" style="font-size:32px">map_off</span>
+            <p class="text-xs text-on-surface-muted mt-1">Map offline</p>
+          </div>
+        </div>
+        <div class="p-3 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-tertiary" style="font-size:16px">my_location</span>
+            <span class="text-xs text-on-surface-variant">15 km radius from your location</span>
+          </div>
+          <span class="text-xs font-bold text-tertiary cursor-pointer">Edit</span>
+        </div>
+      </div>
+
+      <!-- Today's Stats -->
+      <h3 class="font-display text-sm font-bold text-primary mb-2">Today's Performance</h3>
+      <div class="grid grid-cols-3 gap-2 mb-3">
+        <div class="bg-white rounded-xl p-3 shadow-sm border border-outline-variant text-center">
+          <p class="font-display text-xl font-extrabold text-primary">3</p>
+          <p class="text-xs text-on-surface-muted">Jobs Done</p>
+        </div>
+        <div class="bg-white rounded-xl p-3 shadow-sm border border-outline-variant text-center">
+          <p class="font-display text-xl font-extrabold text-success">$285</p>
+          <p class="text-xs text-on-surface-muted">Earned</p>
+        </div>
+        <div class="bg-white rounded-xl p-3 shadow-sm border border-outline-variant text-center">
+          <p class="font-display text-xl font-extrabold text-secondary">4.9</p>
+          <p class="text-xs text-on-surface-muted">Avg Rating</p>
+        </div>
+      </div>
+
+      <!-- Incoming Request Alert -->
+      <div class="bg-secondary-container rounded-xl p-4 mb-3 border border-secondary/20">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-2 h-2 bg-success rounded-full pulse-dot"></div>
+          <span class="text-xs font-bold text-on-secondary-container uppercase tracking-wide">New Request!</span>
+        </div>
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-11 h-11 rounded-full bg-secondary/20 flex items-center justify-center">
+            <span class="material-symbols-outlined text-secondary" style="font-size:22px">plumbing</span>
+          </div>
+          <div class="flex-1">
+            <h4 class="font-display text-sm font-bold text-primary">Leak Repair</h4>
+            <p class="text-xs text-on-secondary-container/70">123 Main St • 0.3 mi</p>
+          </div>
+          <div class="text-right">
+            <p className="font-display text-lg font-extrabold text-primary">$95</p>
+            <p className="text-xs text-on-secondary-container/70">Est. 2 hrs</p>
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <button class="flex-1 h-10 rounded-lg bg-white text-primary font-display font-bold text-sm border border-outline">Decline</button>
+          <button class="flex-1 h-10 rounded-lg bg-success text-white font-display font-bold text-sm shadow-md">Accept</button>
+        </div>
+      </div>
+
+      <!-- Active Job -->
+      <h3 class="font-display text-sm font-bold text-primary mb-2">Active Job</h3>
+      <div class="bg-white rounded-xl p-4 shadow-sm border border-outline-variant mb-4">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-tertiary" style="font-size:20px">person</span>
+          </div>
+          <div class="flex-1">
+            <h4 class="font-display text-sm font-bold text-primary">Sarah Johnson</h4>
+            <p class="text-xs text-on-surface-variant">Plumbing - Pipe Repair</p>
+          </div>
+          <span class="chip bg-success-container text-success-on-container" style="font-size:10px">In Progress</span>
+        </div>
+        <div class="flex gap-2">
+          <button class="flex-1 h-10 rounded-lg bg-surface-mid text-primary font-display font-semibold text-xs flex items-center justify-center gap-1 border border-outline">
+            <span class="material-symbols-outlined" style="font-size:16px">navigation</span> Navigate
+          </button>
+          <button class="flex-1 h-10 rounded-lg bg-surface-mid text-primary font-display font-semibold text-xs flex items-center justify-center gap-1 border border-outline">
+            <span class="material-symbols-outlined" style="font-size:16px">chat</span> Message
+          </button>
+          <button class="flex-1 h-10 rounded-lg bg-primary text-white font-display font-semibold text-xs flex items-center justify-center gap-1">
+            <span class="material-symbols-outlined" style="font-size:16px">check_circle</span> Complete
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+      <div class="nav-item active">
+        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">dashboard</span>
+        Dashboard
+      </div>
+      <div class="nav-item">
+        <span class="material-symbols-outlined">work</span>
+        Jobs
+      </div>
+      <div class="nav-item">
+        <span class="material-symbols-outlined">calendar_month</span>
+        Schedule
+      </div>
+      <div class="nav-item">
+        <span class="material-symbols-outlined">account_balance_wallet</span>
+        Earnings
+      </div>
+      <div class="nav-item">
+        <span class="material-symbols-outlined">person</span>
+        Profile
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 3: JOB LIST -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">T03 - Available Jobs</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <div class="screen-content">
+      <div class="flex items-center justify-between mb-4 pt-2">
+        <h2 class="font-display text-lg font-bold text-primary">Available Jobs</h2>
+        <span class="text-xs text-on-surface-muted">8 jobs nearby</span>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="flex gap-2 mb-4">
+        <span class="px-3 py-1.5 rounded-full bg-primary text-white text-xs font-bold">All</span>
+        <span class="px-3 py-1.5 rounded-full bg-surface-mid text-on-surface-variant text-xs font-semibold border border-outline-variant">Urgent</span>
+        <span class="px-3 py-1.5 rounded-full bg-surface-mid text-on-surface-variant text-xs font-semibold border border-outline-variant">High Pay</span>
+        <span class="px-3 py-1.5 rounded-full bg-surface-mid text-on-surface-variant text-xs font-semibold border border-outline-variant">Nearby</span>
+      </div>
+
+      <!-- Job Cards -->
+      <div class="flex flex-col gap-3 pb-20">
+        <!-- Job 1 -->
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-outline-variant">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2">
+              <span class="chip bg-error-container text-error-on-container" style="font-size:9px">URGENT</span>
+              <span class="chip bg-secondary-container text-secondary-on-container" style="font-size:9px">Plumbing</span>
+            </div>
+            <span class="text-xs text-on-surface-muted">0.3 mi</span>
+          </div>
+          <h4 class="font-display text-sm font-bold text-primary mb-1">Kitchen Faucet Leak</h4>
+          <p class="text-xs text-on-surface-variant mb-2">Kitchen faucet leaking from base. Need urgent repair.</p>
+          <div class="flex items-center gap-3 mb-3">
+            <div class="flex items-center gap-1">
+              <span class="material-symbols-outlined text-on-surface-muted" style="font-size:12px">location_on</span>
+              <span class="text-xs text-on-surface-muted">123 Main St</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="material-symbols-outlined text-on-surface-muted" style="font-size:12px">schedule</span>
+              <span class="text-xs text-on-surface-muted">ASAP</span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <p className="font-display text-lg font-extrabold text-primary">$95 - $140</p>
+            <button class="h-9 px-4 rounded-lg bg-success text-white text-xs font-bold">Accept Job</button>
+          </div>
+        </div>
+
+        <!-- Job 2 -->
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-outline-variant">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2">
+              <span class="chip bg-tertiary-container text-tertiary-on-container" style="font-size:9px">Electrical</span>
+            </div>
+            <span class="text-xs text-on-surface-muted">0.7 mi</span>
+          </div>
+          <h4 class="font-display text-sm font-bold text-primary mb-1">Outlet Installation</h4>
+          <p class="text-xs text-on-surface-variant mb-2">Need 2 new outlets installed in home office.</p>
+          <div class="flex items-center gap-3 mb-3">
+            <div class="flex items-center gap-1">
+              <span class="material-symbols-outlined text-on-surface-muted" style="font-size:12px">location_on</span>
+              <span class="text-xs text-on-surface-muted">456 Oak Ave</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="material-symbols-outlined text-on-surface-muted" style="font-size:12px">schedule</span>
+              <span class="text-xs text-on-surface-muted">Tomorrow 10am</span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <p className="font-display text-lg font-extrabold text-primary">$120 - $180</p>
+            <button class="h-9 px-4 rounded-lg bg-success text-white text-xs font-bold">Accept Job</button>
+          </div>
+        </div>
+
+        <!-- Job 3 -->
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-outline-variant">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2">
+              <span class="chip bg-success-container text-success-on-container" style="font-size:9px">Carpentry</span>
+            </div>
+            <span class="text-xs text-on-surface-muted">1.2 mi</span>
+          </div>
+          <h4 class="font-display text-sm font-bold text-primary mb-1">Custom Shelf Installation</h4>
+          <p class="text-xs text-on-surface-variant mb-2">Install 3 floating shelves in living room.</p>
+          <div class="flex items-center gap-3 mb-3">
+            <div class="flex items-center gap-1">
+              <span class="material-symbols-outlined text-on-surface-muted" style="font-size:12px">location_on</span>
+              <span class="text-xs text-on-surface-muted">789 Pine Rd</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="material-symbols-outlined text-on-surface-muted" style="font-size:12px">schedule</span>
+              <span class="text-xs text-on-surface-muted">Friday 2pm</span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <p className="font-display text-lg font-extrabold text-primary">$80 - $120</p>
+            <button class="h-9 px-4 rounded-lg bg-success text-white text-xs font-bold">Accept Job</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+      <div class="nav-item">
+        <span class="material-symbols-outlined">dashboard</span>
+        Dashboard
+      </div>
+      <div class="nav-item active">
+        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">work</span>
+        Jobs
+      </div>
+      <div class="nav-item">
+        <span class="material-symbols-outlined">calendar_month</span>
+        Schedule
+      </div>
+      <div class="nav-item">
+        <span class="material-symbols-outlined">account_balance_wallet</span>
+        Earnings
+      </div>
+      <div class="nav-item">
+        <span class="material-symbols-outlined">person</span>
+        Profile
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 4: EARNINGS -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">T04 - Earnings</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <div class="screen-content">
+      <div class="flex items-center justify-between mb-4 pt-2">
+        <h2 class="font-display text-lg font-bold text-primary">Earnings</h2>
+        <span class="text-xs text-on-surface-muted">This Week</span>
+      </div>
+
+      <!-- Earnings Card -->
+      <div class="bg-gradient-to-br from-primary to-primary-container rounded-xl p-5 mb-4 shadow-lg">
+        <p class="text-xs text-white/70 font-semibold mb-1">Total Earnings</p>
+        <p class="font-display text-3xl font-extrabold text-white mb-3">$1,847.50</p>
+        <div class="flex items-center gap-2 mb-3">
+          <span class="chip bg-success text-white" style="font-size:10px">+12% vs last week</span>
+        </div>
+        <div class="h-px bg-white/20 mb-3"></div>
+        <div class="grid grid-cols-3 gap-3">
+          <div>
+            <p class="text-xs text-white/60">This Week</p>
+            <p class="font-display text-sm font-bold text-white">$585</p>
+          </div>
+          <div>
+            <p class="text-xs text-white/60">Pending</p>
+            <p class="font-display text-sm font-bold text-secondary-light">$140</p>
+          </div>
+          <div>
+            <p class="text-xs text-white/60">Available</p>
+            <p class="font-display text-sm font-bold text-white">$1,707</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Withdraw Button -->
+      <button class="w-full h-12 rounded-lg bg-success text-white font-display font-bold text-sm flex items-center justify-center gap-2 shadow-md mb-4">
+        <span class="material-symbols-outlined" style="font-size:18px">account_balance</span> Withdraw to Bank
+      </button>
+
+      <!-- Transaction History -->
+      <h3 class="font-display text-sm font-bold text-primary mb-3">Recent Transactions</h3>
+      <div class="flex flex-col gap-2 pb-20">
+        <div class="bg-white rounded-xl p-3 shadow-sm border border-outline-variant flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-success-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-success" style="font-size:18px">arrow_downward</span>
+          </div>
+          <div class="flex-1">
+            <p class="text-sm font-semibold text-primary">Kitchen Faucet Repair</p>
+            <p class="text-xs text-on-surface-muted">Today, 9:30 AM</p>
+          </div>
+          <p class="font-display text-sm font-bold text-success">+$95.00</p>
+        </div>
+        <div class="bg-white rounded-xl p-3 shadow-sm border border-outline-variant flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-success-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-success" style="font-size:18px">arrow_downward</span>
+          </div>
+          <div class="flex-1">
+            <p class="text-sm font-semibold text-primary">Outlet Installation</p>
+            <p class="text-xs text-on-surface-muted">Yesterday, 2:15 PM</p>
+          </div>
+          <p class="font-display text-sm font-bold text-success">+$150.00</p>
+        </div>
+        <div class="bg-white rounded-xl p-3 shadow-sm border border-outline-variant flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-success-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-success" style="font-size:18px">arrow_downward</span>
+          </div>
+          <div class="flex-1">
+            <p class="text-sm font-semibold text-primary">Water Heater Install</p>
+            <p class="text-xs text-on-surface-muted">Sep 12, 11:00 AM</p>
+          </div>
+          <p class="font-display text-sm font-bold text-success">+$340.00</p>
+        </div>
+        <div class="bg-white rounded-xl p-3 shadow-sm border border-outline-variant flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-tertiary" style="font-size:18px">arrow_upward</span>
+          </div>
+          <div class="flex-1">
+            <p class="text-sm font-semibold text-primary">Withdrawal to Bank</p>
+            <p class="text-xs text-on-surface-muted">Sep 11, 8:00 AM</p>
+          </div>
+          <p class="font-display text-sm font-bold text-error">-$500.00</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+      <div class="nav-item">
+        <span class="material-symbols-outlined">dashboard</span>
+        Dashboard
+      </div>
+      <div class="nav-item">
+        <span class="material-symbols-outlined">work</span>
+        Jobs
+      </div>
+      <div class="nav-item">
+        <span class="material-symbols-outlined">calendar_month</span>
+        Schedule
+      </div>
+      <div class="nav-item active">
+        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">account_balance_wallet</span>
+        Earnings
+      </div>
+      <div class="nav-item">
+        <span class="material-symbols-outlined">person</span>
+        Profile
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 5: TECHNICIAN PROFILE / SETTINGS -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">T05 - Profile & Settings</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <div class="screen-content">
+      <div class="flex items-center justify-between mb-4 pt-2">
+        <h2 class="font-display text-lg font-bold text-primary">My Profile</h2>
+        <span class="material-symbols-outlined text-primary" style="font-size:22px">settings</span>
+      </div>
+
+      <!-- Profile Header -->
+      <div class="bg-white rounded-xl p-4 shadow-sm border border-outline-variant mb-4 flex items-center gap-4">
+        <div class="relative">
+          <div class="w-16 h-16 rounded-full bg-secondary-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-secondary" style="font-size:32px">person</span>
+          </div>
+          <div class="absolute -bottom-0.5 -right-0.5 w-5 h-5 bg-success rounded-full border-2 border-white flex items-center justify-center">
+            <span class="material-symbols-outlined text-white" style="font-size:10px">check</span>
+          </div>
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center gap-1">
+            <h3 class="font-display text-base font-bold text-primary">Mike Rodriguez</h3>
+            <span class="material-symbols-outlined text-tertiary" style="font-size:14px;font-variation-settings:'FILL' 1">verified</span>
+          </div>
+          <p class="text-xs text-on-surface-variant">Master Plumber • 12 yrs</p>
+          <div class="flex items-center gap-2 mt-1">
+            <div class="flex items-center gap-0.5">
+              <span class="material-symbols-outlined text-secondary" style="font-size:11px;font-variation-settings:'FILL' 1">star</span>
+              <span class="text-xs font-bold">4.9</span>
+              <span class="text-xs text-on-surface-muted">(324)</span>
+            </div>
+          </div>
+        </div>
+        <span class="material-symbols-outlined text-on-surface-muted" style="font-size:20px">chevron_right</span>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-4 gap-2 mb-4">
+        <div class="bg-white rounded-lg p-2 text-center shadow-sm border border-outline-variant">
+          <p className="font-display text-sm font-extrabold text-primary">324</p>
+          <p className="text-xs text-on-surface-muted">Jobs</p>
+        </div>
+        <div class="bg-white rounded-lg p-2 text-center shadow-sm border border-outline-variant">
+          <p className="font-display text-sm font-extrabold text-success">98%</p>
+          <p className="text-xs text-on-surface-muted">Complete</p>
+        </div>
+        <div class="bg-white rounded-lg p-2 text-center shadow-sm border border-outline-variant">
+          <p className="font-display text-sm font-extrabold text-secondary">4.9</p>
+          <p className="text-xs text-on-surface-muted">Rating</p>
+        </div>
+        <div class="bg-white rounded-lg p-2 text-center shadow-sm border border-outline-variant">
+          <p className="font-display text-sm font-extrabold text-tertiary">2yr</p>
+          <p className="text-xs text-on-surface-muted">Member</p>
+        </div>
+      </div>
+
+      <!-- Menu Items -->
+      <div class="flex flex-col gap-1 pb-20">
+        <div class="bg-white rounded-xl p-3.5 flex items-center gap-3 border border-outline-variant">
+          <span class="material-symbols-outlined text-primary" style="font-size:20px">build</span>
+          <span class="flex-1 text-sm font-semibold text-primary">My Services & Skills</span>
+          <span class="material-symbols-outlined text-on-surface-muted" style="font-size:18px">chevron_right</span>
+        </div>
+        <div class="bg-white rounded-xl p-3.5 flex items-center gap-3 border border-outline-variant">
+          <span class="material-symbols-outlined text-primary" style="font-size:20px">work_history</span>
+          <span class="flex-1 text-sm font-semibold text-primary">Job History</span>
+          <span class="material-symbols-outlined text-on-surface-muted" style="font-size:18px">chevron_right</span>
+        </div>
+        <div class="bg-white rounded-xl p-3.5 flex items-center gap-3 border border-outline-variant">
+          <span class="material-symbols-outlined text-primary" style="font-size:20px">star</span>
+          <span class="flex-1 text-sm font-semibold text-primary">Reviews & Ratings</span>
+          <span class="material-symbols-outlined text-on-surface-muted" style="font-size:18px">chevron_right</span>
+        </div>
+        <div class="bg-white rounded-xl p-3.5 flex items-center gap-3 border border-outline-variant">
+          <span class="material-symbols-outlined text-primary" style="font-size:20px">verified_user</span>
+          <span class="flex-1 text-sm font-semibold text-primary">Verification & Documents</span>
+          <span class="material-symbols-outlined text-on-surface-muted" style="font-size:18px">chevron_right</span>
+        </div>
+        <div class="bg-white rounded-xl p-3.5 flex items-center gap-3 border border-outline-variant">
+          <span class="material-symbols-outlined text-primary" style="font-size:20px">map</span>
+          <span class="flex-1 text-sm font-semibold text-primary">Service Area</span>
+          <span class="material-symbols-outlined text-on-surface-muted" style="font-size:18px">chevron_right</span>
+        </div>
+        <div class="bg-white rounded-xl p-3.5 flex items-center gap-3 border border-outline-variant">
+          <span class="material-symbols-outlined text-primary" style="font-size:20px">schedule</span>
+          <span class="flex-1 text-sm font-semibold text-primary">Availability Settings</span>
+          <span class="material-symbols-outlined text-on-surface-muted" style="font-size:18px">chevron_right</span>
+        </div>
+        <div class="bg-white rounded-xl p-3.5 flex items-center gap-3 border border-outline-variant">
+          <span class="material-symbols-outlined text-primary" style="font-size:20px">help</span>
+          <span class="flex-1 text-sm font-semibold text-primary">Help & Support</span>
+          <span class="material-symbols-outlined text-on-surface-muted" style="font-size:18px">chevron_right</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+      <div class="nav-item">
+        <span class="material-symbols-outlined">dashboard</span>
+        Dashboard
+      </div>
+      <div class="nav-item">
+        <span class="material-symbols-outlined">work</span>
+        Jobs
+      </div>
+      <div class="nav-item">
+        <span class="material-symbols-outlined">calendar_month</span>
+        Schedule
+      </div>
+      <div class="nav-item">
+        <span class="material-symbols-outlined">account_balance_wallet</span>
+        Earnings
+      </div>
+      <div class="nav-item active">
+        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">person</span>
+        Profile
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 6: JOB DETAILS                        -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">T06 - Job Details</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <div class="screen-content">
+      <!-- Header -->
+      <div class="flex items-center gap-3 mb-4 pt-2">
+        <span class="material-symbols-outlined text-primary" style="font-size:24px;cursor:pointer">arrow_back</span>
+        <h2 class="font-display text-lg font-bold text-primary flex-1">Job Details</h2>
+        <span class="px-2.5 py-1 rounded-full text-xs font-bold" style="background:#FEF3C7;color:#92400E">Pending</span>
+      </div>
+
+      <!-- Customer Card -->
+      <div class="bg-white rounded-xl p-4 shadow-sm border border-outline-variant mb-3">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-full bg-tertiary-container flex items-center justify-center">
+            <span class="text-sm font-bold text-tertiary">AH</span>
+          </div>
+          <div class="flex-1">
+            <h4 class="text-sm font-bold text-primary">Ahmed Hassan</h4>
+            <p class="text-xs text-on-surface-variant">Customer • Cairo</p>
+          </div>
+          <div class="flex gap-2">
+            <div class="w-9 h-9 rounded-full bg-success-container flex items-center justify-center cursor-pointer">
+              <span class="material-symbols-outlined text-success" style="font-size:18px">call</span>
+            </div>
+            <div class="w-9 h-9 rounded-full bg-tertiary-container flex items-center justify-center cursor-pointer">
+              <span class="material-symbols-outlined text-tertiary" style="font-size:18px">chat</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Job Info -->
+      <div class="bg-white rounded-xl p-4 shadow-sm border border-outline-variant mb-3">
+        <h3 class="font-display text-base font-bold text-primary mb-3">Fix Kitchen Sink Leak</h3>
+        <p class="text-xs text-on-surface-variant mb-4 leading-relaxed">The kitchen sink has been leaking for two days and needs urgent repair. The pipe under the sink is corroded.</p>
+        
+        <div class="grid grid-cols-2 gap-3 mb-3">
+          <div class="bg-surface-dim rounded-lg p-3 text-center">
+            <span class="material-symbols-outlined text-tertiary" style="font-size:20px">plumbing</span>
+            <p class="text-xs font-semibold text-primary mt-1">Plumbing</p>
+          </div>
+          <div class="bg-surface-dim rounded-lg p-3 text-center">
+            <span class="material-symbols-outlined text-secondary" style="font-size:20px">payments</span>
+            <p class="text-xs font-semibold text-primary mt-1">150 EGP</p>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-on-surface-muted" style="font-size:16px">schedule</span>
+            <span class="text-xs text-on-surface-variant">Tomorrow, 2:00 PM</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-on-surface-muted" style="font-size:16px">location_on</span>
+            <span class="text-xs text-on-surface-variant">15 El-Tahrir St, Nasr City</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-on-surface-muted" style="font-size:16px">date_range</span>
+            <span class="text-xs text-on-surface-variant">Posted 2 hours ago</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status Flow -->
+      <div class="bg-white rounded-xl p-4 shadow-sm border border-outline-variant mb-3">
+        <h4 class="text-xs font-bold text-on-surface-muted uppercase tracking-wider mb-3">Status Flow</h4>
+        <div class="flex items-center gap-1 mb-2">
+          <div class="w-6 h-6 rounded-full bg-secondary flex items-center justify-center"><span class="material-symbols-outlined text-white" style="font-size:12px">check</span></div>
+          <div class="h-0.5 flex-1 bg-secondary"></div>
+          <div class="w-6 h-6 rounded-full bg-outline flex items-center justify-center"><span class="text-xs font-bold text-on-surface-muted">2</span></div>
+          <div class="h-0.5 flex-1 bg-outline"></div>
+          <div class="w-6 h-6 rounded-full bg-outline flex items-center justify-center"><span class="text-xs font-bold text-on-surface-muted">3</span></div>
+          <div class="h-0.5 flex-1 bg-outline"></div>
+          <div class="w-6 h-6 rounded-full bg-outline flex items-center justify-center"><span class="text-xs font-bold text-on-surface-muted">4</span></div>
+        </div>
+        <div class="flex justify-between text-xs">
+          <span class="font-semibold text-secondary">Pending</span>
+          <span class="text-on-surface-muted">Accepted</span>
+          <span class="text-on-surface-muted">In Progress</span>
+          <span class="text-on-surface-muted">Completed</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex gap-3 mb-4">
+        <button class="flex-1 h-12 rounded-xl bg-success text-white font-display font-bold text-sm flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined" style="font-size:18px">check_circle</span> Accept Job
+        </button>
+        <button class="flex-1 h-12 rounded-xl bg-error-container text-error font-display font-bold text-sm flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined" style="font-size:18px">cancel</span> Decline
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 7: PROVIDER CHAT                      -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">T07 - Chat</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+
+    <!-- Chat Header -->
+    <div style="padding:0 16px;height:56px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #E2E8F0">
+      <span class="material-symbols-outlined text-primary" style="font-size:24px;cursor:pointer">arrow_back</span>
+      <div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center">
+        <span class="text-sm font-bold text-tertiary">AH</span>
+      </div>
+      <div class="flex-1">
+        <h4 class="text-sm font-bold text-primary">Ahmed Hassan</h4>
+        <p class="text-xs text-success font-medium">Online</p>
+      </div>
+      <span class="material-symbols-outlined text-on-surface-variant" style="font-size:22px;cursor:pointer">call</span>
+    </div>
+
+    <!-- Messages -->
+    <div style="height:calc(100% - 100px);overflow-y:auto;padding:16px">
+      <div class="text-center mb-4"><span class="px-3 py-1 rounded-full text-xs font-medium bg-surface-dim text-on-surface-muted">Today</span></div>
+
+      <!-- Received -->
+      <div class="flex gap-2 mb-3 max-w-[80%]">
+        <div class="w-7 h-7 rounded-lg bg-tertiary-container flex items-center justify-center flex-shrink-0"><span class="text-xs font-bold text-tertiary">AH</span></div>
+        <div class="bg-surface-dim rounded-2xl rounded-tl-md p-3">
+          <p class="text-sm text-primary leading-relaxed">Hello, when can you arrive for the repair?</p>
+          <p class="text-xs text-on-surface-muted mt-1">9:30 AM</p>
+        </div>
+      </div>
+
+      <!-- Sent -->
+      <div class="flex justify-end mb-3 max-w-[80%]">
+        <div class="bg-tertiary rounded-2xl rounded-tr-md p-3">
+          <p class="text-sm text-white leading-relaxed">I can be there at 2 PM tomorrow. Is that okay?</p>
+          <p class="text-xs text-white/60 mt-1">9:32 AM</p>
+        </div>
+      </div>
+
+      <!-- Received -->
+      <div class="flex gap-2 mb-3 max-w-[80%]">
+        <div class="w-7 h-7 rounded-lg bg-tertiary-container flex items-center justify-center flex-shrink-0"><span class="text-xs font-bold text-tertiary">AH</span></div>
+        <div class="bg-surface-dim rounded-2xl rounded-tl-md p-3">
+          <p class="text-sm text-primary leading-relaxed">Perfect! I'll be home. The gate code is 4523.</p>
+          <p class="text-xs text-on-surface-muted mt-1">9:33 AM</p>
+        </div>
+      </div>
+
+      <!-- Sent -->
+      <div class="flex justify-end mb-3 max-w-[80%]">
+        <div class="bg-tertiary rounded-2xl rounded-tr-md p-3">
+          <p class="text-sm text-white leading-relaxed">Got it! I'll bring the necessary tools. See you tomorrow.</p>
+          <p class="text-xs text-white/60 mt-1">9:34 AM</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input -->
+    <div style="position:absolute;bottom:0;left:0;right:0;padding:12px 16px;background:#fff;border-top:1px solid #E2E8F0;display:flex;align-items:center;gap:10px">
+      <button class="w-10 h-10 rounded-full bg-surface-dim flex items-center justify-center flex-shrink-0">
+        <span class="material-symbols-outlined text-on-surface-variant" style="font-size:20px">attach_file</span>
+      </button>
+      <div class="flex-1 bg-surface rounded-full border border-outline-variant px-4 py-2.5">
+        <input style="border:none;background:none;outline:none;font-size:13px;color:#0F172A;width:100%;font-family:'Inter',sans-serif" placeholder="Type a message...">
+      </div>
+      <button class="w-10 h-10 rounded-full bg-tertiary flex items-center justify-center flex-shrink-0">
+        <span class="material-symbols-outlined text-white" style="font-size:20px">send</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 8: VERIFICATION DOCUMENTS             -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">T08 - Verification</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <div class="screen-content">
+      <div class="flex items-center gap-3 mb-4 pt-2">
+        <span class="material-symbols-outlined text-primary" style="font-size:24px;cursor:pointer">arrow_back</span>
+        <h2 class="font-display text-lg font-bold text-primary">Verification</h2>
+      </div>
+
+      <!-- Status Banner -->
+      <div class="bg-secondary-container rounded-xl p-4 mb-4 flex items-center gap-3">
+        <span class="material-symbols-outlined text-secondary" style="font-size:28px">pending_actions</span>
+        <div>
+          <p class="text-sm font-bold text-secondary">Verification Pending</p>
+          <p class="text-xs text-on-container-secondary">Documents under review (1-3 business days)</p>
+        </div>
+      </div>
+
+      <!-- Documents -->
+      <div class="flex flex-col gap-3 mb-4">
+        <div class="bg-white rounded-xl p-4 border border-outline-variant shadow-sm">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl bg-success-container flex items-center justify-center">
+              <span class="material-symbols-outlined text-success" style="font-size:22px">badge</span>
+            </div>
+            <div class="flex-1">
+              <p class="text-sm font-bold text-primary">National ID</p>
+              <p class="text-xs text-success font-medium">Uploaded ✓</p>
+            </div>
+            <span class="material-symbols-outlined text-on-surface-muted" style="font-size:20px">edit</span>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-outline-variant shadow-sm">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl bg-success-container flex items-center justify-center">
+              <span class="material-symbols-outlined text-success" style="font-size:22px">card_membership</span>
+            </div>
+            <div class="flex-1">
+              <p class="text-sm font-bold text-primary">Trade License</p>
+              <p class="text-xs text-success font-medium">Uploaded ✓</p>
+            </div>
+            <span class="material-symbols-outlined text-on-surface-muted" style="font-size:20px">edit</span>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border-2 border-dashed border-outline cursor-pointer">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl bg-surface-dim flex items-center justify-center">
+              <span class="material-symbols-outlined text-on-surface-muted" style="font-size:22px">upload_file</span>
+            </div>
+            <div class="flex-1">
+              <p class="text-sm font-bold text-primary">Portfolio Photos</p>
+              <p class="text-xs text-on-surface-muted">Upload up to 5 photos</p>
+            </div>
+            <span class="material-symbols-outlined text-tertiary" style="font-size:22px">add_circle</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="w-full h-12 rounded-xl bg-primary text-white font-display font-bold text-sm">Submit Documents</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 9: JOB HISTORY                        -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">T09 - Job History</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <div class="screen-content">
+      <div class="flex items-center gap-3 mb-4 pt-2">
+        <span class="material-symbols-outlined text-primary" style="font-size:24px;cursor:pointer">arrow_back</span>
+        <h2 class="font-display text-lg font-bold text-primary">Job History</h2>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-3 gap-2 mb-4">
+        <div class="bg-success-container rounded-xl p-3 text-center">
+          <p class="font-display text-xl font-extrabold text-success">48</p>
+          <p class="text-xs text-on-container-success font-medium">Completed</p>
+        </div>
+        <div class="bg-secondary-container rounded-xl p-3 text-center">
+          <p class="font-display text-xl font-extrabold text-secondary">5</p>
+          <p class="text-xs font-medium" style="color:#92400E">In Progress</p>
+        </div>
+        <div class="bg-error-container rounded-xl p-3 text-center">
+          <p class="font-display text-xl font-extrabold text-error">2</p>
+          <p class="text-xs text-on-container-error font-medium">Cancelled</p>
+        </div>
+      </div>
+
+      <!-- Jobs List -->
+      <div class="flex flex-col gap-3 pb-4">
+        <div class="bg-white rounded-xl p-4 border border-outline-variant shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="text-sm font-bold text-primary">Kitchen Sink Repair</h4>
+            <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-success-container text-success">Completed</span>
+          </div>
+          <div class="flex items-center gap-3 text-xs text-on-surface-muted">
+            <span class="flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:12px">person</span>Ahmed Hassan</span>
+            <span>Sep 10</span>
+            <span class="font-bold text-success">$95</span>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-outline-variant shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="text-sm font-bold text-primary">Electrical Wiring</h4>
+            <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-success-container text-success">Completed</span>
+          </div>
+          <div class="flex items-center gap-3 text-xs text-on-surface-muted">
+            <span class="flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:12px">person</span>Sara Ali</span>
+            <span>Sep 8</span>
+            <span class="font-bold text-success">$220</span>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-outline-variant shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="text-sm font-bold text-primary">AC Installation</h4>
+            <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-error-container text-error">Cancelled</span>
+          </div>
+          <div class="flex items-center gap-3 text-xs text-on-surface-muted">
+            <span class="flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:12px">person</span>Mohamed K.</span>
+            <span>Sep 5</span>
+            <span class="font-bold text-on-surface-muted">—</span>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-outline-variant shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="text-sm font-bold text-primary">Bathroom Tiling</h4>
+            <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-success-container text-success">Completed</span>
+          </div>
+          <div class="flex items-center gap-3 text-xs text-on-surface-muted">
+            <span class="flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:12px">person</span>Fatma M.</span>
+            <span>Sep 3</span>
+            <span class="font-bold text-success">$340</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 10: PROVIDER PROFILE EDIT             -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">T10 - Provider Profile Edit</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <div class="screen-content">
+      <div class="flex items-center gap-3 mb-4 pt-2">
+        <span class="material-symbols-outlined text-primary" style="font-size:24px;cursor:pointer">arrow_back</span>
+        <h2 class="font-display text-lg font-bold text-primary flex-1">Edit Profile</h2>
+        <span class="text-sm font-bold text-tertiary cursor-pointer">Save</span>
+      </div>
+
+      <!-- Avatar -->
+      <div class="flex flex-col items-center mb-5">
+        <div class="relative mb-2">
+          <div class="w-20 h-20 rounded-full bg-secondary-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-secondary" style="font-size:36px">person</span>
+          </div>
+          <div class="absolute bottom-0 right-0 w-8 h-8 bg-tertiary rounded-full border-2 border-white flex items-center justify-center cursor-pointer">
+            <span class="material-symbols-outlined text-white" style="font-size:16px">camera_alt</span>
+          </div>
+        </div>
+        <p class="text-xs text-on-surface-muted">Change Photo</p>
+      </div>
+
+      <!-- Form Fields -->
+      <div class="flex flex-col gap-3 mb-4">
+        <div>
+          <label class="text-xs font-bold text-on-surface-muted mb-1 block">Full Name</label>
+          <div class="w-full h-11 bg-white border border-outline-variant rounded-lg px-3 flex items-center">
+            <span class="text-sm text-primary">Mike Rodriguez</span>
+          </div>
+        </div>
+        <div>
+          <label class="text-xs font-bold text-on-surface-muted mb-1 block">Professional Title</label>
+          <div class="w-full h-11 bg-white border border-outline-variant rounded-lg px-3 flex items-center">
+            <span class="text-sm text-primary">Master Plumber</span>
+          </div>
+        </div>
+        <div>
+          <label class="text-xs font-bold text-on-surface-muted mb-1 block">Years of Experience</label>
+          <div class="w-full h-11 bg-white border border-outline-variant rounded-lg px-3 flex items-center">
+            <span class="text-sm text-primary">12 years</span>
+          </div>
+        </div>
+        <div>
+          <label class="text-xs font-bold text-on-surface-muted mb-1 block">Bio</label>
+          <div class="w-full bg-white border border-outline-variant rounded-lg p-3" style="min-height:70px">
+            <span class="text-sm text-primary">Licensed plumber with 12+ years of experience in residential and commercial plumbing.</span>
+          </div>
+        </div>
+        <div>
+          <label class="text-xs font-bold text-on-surface-muted mb-1 block">Hourly Rate (EGP)</label>
+          <div class="w-full h-11 bg-white border border-outline-variant rounded-lg px-3 flex items-center">
+            <span class="text-sm text-primary">250</span>
+          </div>
+        </div>
+        <div>
+          <label class="text-xs font-bold text-on-surface-muted mb-1 block">Service Area Radius</label>
+          <div class="w-full h-11 bg-white border border-outline-variant rounded-lg px-3 flex items-center justify-between">
+            <span class="text-sm text-primary">15 km</span>
+            <span class="material-symbols-outlined text-on-surface-muted" style="font-size:18px">expand_more</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 11: NOTIFICATIONS                     -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">T11 - Notifications</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <div class="screen-content">
+      <div class="flex items-center gap-3 mb-4 pt-2">
+        <span class="material-symbols-outlined text-primary" style="font-size:24px;cursor:pointer">arrow_back</span>
+        <h2 class="font-display text-lg font-bold text-primary">Notifications</h2>
+      </div>
+      <div class="flex flex-col gap-2">
+        <div class="bg-secondary-container rounded-xl p-3 border border-secondary/20 flex items-start gap-3">
+          <div class="w-10 h-10 rounded-full bg-secondary flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-white" style="font-size:18px">notifications_active</span>
+          </div>
+          <div class="flex-1">
+            <p class="text-sm font-bold text-primary">New Job Request</p>
+            <p class="text-xs text-on-surface-variant">Kitchen sink repair from Ahmed — $95</p>
+            <p class="text-xs text-on-surface-muted mt-1">2 min ago</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl p-3 border border-outline-variant flex items-start gap-3">
+          <div class="w-10 h-10 rounded-full bg-success-container flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-success" style="font-size:18px">check_circle</span>
+          </div>
+          <div class="flex-1">
+            <p class="text-sm font-bold text-primary">Payment Received</p>
+            <p class="text-xs text-on-surface-variant">$95 deposited for Kitchen Sink Repair</p>
+            <p class="text-xs text-on-surface-muted mt-1">1 hour ago</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl p-3 border border-outline-variant flex items-start gap-3">
+          <div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-tertiary" style="font-size:18px">chat</span>
+          </div>
+          <div class="flex-1">
+            <p class="text-sm font-bold text-primary">New Message</p>
+            <p class="text-xs text-on-surface-variant">Sarah: "Can you come earlier?"</p>
+            <p class="text-xs text-on-surface-muted mt-1">3 hours ago</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl p-3 border border-outline-variant flex items-start gap-3">
+          <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-secondary" style="font-size:18px">star</span>
+          </div>
+          <div class="flex-1">
+            <p class="text-sm font-bold text-primary">New Review</p>
+            <p class="text-xs text-on-surface-variant">Sara gave you 5 stars — "Excellent work!"</p>
+            <p class="text-xs text-on-surface-muted mt-1">Yesterday</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 12: SCHEDULE                          -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">T12 - Schedule</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <div class="screen-content">
+      <div class="flex items-center justify-between mb-4 pt-2">
+        <h2 class="font-display text-lg font-bold text-primary">Schedule</h2>
+        <span class="material-symbols-outlined text-primary" style="font-size:22px;cursor:pointer">calendar_month</span>
+      </div>
+      <!-- Week Days -->
+      <div class="flex gap-1 mb-4">
+        <div class="flex-1 text-center py-2 rounded-lg bg-surface-dim"><p class="text-xs text-on-surface-muted">Mon</p><p class="font-display text-sm font-bold text-primary">14</p></div>
+        <div class="flex-1 text-center py-2 rounded-lg bg-primary"><p class="text-xs text-white/70">Tue</p><p class="font-display text-sm font-bold text-white">15</p></div>
+        <div class="flex-1 text-center py-2 rounded-lg bg-surface-dim"><p class="text-xs text-on-surface-muted">Wed</p><p class="font-display text-sm font-bold text-primary">16</p></div>
+        <div class="flex-1 text-center py-2 rounded-lg bg-surface-dim"><p class="text-xs text-on-surface-muted">Thu</p><p class="font-display text-sm font-bold text-primary">17</p></div>
+        <div class="flex-1 text-center py-2 rounded-lg bg-surface-dim"><p class="text-xs text-on-surface-muted">Fri</p><p class="font-display text-sm font-bold text-primary">18</p></div>
+        <div class="flex-1 text-center py-2 rounded-lg bg-surface-dim"><p class="text-xs text-on-surface-muted">Sat</p><p class="font-display text-sm font-bold text-primary">19</p></div>
+        <div class="flex-1 text-center py-2 rounded-lg bg-surface-dim"><p class="text-xs text-on-surface-muted">Sun</p><p class="font-display text-sm font-bold text-primary">20</p></div>
+      </div>
+      <!-- Jobs for Today -->
+      <h3 class="font-display text-sm font-bold text-primary mb-3">Tuesday, Sep 15</h3>
+      <div class="flex flex-col gap-3">
+        <div class="bg-white rounded-xl p-3 border border-outline-variant shadow-sm flex items-center gap-3">
+          <div class="w-1 h-12 rounded-full bg-success"></div>
+          <div class="flex-1">
+            <p class="text-sm font-bold text-primary">Leak Repair</p>
+            <p class="text-xs text-on-surface-variant">123 Main St • 2:00 PM</p>
+          </div>
+          <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-success-container text-success">Accepted</span>
+        </div>
+        <div class="bg-white rounded-xl p-3 border border-outline-variant shadow-sm flex items-center gap-3">
+          <div class="w-1 h-12 rounded-full bg-secondary"></div>
+          <div class="flex-1">
+            <p class="text-sm font-bold text-primary">Outlet Installation</p>
+            <p class="text-xs text-on-surface-variant">456 Oak Ave • 5:00 PM</p>
+          </div>
+          <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-secondary-container" style="color:#92400E">Pending</span>
+        </div>
+        <div class="bg-white rounded-xl p-3 border border-outline-variant shadow-sm flex items-center gap-3">
+          <div class="w-1 h-12 rounded-full bg-tertiary"></div>
+          <div class="flex-1">
+            <p class="text-sm font-bold text-primary">Pipe Replacement</p>
+            <p class="text-xs text-on-surface-variant">789 Pine Rd • 7:30 PM</p>
+          </div>
+          <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-tertiary-container text-tertiary">In Progress</span>
+        </div>
+      </div>
+    </div>
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+      <div class="nav-item"><span class="material-symbols-outlined">dashboard</span>Dashboard</div>
+      <div class="nav-item"><span class="material-symbols-outlined">work</span>Jobs</div>
+      <div class="nav-item active"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">calendar_month</span>Schedule</div>
+      <div class="nav-item"><span class="material-symbols-outlined">account_balance_wallet</span>Earnings</div>
+      <div class="nav-item"><span class="material-symbols-outlined">person</span>Profile</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 13: SERVICE AREA EDIT                 -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">T13 - Service Area</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <div class="screen-content">
+      <div class="flex items-center gap-3 mb-4 pt-2">
+        <span class="material-symbols-outlined text-primary" style="font-size:24px;cursor:pointer">arrow_back</span>
+        <h2 class="font-display text-lg font-bold text-primary flex-1">Service Area</h2>
+        <span class="text-sm font-bold text-tertiary cursor-pointer">Save</span>
+      </div>
+      <div id="techMapEdit" style="width:100%;height:280px;border-radius:16px;background:#E2E8F0;margin-bottom:16px;position:relative">
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:400">
+          <span class="material-symbols-outlined text-on-surface-muted" style="font-size:32px">map_off</span>
+          <p class="text-xs text-on-surface-muted mt-1">Map offline</p>
+        </div>
+      </div>
+      <h3 class="font-display text-sm font-bold text-primary mb-2">Radius</h3>
+      <div class="bg-white rounded-xl p-4 border border-outline-variant shadow-sm mb-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm text-primary font-semibold">15 km</span>
+          <span class="text-xs text-on-surface-muted">from your location</span>
+        </div>
+        <div class="w-full h-2 bg-surface-dim rounded-full overflow-hidden">
+          <div class="h-full bg-tertiary rounded-full" style="width:60%"></div>
+        </div>
+        <div class="flex justify-between mt-1"><span class="text-xs text-on-surface-muted">5 km</span><span class="text-xs text-on-surface-muted">30 km</span></div>
+      </div>
+      <h3 class="font-display text-sm font-bold text-primary mb-2">Cities Covered</h3>
+      <div class="flex flex-wrap gap-2">
+        <span class="px-3 py-1.5 rounded-full bg-primary text-white text-xs font-bold">Cairo</span>
+        <span class="px-3 py-1.5 rounded-full bg-primary text-white text-xs font-bold">Giza</span>
+        <span class="px-3 py-1.5 rounded-full bg-surface-mid text-on-surface-variant text-xs font-semibold border border-outline-variant">Alexandria</span>
+        <span class="px-3 py-1.5 rounded-full bg-surface-mid text-on-surface-variant text-xs font-semibold border border-outline-variant">Luxor</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 14: SERVICES & SKILLS                 -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">T14 - Services & Skills</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <div class="screen-content">
+      <div class="flex items-center gap-3 mb-4 pt-2">
+        <span class="material-symbols-outlined text-primary" style="font-size:24px;cursor:pointer">arrow_back</span>
+        <h2 class="font-display text-lg font-bold text-primary flex-1">Services & Skills</h2>
+        <span class="material-symbols-outlined text-tertiary" style="font-size:24px;cursor:pointer">add_circle</span>
+      </div>
+      <div class="flex flex-col gap-3">
+        <div class="bg-white rounded-xl p-4 border border-outline-variant shadow-sm">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl bg-secondary-container flex items-center justify-center"><span class="material-symbols-outlined text-secondary" style="font-size:22px">plumbing</span></div>
+            <div class="flex-1"><p class="text-sm font-bold text-primary">Plumbing</p><p class="text-xs text-on-surface-variant">Pipe repair, installation, leak fix</p></div>
+            <span class="material-symbols-outlined text-success" style="font-size:20px;font-variation-settings:'FILL' 1">check_circle</span>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-outline-variant shadow-sm">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl bg-tertiary-container flex items-center justify-center"><span class="material-symbols-outlined text-tertiary" style="font-size:22px">electrical_services</span></div>
+            <div class="flex-1"><p class="text-sm font-bold text-primary">Electrical</p><p class="text-xs text-on-surface-variant">Wiring, outlets, panel upgrade</p></div>
+            <span class="material-symbols-outlined text-success" style="font-size:20px;font-variation-settings:'FILL' 1">check_circle</span>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-outline-variant shadow-sm">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl bg-success-container flex items-center justify-center"><span class="material-symbols-outlined text-success" style="font-size:22px">carpenter</span></div>
+            <div class="flex-1"><p class="text-sm font-bold text-primary">Carpentry</p><p class="text-xs text-on-surface-variant">Furniture, shelves, doors</p></div>
+            <span class="material-symbols-outlined text-on-surface-muted" style="font-size:20px">check_circle</span>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-outline-variant shadow-sm">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl bg-error-container flex items-center justify-center"><span class="material-symbols-outlined text-error" style="font-size:22px">format_paint</span></div>
+            <div class="flex-1"><p class="text-sm font-bold text-primary">Painting</p><p class="text-xs text-on-surface-variant">Interior, exterior, wall prep</p></div>
+            <span class="material-symbols-outlined text-on-surface-muted" style="font-size:20px">check_circle</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 15: REVIEWS & RATINGS                 -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">T15 - Reviews</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <div class="screen-content">
+      <div class="flex items-center gap-3 mb-4 pt-2">
+        <span class="material-symbols-outlined text-primary" style="font-size:24px;cursor:pointer">arrow_back</span>
+        <h2 class="font-display text-lg font-bold text-primary">Reviews & Ratings</h2>
+      </div>
+      <!-- Rating Summary -->
+      <div class="bg-white rounded-xl p-4 border border-outline-variant shadow-sm mb-4 text-center">
+        <p class="font-display text-4xl font-extrabold text-primary mb-1">4.9</p>
+        <div class="flex justify-center gap-1 mb-1">
+          <span class="material-symbols-outlined text-secondary" style="font-size:18px;font-variation-settings:'FILL' 1">star</span>
+          <span class="material-symbols-outlined text-secondary" style="font-size:18px;font-variation-settings:'FILL' 1">star</span>
+          <span class="material-symbols-outlined text-secondary" style="font-size:18px;font-variation-settings:'FILL' 1">star</span>
+          <span class="material-symbols-outlined text-secondary" style="font-size:18px;font-variation-settings:'FILL' 1">star</span>
+          <span class="material-symbols-outlined text-secondary" style="font-size:18px;font-variation-settings:'FILL' 1">star</span>
+        </div>
+        <p class="text-xs text-on-surface-muted">Based on 324 reviews</p>
+      </div>
+      <!-- Reviews List -->
+      <div class="flex flex-col gap-3">
+        <div class="bg-white rounded-xl p-3 border border-outline-variant shadow-sm">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-8 h-8 rounded-full bg-tertiary-container flex items-center justify-center"><span class="text-xs font-bold text-tertiary">AH</span></div>
+            <div class="flex-1"><p class="text-sm font-bold text-primary">Ahmed Hassan</p><p class="text-xs text-on-surface-muted">Sep 10</p></div>
+            <div class="flex gap-0.5"><span class="material-symbols-outlined text-secondary" style="font-size:12px;font-variation-settings:'FILL' 1">star</span><span class="material-symbols-outlined text-secondary" style="font-size:12px;font-variation-settings:'FILL' 1">star</span><span class="material-symbols-outlined text-secondary" style="font-size:12px;font-variation-settings:'FILL' 1">star</span><span class="material-symbols-outlined text-secondary" style="font-size:12px;font-variation-settings:'FILL' 1">star</span><span class="material-symbols-outlined text-secondary" style="font-size:12px;font-variation-settings:'FILL' 1">star</span></div>
+          </div>
+          <p class="text-xs text-on-surface-variant">"Excellent work! Fixed the leak quickly and professionally."</p>
+        </div>
+        <div class="bg-white rounded-xl p-3 border border-outline-variant shadow-sm">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center"><span class="text-xs font-bold text-secondary">SA</span></div>
+            <div class="flex-1"><p class="text-sm font-bold text-primary">Sara Ali</p><p class="text-xs text-on-surface-muted">Sep 8</p></div>
+            <div class="flex gap-0.5"><span class="material-symbols-outlined text-secondary" style="font-size:12px;font-variation-settings:'FILL' 1">star</span><span class="material-symbols-outlined text-secondary" style="font-size:12px;font-variation-settings:'FILL' 1">star</span><span class="material-symbols-outlined text-secondary" style="font-size:12px;font-variation-settings:'FILL' 1">star</span><span class="material-symbols-outlined text-secondary" style="font-size:12px;font-variation-settings:'FILL' 1">star</span><span class="material-symbols-outlined text-secondary" style="font-size:12px;font-variation-settings:'FILL' 1">star</span></div>
+          </div>
+          <p class="text-xs text-on-surface-variant">"Very professional and on time. Highly recommended!"</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 16: WITHDRAWAL                         -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">T16 - Withdrawal</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <div class="screen-content">
+      <div class="flex items-center gap-3 mb-4 pt-2">
+        <span class="material-symbols-outlined text-primary" style="font-size:24px;cursor:pointer">arrow_back</span>
+        <h2 class="font-display text-lg font-bold text-primary">Withdraw Funds</h2>
+      </div>
+      <div class="bg-white rounded-xl p-4 border border-outline-variant shadow-sm mb-4 text-center">
+        <p class="text-xs text-on-surface-muted mb-1">Available Balance</p>
+        <p class="font-display text-3xl font-extrabold text-primary">$1,707.50</p>
+      </div>
+      <h3 class="font-display text-sm font-bold text-primary mb-2">Withdraw Amount</h3>
+      <div class="grid grid-cols-3 gap-2 mb-4">
+        <div class="bg-surface-dim rounded-xl p-3 text-center border-2 border-outline-variant cursor-pointer"><p class="font-display text-sm font-bold text-primary">$100</p></div>
+        <div class="bg-primary rounded-xl p-3 text-center border-2 border-primary cursor-pointer"><p class="font-display text-sm font-bold text-white">$500</p></div>
+        <div class="bg-surface-dim rounded-xl p-3 text-center border-2 border-outline-variant cursor-pointer"><p class="font-display text-sm font-bold text-primary">All</p></div>
+      </div>
+      <h3 class="font-display text-sm font-bold text-primary mb-2">To</h3>
+      <div class="bg-white rounded-xl p-4 border border-outline-variant shadow-sm mb-4 flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-tertiary-container flex items-center justify-center"><span class="material-symbols-outlined text-tertiary" style="font-size:20px">account_balance</span></div>
+        <div class="flex-1"><p class="text-sm font-bold text-primary">CIB Bank</p><p class="text-xs text-on-surface-muted">****4523</p></div>
+        <span class="material-symbols-outlined text-on-surface-muted" style="font-size:18px">chevron_right</span>
+      </div>
+      <button class="w-full h-12 rounded-xl bg-success text-white font-display font-bold text-sm">Confirm Withdrawal</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 17: AVAILABILITY                      -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">T17 - Availability</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <div class="screen-content">
+      <div class="flex items-center gap-3 mb-4 pt-2">
+        <span class="material-symbols-outlined text-primary" style="font-size:24px;cursor:pointer">arrow_back</span>
+        <h2 class="font-display text-lg font-bold text-primary">Availability</h2>
+      </div>
+      <div class="flex flex-col gap-2 mb-4">
+        <div class="bg-white rounded-xl p-4 border border-outline-variant shadow-sm flex items-center justify-between">
+          <div><p class="text-sm font-bold text-primary">Monday</p><p class="text-xs text-on-surface-variant">9:00 AM – 6:00 PM</p></div>
+          <div class="w-12 h-7 bg-success rounded-full flex items-center p-1 cursor-pointer"><div class="w-5 h-5 bg-white rounded-full shadow ml-auto"></div></div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-outline-variant shadow-sm flex items-center justify-between">
+          <div><p class="text-sm font-bold text-primary">Tuesday</p><p class="text-xs text-on-surface-variant">9:00 AM – 6:00 PM</p></div>
+          <div class="w-12 h-7 bg-success rounded-full flex items-center p-1 cursor-pointer"><div class="w-5 h-5 bg-white rounded-full shadow ml-auto"></div></div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-outline-variant shadow-sm flex items-center justify-between">
+          <div><p class="text-sm font-bold text-primary">Wednesday</p><p class="text-xs text-on-surface-variant">9:00 AM – 6:00 PM</p></div>
+          <div class="w-12 h-7 bg-success rounded-full flex items-center p-1 cursor-pointer"><div class="w-5 h-5 bg-white rounded-full shadow ml-auto"></div></div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-outline-variant shadow-sm flex items-center justify-between">
+          <div><p class="text-sm font-bold text-primary">Thursday</p><p class="text-xs text-on-surface-variant">9:00 AM – 6:00 PM</p></div>
+          <div class="w-12 h-7 bg-success rounded-full flex items-center p-1 cursor-pointer"><div class="w-5 h-5 bg-white rounded-full shadow ml-auto"></div></div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-outline-variant shadow-sm flex items-center justify-between">
+          <div><p class="text-sm font-bold text-primary">Friday</p><p class="text-xs text-on-surface-variant">9:00 AM – 6:00 PM</p></div>
+          <div class="w-12 h-7 bg-success rounded-full flex items-center p-1 cursor-pointer"><div class="w-5 h-5 bg-white rounded-full shadow ml-auto"></div></div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-outline-variant shadow-sm flex items-center justify-between">
+          <div><p class="text-sm font-bold text-primary">Saturday</p><p class="text-xs text-on-surface-muted">Day Off</p></div>
+          <div class="w-12 h-7 bg-outline rounded-full flex items-center p-1 cursor-pointer"><div class="w-5 h-5 bg-white rounded-full shadow"></div></div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-outline-variant shadow-sm flex items-center justify-between">
+          <div><p class="text-sm font-bold text-primary">Sunday</p><p class="text-xs text-on-surface-muted">Day Off</p></div>
+          <div class="w-12 h-7 bg-outline rounded-full flex items-center p-1 cursor-pointer"><div class="w-5 h-5 bg-white rounded-full shadow"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 18: HELP & SUPPORT                    -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">T18 - Help & Support</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <div class="screen-content">
+      <div class="flex items-center gap-3 mb-4 pt-2">
+        <span class="material-symbols-outlined text-primary" style="font-size:24px;cursor:pointer">arrow_back</span>
+        <h2 class="font-display text-lg font-bold text-primary">Help & Support</h2>
+      </div>
+      <div class="flex flex-col gap-2 mb-4">
+        <div class="bg-white rounded-xl p-4 border border-outline-variant shadow-sm flex items-center gap-3 cursor-pointer">
+          <span class="material-symbols-outlined text-tertiary" style="font-size:22px">chat</span>
+          <div class="flex-1"><p class="text-sm font-bold text-primary">Live Chat</p><p class="text-xs text-on-surface-variant">Chat with support team</p></div>
+          <span class="material-symbols-outlined text-on-surface-muted" style="font-size:18px">chevron_right</span>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-outline-variant shadow-sm flex items-center gap-3 cursor-pointer">
+          <span class="material-symbols-outlined text-tertiary" style="font-size:22px">call</span>
+          <div class="flex-1"><p class="text-sm font-bold text-primary">Call Us</p><p class="text-xs text-on-surface-variant">+20 2 1234 5678</p></div>
+          <span class="material-symbols-outlined text-on-surface-muted" style="font-size:18px">chevron_right</span>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-outline-variant shadow-sm flex items-center gap-3 cursor-pointer">
+          <span class="material-symbols-outlined text-tertiary" style="font-size:22px">mail</span>
+          <div class="flex-1"><p class="text-sm font-bold text-primary">Email</p><p class="text-xs text-on-surface-variant">support@craftiq.com</p></div>
+          <span class="material-symbols-outlined text-on-surface-muted" style="font-size:18px">chevron_right</span>
+        </div>
+      </div>
+      <h3 class="font-display text-sm font-bold text-primary mb-2">FAQ</h3>
+      <div class="flex flex-col gap-2">
+        <div class="bg-white rounded-xl p-3 border border-outline-variant shadow-sm flex items-center justify-between cursor-pointer">
+          <p class="text-sm font-semibold text-primary">How do I update my profile?</p>
+          <span class="material-symbols-outlined text-on-surface-muted" style="font-size:18px">expand_more</span>
+        </div>
+        <div class="bg-white rounded-xl p-3 border border-outline-variant shadow-sm flex items-center justify-between cursor-pointer">
+          <p class="text-sm font-semibold text-primary">When do I get paid?</p>
+          <span class="material-symbols-outlined text-on-surface-muted" style="font-size:18px">expand_more</span>
+        </div>
+        <div class="bg-white rounded-xl p-3 border border-outline-variant shadow-sm flex items-center justify-between cursor-pointer">
+          <p class="text-sm font-semibold text-primary">How do I cancel a job?</p>
+          <span class="material-symbols-outlined text-on-surface-muted" style="font-size:18px">expand_more</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div> <!-- End screens-grid -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var map = L.map('techMap',{zoomControl:false,attributionControl:false}).setView([30.0444,31.2357],12);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors &copy; CARTO'}).addTo(map);
+  L.marker([30.0444,31.2357]).addTo(map);
+  L.circle([30.0444,31.2357],{radius:15000,color:'#2563EB',fillColor:'#2563EB',fillOpacity:0.15,weight:2}).addTo(map);
+  var mapEdit = L.map('techMapEdit',{zoomControl:false,attributionControl:false}).setView([30.0444,31.2357],11);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors &copy; CARTO'}).addTo(mapEdit);
+  L.marker([30.0444,31.2357]).addTo(mapEdit);
+  L.circle([30.0444,31.2357],{radius:15000,color:'#2563EB',fillColor:'#2563EB',fillOpacity:0.15,weight:2}).addTo(mapEdit);
+});
+</script>
+</body>
+</html>

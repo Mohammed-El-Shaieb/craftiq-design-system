@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>CraftIQ - Customer App Screens</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: { DEFAULT: '#0F172A', container: '#1E293B', on: '#FFFFFF', 'on-container': '#CBD5E1' },
+        secondary: { DEFAULT: '#D97706', container: '#FEF3C7', on: '#FFFFFF', 'on-container': '#92400E', light: '#F59E0B' },
+        tertiary: { DEFAULT: '#2563EB', container: '#DBEAFE', on: '#FFFFFF', 'on-container': '#1E40AF' },
+        success: { DEFAULT: '#059669', container: '#D1FAE5', on: '#FFFFFF', 'on-container': '#065F46' },
+        error: { DEFAULT: '#DC2626', container: '#FEE2E2', on: '#FFFFFF', 'on-container': '#991B1B' },
+        surface: { DEFAULT: '#F8FAFC', dim: '#F1F5F9', bright: '#FFFFFF', low: '#F8FAFC', mid: '#F1F5F9', high: '#E2E8F0', highest: '#CBD5E1' },
+        'on-surface': { DEFAULT: '#0F172A', variant: '#475569', muted: '#94A3B8' },
+        outline: { DEFAULT: '#CBD5E1', variant: '#E2E8F0' },
+      },
+      fontFamily: {
+        display: ['"Plus Jakarta Sans"', 'sans-serif'],
+        body: ['Inter', 'sans-serif'],
+      },
+      borderRadius: {
+        'xs': '4px', 'sm': '8px', 'md': '12px', 'lg': '16px', 'xl': '24px', 'full': '9999px',
+      },
+      spacing: {
+        'gutter': '16px', 'gutter-sm': '12px', 'gutter-lg': '24px',
+      }
+    }
+  }
+}
+</script>
+<style>
+@layer base { html, body { width: 100%; margin: 0; padding: 0; min-height: 100%; } .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); } .pt-safe { padding-top: env(safe-area-inset-top, 0px); } }
+::-webkit-scrollbar { display: none; }
+body { min-height: max(884px, 100dvh); }
+
+/* Screen container */
+.screen-frame {
+  width: 375px;
+  height: 812px;
+  border-radius: 40px;
+  border: 8px solid #1a1a1a;
+  overflow: hidden;
+  position: relative;
+  background: #F8FAFC;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  flex-shrink: 0;
+}
+
+.screen-label {
+  position: absolute;
+  top: -30px;
+  left: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: #64748B;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.screens-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 60px;
+  padding: 40px;
+  align-items: flex-start;
+}
+
+/* Animations */
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.5; }
+}
+.pulse-dot { animation: pulse-dot 2s infinite; }
+
+@keyframes slide-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.slide-up { animation: slide-up 0.3s ease-out; }
+
+/* Bottom Nav */
+.bottom-nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-top: 1px solid #E2E8F0;
+  display: flex;
+  justify-content: space-around;
+  padding: 8px 0 20px;
+  z-index: 50;
+}
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #94A3B8;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.nav-item.active { color: #0F172A; }
+.nav-item .material-symbols-outlined { font-size: 22px; }
+
+/* Status Bar */
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px 4px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.status-icons { display: flex; gap: 4px; align-items: center; }
+</style>
+</head>
+<body class="bg-gray-900 font-body">
+
+<!-- SCREENS GRID -->
+<div class="screens-grid">
+
+<!-- ============================================ -->
+<!-- SCREEN 1: ONBOARDING / WELCOME -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">01 - Onboarding</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <div style="padding:16px" class="flex flex-col h-full">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-tertiary-container w-fit mb-3">
+        <span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings:'FILL' 1;font-size:14px">verified</span>
+        <span class="font-display text-xs font-bold text-tertiary-on-container uppercase tracking-wider" style="font-size:11px">Direct Trades Network</span>
+      </div>
+      <!-- Headline -->
+      <h1 class="font-display text-3xl font-extrabold text-primary leading-tight mb-2" style="font-size:28px;line-height:1.2">Honest Craftsmanship.<br/>Zero Markups.</h1>
+      <p class="text-sm text-on-surface-variant mb-5 leading-relaxed">Direct connections with vetted, independent master craftsmen. No middlemen, transparent pricing.</p>
+
+      <!-- Customer Card (Active) -->
+      <div class="bg-white rounded-xl p-4 shadow-md mb-3 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-24 h-24 bg-secondary-container/40 rounded-full blur-2xl -mr-6 -mt-6"></div>
+        <div class="flex items-start justify-between mb-2 relative z-10">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-lg bg-secondary-container flex items-center justify-center">
+              <span class="material-symbols-outlined text-secondary" style="font-size:22px">home_repair_service</span>
+            </div>
+            <div>
+              <span class="text-xs font-bold text-secondary uppercase tracking-wide" style="font-size:10px">Looking to Hire</span>
+              <h2 class="font-display text-base font-semibold text-primary" style="font-size:16px">I need a Skilled Craftsman</h2>
+            </div>
+          </div>
+          <div class="w-6 h-6 rounded-full bg-secondary flex items-center justify-center">
+            <span class="material-symbols-outlined text-white" style="font-size:14px">check</span>
+          </div>
+        </div>
+        <p class="text-xs text-on-surface-variant mb-3 relative z-10">Hire vetted pros directly with fixed quotes, clear milestones, and insured work.</p>
+        <div class="flex flex-wrap gap-1.5 mb-3 relative z-10">
+          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-high text-on-surface" style="font-size:10px;font-weight:600">
+            <span class="material-symbols-outlined text-secondary" style="font-size:12px">price_check</span> Zero markup
+          </span>
+          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-high text-on-surface" style="font-size:10px;font-weight:600">
+            <span class="material-symbols-outlined text-secondary" style="font-size:12px">shield_with_heart</span> Escrow
+          </span>
+          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-high text-on-surface" style="font-size:10px;font-weight:600">
+            <span class="material-symbols-outlined text-secondary" style="font-size:12px">photo_library</span> Portfolios
+          </span>
+        </div>
+        <div class="flex items-center justify-between relative z-10">
+          <div class="flex items-center -space-x-2">
+            <div class="w-6 h-6 rounded-full bg-secondary-container border-2 border-white"></div>
+            <div class="w-6 h-6 rounded-full bg-tertiary-container border-2 border-white"></div>
+            <div class="w-6 h-6 rounded-full bg-success-container border-2 border-white"></div>
+            <div class="w-6 h-6 rounded-full bg-surface-highest flex items-center justify-center text-xs font-bold">+48</div>
+          </div>
+          <span class="text-xs text-on-surface-muted font-medium">Plumbers • Sparks • Joiners</span>
+        </div>
+      </div>
+
+      <!-- Provider Card (Inactive) -->
+      <div class="bg-surface-mid rounded-xl p-4 shadow-sm opacity-70 mb-4">
+        <div class="flex items-start justify-between mb-2">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-lg bg-surface-highest flex items-center justify-center">
+              <span class="material-symbols-outlined text-on-surface-muted" style="font-size:22px">construction</span>
+            </div>
+            <div>
+              <span class="text-xs font-bold text-on-surface-muted uppercase tracking-wide" style="font-size:10px">Independent Master</span>
+              <h2 class="font-display text-base font-semibold text-primary" style="font-size:16px">I offer Skilled Trades</h2>
+            </div>
+          </div>
+          <div class="w-6 h-6 rounded-full bg-surface-highest flex items-center justify-center">
+            <span class="material-symbols-outlined text-surface-highest" style="font-size:14px">check</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phone Input -->
+      <div class="bg-white rounded-xl p-4 shadow-md mb-3">
+        <div class="flex items-center justify-between mb-3">
+          <label class="text-sm font-bold text-primary font-display">Quick Phone Verification</label>
+          <span class="text-xs font-semibold text-secondary flex items-center gap-1">
+            <span class="material-symbols-outlined" style="font-size:12px">lock</span> 256-bit Secure
+          </span>
+        </div>
+        <div class="flex items-center rounded-lg bg-surface-mid px-3 py-2.5 mb-2">
+          <div class="flex items-center gap-1 pr-2 mr-2 border-r border-outline">
+            <span class="text-sm font-bold">🇺🇸 +1</span>
+            <span class="material-symbols-outlined text-on-surface-muted" style="font-size:14px">expand_more</span>
+          </div>
+          <input class="w-full bg-transparent text-sm font-medium text-primary outline-none placeholder:text-on-surface-muted" placeholder="(555) 000-0000" value="(555) 019-2834"/>
+          <button class="p-1 text-on-surface-muted"><span class="material-symbols-outlined" style="font-size:16px">cancel</span></button>
+        </div>
+        <p class="text-xs text-on-surface-variant mb-3">We'll send a 6-digit one-time passcode.</p>
+        <button class="w-full h-12 rounded-lg bg-primary text-white font-display font-bold text-sm flex items-center justify-center gap-2 shadow-md">
+          Continue as Customer <span class="material-symbols-outlined" style="font-size:18px">arrow_forward</span>
+        </button>
+      </div>
+
+      <!-- Social Login -->
+      <div class="flex items-center gap-3 mb-3">
+        <div class="h-px bg-surface-high flex-1"></div>
+        <span class="text-xs text-on-surface-muted uppercase tracking-wider font-semibold" style="font-size:10px">or verify with</span>
+        <div class="h-px bg-surface-high flex-1"></div>
+      </div>
+      <div class="grid grid-cols-2 gap-3 mb-4">
+        <button class="h-11 rounded-lg bg-white border border-outline text-on-surface flex items-center justify-center gap-2 text-sm font-semibold">
+          <svg class="w-4 h-4" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/></svg>
+          Google
+        </button>
+        <button class="h-11 rounded-lg bg-white border border-outline text-on-surface flex items-center justify-center gap-2 text-sm font-semibold">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.38c.62-.75 1.04-1.8.93-2.85-.9.04-2 .6-2.65 1.35-.58.66-1.09 1.73-.95 2.76 1.01.08 2.05-.51 2.67-1.26z"/></svg>
+          Apple ID
+        </button>
+      </div>
+
+      <!-- Trust Indicators -->
+      <div class="grid grid-cols-3 gap-2 text-center mt-auto">
+        <div class="flex flex-col items-center">
+          <div class="w-8 h-8 rounded-full bg-surface-high text-secondary flex items-center justify-center mb-1">
+            <span class="material-symbols-outlined" style="font-size:16px">verified_user</span>
+          </div>
+          <span class="text-xs font-bold">State Licensed</span>
+          <span class="text-xs text-on-surface-muted" style="font-size:10px">Background Checked</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="w-8 h-8 rounded-full bg-surface-high text-secondary flex items-center justify-center mb-1">
+            <span class="material-symbols-outlined" style="font-size:16px">payments</span>
+          </div>
+          <span class="text-xs font-bold">Escrow Safe</span>
+          <span class="text-xs text-on-surface-muted" style="font-size:10px">Pay on completion</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="w-8 h-8 rounded-full bg-surface-high text-secondary flex items-center justify-center mb-1">
+            <span class="material-symbols-outlined" style="font-size:16px">star</span>
+          </div>
+          <span class="text-xs font-bold">4.92 / 5</span>
+          <span class="text-xs text-on-surface-muted" style="font-size:10px">18.4k reviews</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 2: OTP VERIFICATION -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">02 - OTP Verification</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <div style="padding:16px" class="flex flex-col h-full">
+      <!-- Back -->
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-full bg-surface-mid flex items-center justify-center">
+          <span class="material-symbols-outlined text-primary" style="font-size:20px">arrow_back</span>
+        </div>
+        <div>
+          <h2 class="font-display text-xl font-bold text-primary">Verify Your Number</h2>
+          <p class="text-xs text-on-surface-variant">Enter the 6-digit code sent to +1 (555) 019-2834</p>
+        </div>
+      </div>
+
+      <!-- OTP Input -->
+      <div class="flex justify-center gap-3 mb-6">
+        <div class="w-12 h-14 rounded-xl bg-white border-2 border-primary flex items-center justify-center shadow-sm">
+          <span class="font-display text-2xl font-bold">4</span>
+        </div>
+        <div class="w-12 h-14 rounded-xl bg-white border-2 border-primary flex items-center justify-center shadow-sm">
+          <span class="font-display text-2xl font-bold">7</span>
+        </div>
+        <div class="w-12 h-14 rounded-xl bg-white border-2 border-primary flex items-center justify-center shadow-sm">
+          <span class="font-display text-2xl font-bold">2</span>
+        </div>
+        <div class="w-12 h-14 rounded-xl bg-white border-2 border-tertiary flex items-center justify-center shadow-sm">
+          <div class="w-0.5 h-6 bg-tertiary rounded-full pulse-dot"></div>
+        </div>
+        <div class="w-12 h-14 rounded-xl bg-surface-mid border-2 border-outline flex items-center justify-center">
+        </div>
+        <div class="w-12 h-14 rounded-xl bg-surface-mid border-2 border-outline flex items-center justify-center">
+        </div>
+      </div>
+
+      <!-- Resend -->
+      <p class="text-center text-sm text-on-surface-variant mb-6">Didn't receive the code? <span class="font-semibold text-tertiary">Resend in 0:45</span></p>
+
+      <!-- Verify Button -->
+      <button class="w-full h-12 rounded-lg bg-primary text-white font-display font-bold text-sm flex items-center justify-center gap-2 shadow-md mb-4">
+        Verify & Continue <span class="material-symbols-outlined" style="font-size:18px">check_circle</span>
+      </button>
+
+      <!-- Security Note -->
+      <div class="flex items-center justify-center gap-2 mt-auto mb-4">
+        <span class="material-symbols-outlined text-success" style="font-size:16px">shield</span>
+        <span class="text-xs text-on-surface-muted">Your number is protected and never shared with technicians</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 3: HOME SCREEN -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">03 - Home Screen</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <div style="padding:0 16px" class="flex flex-col" style="height:calc(100% - 40px)">
+      <!-- Header -->
+      <div class="flex items-center justify-between mb-4 pt-2">
+        <div>
+          <p class="text-xs text-on-surface-muted font-medium">Good morning 👋</p>
+          <h1 class="font-display text-lg font-bold text-primary">What do you need?</h1>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="w-10 h-10 rounded-full bg-surface-mid flex items-center justify-center relative">
+            <span class="material-symbols-outlined text-primary" style="font-size:20px">notifications</span>
+            <div class="absolute top-1 right-1 w-2.5 h-2.5 bg-error rounded-full border-2 border-white"></div>
+          </div>
+          <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-secondary" style="font-size:20px">person</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Location -->
+      <div class="flex items-center gap-2 mb-4 bg-white rounded-lg p-3 shadow-sm border border-outline-variant">
+        <span class="material-symbols-outlined text-tertiary" style="font-size:18px">location_on</span>
+        <div class="flex-1">
+          <p class="text-xs text-on-surface-muted">Service location</p>
+          <p class="text-sm font-semibold text-primary">123 Main St, Austin, TX</p>
+        </div>
+        <span class="material-symbols-outlined text-on-surface-muted" style="font-size:18px">edit</span>
+      </div>
+
+      <!-- Quick Ask AI -->
+      <div class="bg-gradient-to-r from-primary to-primary-container rounded-xl p-4 mb-4 shadow-md">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+            <span class="material-symbols-outlined text-white" style="font-size:20px">auto_awesome</span>
+          </div>
+          <div class="flex-1">
+            <p class="text-sm font-bold text-white font-display">Describe your problem</p>
+            <p class="text-xs text-white/70">AI will find the right pro for you</p>
+          </div>
+          <span class="material-symbols-outlined text-white/70" style="font-size:20px">arrow_forward</span>
+        </div>
+        <div class="mt-3 bg-white/10 rounded-lg p-2.5 flex items-center gap-2">
+          <span class="material-symbols-outlined text-white/50" style="font-size:18px">mic</span>
+          <span class="text-xs text-white/50">Tap to speak or type your issue...</span>
+        </div>
+      </div>
+
+      <!-- Categories -->
+      <div class="mb-4">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="font-display text-base font-bold text-primary">Services</h3>
+          <span class="text-xs font-semibold text-tertiary">View all</span>
+        </div>
+        <div class="grid grid-cols-4 gap-3">
+          <div class="flex flex-col items-center gap-1.5">
+            <div class="w-14 h-14 rounded-xl bg-tertiary-container flex items-center justify-center shadow-sm">
+              <span class="material-symbols-outlined text-tertiary" style="font-size:24px">plumbing</span>
+            </div>
+            <span class="text-xs font-semibold text-primary text-center">Plumbing</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5">
+            <div class="w-14 h-14 rounded-xl bg-secondary-container flex items-center justify-center shadow-sm">
+              <span class="material-symbols-outlined text-secondary" style="font-size:24px">bolt</span>
+            </div>
+            <span class="text-xs font-semibold text-primary text-center">Electrical</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5">
+            <div class="w-14 h-14 rounded-xl bg-success-container flex items-center justify-center shadow-sm">
+              <span class="material-symbols-outlined text-success" style="font-size:24px">carpenter</span>
+            </div>
+            <span class="text-xs font-semibold text-primary text-center">Carpentry</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5">
+            <div class="w-14 h-14 rounded-xl bg-error-container flex items-center justify-center shadow-sm">
+              <span class="material-symbols-outlined text-error" style="font-size:24px">ac_unit</span>
+            </div>
+            <span class="text-xs font-semibold text-primary text-center">HVAC</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5">
+            <div class="w-14 h-14 rounded-xl bg-surface-mid flex items-center justify-center shadow-sm">
+              <span class="material-symbols-outlined text-on-surface-variant" style="font-size:24px">format_paint</span>
+            </div>
+            <span class="text-xs font-semibold text-primary text-center">Painting</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5">
+            <div class="w-14 h-14 rounded-xl bg-surface-mid flex items-center justify-center shadow-sm">
+              <span class="material-symbols-outlined text-on-surface-variant" style="font-size:24px">cleaning_services</span>
+            </div>
+            <span class="text-xs font-semibold text-primary text-center">Cleaning</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5">
+            <div class="w-14 h-14 rounded-xl bg-surface-mid flex items-center justify-center shadow-sm">
+              <span class="material-symbols-outlined text-on-surface-variant" style="font-size:24px">grass</span>
+            </div>
+            <span class="text-xs font-semibold text-primary text-center">Gardening</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5">
+            <div class="w-14 h-14 rounded-xl bg-surface-mid flex items-center justify-center shadow-sm">
+              <span class="material-symbols-outlined text-on-surface-muted" style="font-size:24px">more_horiz</span>
+            </div>
+            <span class="text-xs font-semibold text-on-surface-muted text-center">More</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nearby Available -->
+      <div class="mb-4">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="font-display text-base font-bold text-primary">Available Now</h3>
+          <span class="text-xs font-semibold text-tertiary">See all</span>
+        </div>
+        <!-- Tech Card 1 -->
+        <div class="bg-white rounded-xl p-3 shadow-sm border border-outline-variant mb-2">
+          <div class="flex items-center gap-3">
+            <div class="relative">
+              <div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center">
+                <span class="material-symbols-outlined text-secondary" style="font-size:24px">person</span>
+              </div>
+              <div class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-success rounded-full border-2 border-white"></div>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-1.5">
+                <h4 class="font-display text-sm font-bold text-primary truncate">Mike Rodriguez</h4>
+                <span class="material-symbols-outlined text-tertiary" style="font-size:14px;font-variation-settings:'FILL' 1">verified</span>
+              </div>
+              <p class="text-xs text-on-surface-variant">Master Plumber • 12 yrs exp</p>
+              <div class="flex items-center gap-2 mt-1">
+                <div class="flex items-center gap-0.5">
+                  <span class="material-symbols-outlined text-secondary" style="font-size:12px;font-variation-settings:'FILL' 1">star</span>
+                  <span class="text-xs font-bold">4.9</span>
+                  <span class="text-xs text-on-surface-muted">(324)</span>
+                </div>
+                <span class="text-xs text-on-surface-muted">•</span>
+                <span class="text-xs text-on-surface-muted">0.3 mi</span>
+                <span class="text-xs text-on-surface-muted">•</span>
+                <span class="text-xs text-success font-semibold">~15 min</span>
+              </div>
+            </div>
+            <div class="text-right">
+              <p class="font-display text-lg font-extrabold text-primary">$45</p>
+              <p class="text-xs text-on-surface-muted">/hour</p>
+            </div>
+          </div>
+        </div>
+        <!-- Tech Card 2 -->
+        <div class="bg-white rounded-xl p-3 shadow-sm border border-outline-variant">
+          <div class="flex items-center gap-3">
+            <div class="relative">
+              <div class="w-12 h-12 rounded-full bg-tertiary-container flex items-center justify-center">
+                <span class="material-symbols-outlined text-tertiary" style="font-size:24px">person</span>
+              </div>
+              <div class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-success rounded-full border-2 border-white"></div>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-1.5">
+                <h4 class="font-display text-sm font-bold text-primary truncate">Sarah Chen</h4>
+                <span class="material-symbols-outlined text-tertiary" style="font-size:14px;font-variation-settings:'FILL' 1">verified</span>
+              </div>
+              <p class="text-xs text-on-surface-variant">Electrician • 8 yrs exp</p>
+              <div class="flex items-center gap-2 mt-1">
+                <div class="flex items-center gap-0.5">
+                  <span class="material-symbols-outlined text-secondary" style="font-size:12px;font-variation-settings:'FILL' 1">star</span>
+                  <span class="text-xs font-bold">4.8</span>
+                  <span class="text-xs text-on-surface-muted">(218)</span>
+                </div>
+                <span class="text-xs text-on-surface-muted">•</span>
+                <span class="text-xs text-on-surface-muted">0.7 mi</span>
+                <span class="text-xs text-on-surface-muted">•</span>
+                <span class="text-xs text-success font-semibold">~25 min</span>
+              </div>
+            </div>
+            <div class="text-right">
+              <p class="font-display text-lg font-extrabold text-primary">$55</p>
+              <p class="text-xs text-on-surface-muted">/hour</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+      <div class="nav-item active">
+        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">home</span>
+        Home
+      </div>
+      <div class="nav-item">
+        <span class="material-symbols-outlined">search</span>
+        Search
+      </div>
+      <div class="nav-item">
+        <span class="material-symbols-outlined">calendar_month</span>
+        Bookings
+      </div>
+      <div class="nav-item">
+        <span class="material-symbols-outlined">chat</span>
+        Chat
+      </div>
+      <div class="nav-item">
+        <span class="material-symbols-outlined">person</span>
+        Profile
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 4: SEARCH / BROWSE -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">04 - Search & Browse</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <div style="padding:0 16px" class="flex flex-col">
+      <!-- Search Bar -->
+      <div class="flex items-center gap-2 mb-3 pt-2">
+        <div class="flex-1 flex items-center gap-2 bg-white rounded-xl px-3 py-2.5 border border-outline shadow-sm">
+          <span class="material-symbols-outlined text-on-surface-muted" style="font-size:20px">search</span>
+          <input class="flex-1 bg-transparent text-sm outline-none" placeholder="Search services or technicians..." value="Plumber"/>
+        </div>
+        <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
+          <span class="material-symbols-outlined text-white" style="font-size:20px">tune</span>
+        </div>
+      </div>
+
+      <!-- Filter Chips -->
+      <div class="flex gap-2 mb-4 overflow-x-auto">
+        <span class="chip bg-primary text-white whitespace-nowrap" style="font-size:11px">All</span>
+        <span class="chip bg-white border border-outline text-on-surface whitespace-nowrap" style="font-size:11px">Available Now</span>
+        <span class="chip bg-white border border-outline text-on-surface whitespace-nowrap" style="font-size:11px">Top Rated</span>
+        <span class="chip bg-white border border-outline text-on-surface whitespace-nowrap" style="font-size:11px">Nearest</span>
+        <span class="chip bg-white border border-outline text-on-surface whitespace-nowrap" style="font-size:11px">Lowest Price</span>
+      </div>
+
+      <!-- Map Preview -->
+      <div class="w-full h-36 rounded-xl bg-surface-mid mb-4 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-tertiary-container/20 to-surface-mid"></div>
+        <div class="absolute top-3 left-3 bg-white rounded-lg px-2.5 py-1.5 shadow-md flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-tertiary" style="font-size:16px">map</span>
+          <span class="text-xs font-bold text-primary">Map View</span>
+        </div>
+        <!-- Pin markers -->
+        <div class="absolute top-1/2 left-1/3 w-8 h-8 bg-primary rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+          <span class="material-symbols-outlined text-white" style="font-size:16px">person</span>
+        </div>
+        <div class="absolute top-1/3 right-1/4 w-8 h-8 bg-secondary rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+          <span class="material-symbols-outlined text-white" style="font-size:16px">person</span>
+        </div>
+        <div class="absolute bottom-4 left-1/2 w-8 h-8 bg-success rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+          <span class="material-symbols-outlined text-white" style="font-size:16px">person</span>
+        </div>
+      </div>
+
+      <p class="text-xs text-on-surface-muted mb-3 font-semibold">6 technicians found nearby</p>
+
+      <!-- Tech List -->
+      <div class="flex flex-col gap-2 pb-20">
+        <div class="bg-white rounded-xl p-3 shadow-sm border border-outline-variant">
+          <div class="flex items-center gap-3">
+            <div class="relative">
+              <div class="w-14 h-14 rounded-xl bg-secondary-container flex items-center justify-center">
+                <span class="material-symbols-outlined text-secondary" style="font-size:28px">person</span>
+              </div>
+              <div class="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-success rounded-full border-2 border-white flex items-center justify-center">
+                <span class="material-symbols-outlined text-white" style="font-size:10px">check</span>
+              </div>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-1">
+                <h4 class="font-display text-sm font-bold text-primary">Mike Rodriguez</h4>
+                <span class="badge bg-tertiary-container text-tertiary-on-container" style="font-size:9px;padding:1px 5px">CERTIFIED</span>
+              </div>
+              <p class="text-xs text-on-surface-variant">Master Plumber • $45/hr</p>
+              <div class="flex items-center gap-2 mt-1">
+                <div class="flex items-center gap-0.5">
+                  <span class="material-symbols-outlined text-secondary" style="font-size:11px;font-variation-settings:'FILL' 1">star</span>
+                  <span class="text-xs font-bold">4.9</span>
+                  <span class="text-xs text-on-surface-muted">(324)</span>
+                </div>
+                <span class="text-xs text-on-surface-muted">•</span>
+                <span class="text-xs text-on-surface-muted">0.3 mi</span>
+                <span class="text-xs text-success font-semibold">~15 min</span>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-on-surface-muted" style="font-size:20px">chevron_right</span>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl p-3 shadow-sm border border-outline-variant">
+          <div class="flex items-center gap-3">
+            <div class="relative">
+              <div class="w-14 h-14 rounded-xl bg-tertiary-container flex items-center justify-center">
+                <span class="material-symbols-outlined text-tertiary" style="font-size:28px">person</span>
+              </div>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-1">
+                <h4 class="font-display text-sm font-bold text-primary">Sarah Chen</h4>
+                <span class="badge bg-tertiary-container text-tertiary-on-container" style="font-size:9px;padding:1px 5px">CERTIFIED</span>
+              </div>
+              <p class="text-xs text-on-surface-variant">Electrician • $55/hr</p>
+              <div class="flex items-center gap-2 mt-1">
+                <div class="flex items-center gap-0.5">
+                  <span class="material-symbols-outlined text-secondary" style="font-size:11px;font-variation-settings:'FILL' 1">star</span>
+                  <span class="text-xs font-bold">4.8</span>
+                  <span class="text-xs text-on-surface-muted">(218)</span>
+                </div>
+                <span class="text-xs text-on-surface-muted">•</span>
+                <span class="text-xs text-on-surface-muted">0.7 mi</span>
+                <span class="text-xs text-success font-semibold">~25 min</span>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-on-surface-muted" style="font-size:20px">chevron_right</span>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl p-3 shadow-sm border border-outline-variant">
+          <div class="flex items-center gap-3">
+            <div class="relative">
+              <div class="w-14 h-14 rounded-xl bg-success-container flex items-center justify-center">
+                <span class="material-symbols-outlined text-success" style="font-size:28px">person</span>
+              </div>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-1">
+                <h4 class="font-display text-sm font-bold text-primary">James Wilson</h4>
+              </div>
+              <p class="text-xs text-on-surface-variant">Carpenter • $40/hr</p>
+              <div class="flex items-center gap-2 mt-1">
+                <div class="flex items-center gap-0.5">
+                  <span class="material-symbols-outlined text-secondary" style="font-size:11px;font-variation-settings:'FILL' 1">star</span>
+                  <span class="text-xs font-bold">4.7</span>
+                  <span class="text-xs text-on-surface-muted">(156)</span>
+                </div>
+                <span class="text-xs text-on-surface-muted">•</span>
+                <span class="text-xs text-on-surface-muted">1.2 mi</span>
+                <span class="text-xs text-success font-semibold">~30 min</span>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-on-surface-muted" style="font-size:20px">chevron_right</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+      <div class="nav-item">
+        <span class="material-symbols-outlined">home</span>
+        Home
+      </div>
+      <div class="nav-item active">
+        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">search</span>
+        Search
+      </div>
+      <div class="nav-item">
+        <span class="material-symbols-outlined">calendar_month</span>
+        Bookings
+      </div>
+      <div class="nav-item">
+        <span class="material-symbols-outlined">chat</span>
+        Chat
+      </div>
+      <div class="nav-item">
+        <span class="material-symbols-outlined">person</span>
+        Profile
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 5: TECHNICIAN PROFILE -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">05 - Technician Profile</div>
+  <div class="screen-frame">
+    <div class="status-bar" style="position:absolute;top:0;left:0;right:0;z-50">
+      <span style="color:white">9:41</span>
+      <div class="status-icons" style="color:white">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <!-- Hero Section -->
+    <div class="bg-gradient-to-b from-primary to-primary-container h-48 relative">
+      <div class="absolute top-12 left-4 z-50">
+        <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center backdrop-blur">
+          <span class="material-symbols-outlined text-white" style="font-size:20px">arrow_back</span>
+        </div>
+      </div>
+      <div class="absolute top-12 right-4 z-50 flex gap-2">
+        <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center backdrop-blur">
+          <span class="material-symbols-outlined text-white" style="font-size:20px">favorite</span>
+        </div>
+        <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center backdrop-blur">
+          <span class="material-symbols-outlined text-white" style="font-size:20px">share</span>
+        </div>
+      </div>
+    </div>
+    <!-- Profile Card -->
+    <div class="bg-white rounded-t-3xl -mt-8 relative px-4 pt-12 pb-24">
+      <div class="absolute -top-10 left-1/2 -translate-x-1/2">
+        <div class="w-20 h-20 rounded-full bg-secondary-container border-4 border-white shadow-lg flex items-center justify-center">
+          <span class="material-symbols-outlined text-secondary" style="font-size:36px">person</span>
+        </div>
+        <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-success rounded-full border-2 border-white flex items-center justify-center">
+          <span class="material-symbols-outlined text-white" style="font-size:12px">check</span>
+        </div>
+      </div>
+
+      <div class="text-center mb-4">
+        <div class="flex items-center justify-center gap-1.5 mb-1">
+          <h1 class="font-display text-xl font-bold text-primary">Mike Rodriguez</h1>
+          <span class="material-symbols-outlined text-tertiary" style="font-size:18px;font-variation-settings:'FILL' 1">verified</span>
+        </div>
+        <p class="text-sm text-on-surface-variant mb-2">Master Plumber • 12 years experience</p>
+        <div class="flex items-center justify-center gap-3">
+          <div class="flex items-center gap-0.5">
+            <span class="material-symbols-outlined text-secondary" style="font-size:14px;font-variation-settings:'FILL' 1">star</span>
+            <span class="font-display text-sm font-bold">4.9</span>
+            <span class="text-xs text-on-surface-muted">(324 reviews)</span>
+          </div>
+          <span class="text-on-surface-muted">•</span>
+          <span class="text-xs text-on-surface-muted">0.3 mi away</span>
+        </div>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="grid grid-cols-3 gap-2 mb-4">
+        <div class="bg-surface-mid rounded-xl p-3 text-center">
+          <p class="font-display text-lg font-extrabold text-primary">324</p>
+          <p class="text-xs text-on-surface-muted">Jobs Done</p>
+        </div>
+        <div class="bg-surface-mid rounded-xl p-3 text-center">
+          <p class="font-display text-lg font-extrabold text-success">98%</p>
+          <p class="text-xs text-on-surface-muted">Completion</p>
+        </div>
+        <div class="bg-surface-mid rounded-xl p-3 text-center">
+          <p class="font-display text-lg font-extrabold text-secondary">~15m</p>
+          <p class="text-xs text-on-surface-muted">ETA</p>
+        </div>
+      </div>
+
+      <!-- Services Offered -->
+      <h3 class="font-display text-sm font-bold text-primary mb-2">Services</h3>
+      <div class="flex flex-wrap gap-1.5 mb-4">
+        <span class="chip bg-surface-mid text-on-surface" style="font-size:11px">Pipe Repair</span>
+        <span class="chip bg-surface-mid text-on-surface" style="font-size:11px">Drain Cleaning</span>
+        <span class="chip bg-surface-mid text-on-surface" style="font-size:11px">Water Heater</span>
+        <span class="chip bg-surface-mid text-on-surface" style="font-size:11px">Leak Detection</span>
+        <span class="chip bg-surface-mid text-on-surface" style="font-size:11px">Fixture Install</span>
+      </div>
+
+      <!-- Pricing -->
+      <h3 class="font-display text-sm font-bold text-primary mb-2">Pricing</h3>
+      <div class="bg-surface-mid rounded-xl p-3 mb-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm text-on-surface-variant">Hourly Rate</span>
+          <span class="font-display text-lg font-extrabold text-primary">$45/hr</span>
+        </div>
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm text-on-surface-variant">Service Call Fee</span>
+          <span class="font-display text-sm font-bold text-primary">$35</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-on-surface-variant">Free Estimates</span>
+          <span class="material-symbols-outlined text-success" style="font-size:18px">check_circle</span>
+        </div>
+      </div>
+
+      <!-- Recent Reviews -->
+      <h3 class="font-display text-sm font-bold text-primary mb-2">Recent Reviews</h3>
+      <div class="bg-surface-mid rounded-xl p-3 mb-2">
+        <div class="flex items-center gap-2 mb-1.5">
+          <div class="w-7 h-7 rounded-full bg-tertiary-container flex items-center justify-center">
+            <span class="text-xs font-bold text-tertiary">JD</span>
+          </div>
+          <div class="flex-1">
+            <p class="text-xs font-bold text-primary">John D.</p>
+            <div class="flex items-center gap-0.5">
+              <span class="material-symbols-outlined text-secondary" style="font-size:10px;font-variation-settings:'FILL' 1">star</span>
+              <span class="material-symbols-outlined text-secondary" style="font-size:10px;font-variation-settings:'FILL' 1">star</span>
+              <span class="material-symbols-outlined text-secondary" style="font-size:10px;font-variation-settings:'FILL' 1">star</span>
+              <span class="material-symbols-outlined text-secondary" style="font-size:10px;font-variation-settings:'FILL' 1">star</span>
+              <span class="material-symbols-outlined text-secondary" style="font-size:10px;font-variation-settings:'FILL' 1">star</span>
+            </div>
+          </div>
+          <span class="text-xs text-on-surface-muted">2 days ago</span>
+        </div>
+        <p class="text-xs text-on-surface-variant">Excellent work! Fixed our kitchen leak quickly and professionally. Highly recommend.</p>
+      </div>
+
+      <!-- Fixed Bottom CTA -->
+      <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-outline-variant p-4 flex gap-3">
+        <button class="flex-1 h-12 rounded-lg bg-surface-mid text-primary font-display font-bold text-sm flex items-center justify-center gap-2 border border-outline">
+          <span class="material-symbols-outlined" style="font-size:18px">chat</span> Message
+        </button>
+        <button class="flex-1 h-12 rounded-lg bg-primary text-white font-display font-bold text-sm flex items-center justify-center gap-2 shadow-md">
+          <span class="material-symbols-outlined" style="font-size:18px">calendar_month</span> Book Now
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 6: BOOKING FLOW -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">06 - Booking Flow</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <div style="padding:0 16px" class="flex flex-col h-full">
+      <!-- Header -->
+      <div class="flex items-center gap-3 mb-4 pt-2">
+        <div class="w-10 h-10 rounded-full bg-surface-mid flex items-center justify-center">
+          <span class="material-symbols-outlined text-primary" style="font-size:20px">arrow_back</span>
+        </div>
+        <h2 class="font-display text-lg font-bold text-primary">Book Service</h2>
+      </div>
+
+      <!-- Progress -->
+      <div class="flex items-center gap-2 mb-6">
+        <div class="flex-1 h-1 rounded-full bg-primary"></div>
+        <div class="flex-1 h-1 rounded-full bg-primary"></div>
+        <div class="flex-1 h-1 rounded-full bg-surface-high"></div>
+        <div class="flex-1 h-1 rounded-full bg-surface-high"></div>
+      </div>
+
+      <!-- Service Type -->
+      <h3 class="font-display text-sm font-bold text-primary mb-3">Select Service</h3>
+      <div class="grid grid-cols-2 gap-2 mb-5">
+        <div class="bg-primary text-white rounded-xl p-3 flex items-center gap-2 shadow-md">
+          <span class="material-symbols-outlined" style="font-size:20px">plumbing</span>
+          <span class="text-sm font-bold">Plumbing</span>
+        </div>
+        <div class="bg-surface-mid rounded-xl p-3 flex items-center gap-2 border border-outline-variant">
+          <span class="material-symbols-outlined text-on-surface-muted" style="font-size:20px">bolt</span>
+          <span class="text-sm font-semibold text-on-surface-variant">Electrical</span>
+        </div>
+        <div class="bg-surface-mid rounded-xl p-3 flex items-center gap-2 border border-outline-variant">
+          <span class="material-symbols-outlined text-on-surface-muted" style="font-size:20px">carpenter</span>
+          <span class="text-sm font-semibold text-on-surface-variant">Carpentry</span>
+        </div>
+        <div class="bg-surface-mid rounded-xl p-3 flex items-center gap-2 border border-outline-variant">
+          <span class="material-symbols-outlined text-on-surface-muted" style="font-size:20px">ac_unit</span>
+          <span class="text-sm font-semibold text-on-surface-variant">HVAC</span>
+        </div>
+      </div>
+
+      <!-- Describe Issue -->
+      <h3 class="font-display text-sm font-bold text-primary mb-2">Describe the Issue</h3>
+      <div class="bg-surface-mid rounded-xl p-3 mb-2 border border-outline-variant">
+        <p class="text-sm text-on-surface-variant">My kitchen faucet has been leaking for 2 days. Water is dripping from the base of the handle.</p>
+      </div>
+      <div class="flex gap-2 mb-5">
+        <button class="flex items-center gap-1 px-3 py-1.5 rounded-full bg-tertiary-container text-tertiary text-xs font-semibold">
+          <span class="material-symbols-outlined" style="font-size:14px">photo_camera</span> Add Photo
+        </button>
+        <button class="flex items-center gap-1 px-3 py-1.5 rounded-full bg-surface-mid text-on-surface-variant text-xs font-semibold border border-outline-variant">
+          <span class="material-symbols-outlined" style="font-size:14px">mic</span> Voice Note
+        </button>
+      </div>
+
+      <!-- Schedule -->
+      <h3 class="font-display text-sm font-bold text-primary mb-2">When do you need it?</h3>
+      <div class="flex gap-2 mb-5">
+        <div class="flex-1 bg-primary text-white rounded-xl p-3 text-center shadow-md">
+          <span class="material-symbols-outlined" style="font-size:20px">bolt</span>
+          <p class="text-xs font-bold mt-1">ASAP</p>
+          <p className="text-xs text-white/70">Next available</p>
+        </div>
+        <div class="flex-1 bg-surface-mid rounded-xl p-3 text-center border border-outline-variant">
+          <span class="material-symbols-outlined text-on-surface-muted" style="font-size:20px">calendar_month</span>
+          <p class="text-xs font-bold text-on-surface-variant mt-1">Schedule</p>
+          <p className="text-xs text-on-surface-muted">Pick a time</p>
+        </div>
+      </div>
+
+      <!-- Address -->
+      <h3 class="font-display text-sm font-bold text-primary mb-2">Service Address</h3>
+      <div class="bg-surface-mid rounded-xl p-3 mb-5 flex items-center gap-2 border border-outline-variant">
+        <span class="material-symbols-outlined text-tertiary" style="font-size:18px">location_on</span>
+        <div class="flex-1">
+          <p class="text-sm font-medium text-primary">123 Main St, Austin, TX 78701</p>
+        </div>
+        <span class="material-symbols-outlined text-on-surface-muted" style="font-size:18px">edit</span>
+      </div>
+
+      <!-- Price Estimate -->
+      <div class="bg-secondary-container rounded-xl p-4 mb-4">
+        <div class="flex items-center justify-between mb-1">
+          <span class="text-sm font-semibold text-on-secondary-container">Estimated Cost</span>
+          <span class="font-display text-xl font-extrabold text-primary">$80 - $120</span>
+        </div>
+        <p class="text-xs text-on-secondary-container/70">Final price confirmed after technician assessment</p>
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-auto pb-4">
+        <button class="w-full h-12 rounded-lg bg-primary text-white font-display font-bold text-sm flex items-center justify-center gap-2 shadow-md">
+          Confirm Booking <span class="material-symbols-outlined" style="font-size:18px">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 7: LIVE TRACKING -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">07 - Live Tracking</div>
+  <div class="screen-frame">
+    <div class="status-bar" style="position:absolute;top:0;left:0;right:0;z-50">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <!-- Map Area -->
+    <div class="h-1/2 bg-gradient-to-b from-surface-mid to-tertiary-container/10 relative">
+      <div class="absolute top-12 left-4 z-50">
+        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md">
+          <span class="material-symbols-outlined text-primary" style="font-size:20px">arrow_back</span>
+        </div>
+      </div>
+      <!-- Technician Pin -->
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <div class="w-14 h-14 bg-primary rounded-full flex items-center justify-center shadow-xl border-3 border-white">
+          <span class="material-symbols-outlined text-white" style="font-size:28px">person</span>
+        </div>
+        <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 bg-white rounded-full px-2 py-0.5 shadow-md">
+          <span class="text-xs font-bold text-primary">Mike R.</span>
+        </div>
+      </div>
+      <!-- ETA Badge -->
+      <div class="absolute bottom-4 left-4 bg-white rounded-xl px-3 py-2 shadow-lg">
+        <p class="text-xs text-on-surface-muted">Arriving in</p>
+        <p className="font-display text-lg font-extrabold text-primary">12 min</p>
+      </div>
+    </div>
+
+    <!-- Bottom Sheet -->
+    <div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl p-5 shadow-2xl">
+      <!-- Status -->
+      <div class="flex items-center gap-3 mb-4">
+        <div class="relative">
+          <div class="w-14 h-14 rounded-full bg-secondary-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-secondary" style="font-size:28px">person</span>
+          </div>
+          <div class="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-success rounded-full border-2 border-white flex items-center justify-center pulse-dot">
+          </div>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-display text-base font-bold text-primary">Mike Rodriguez</h3>
+          <p class="text-xs text-success font-semibold flex items-center gap-1">
+            <span class="status-dot status-online" style="width:6px;height:6px"></span> En route to you
+          </p>
+        </div>
+        <div class="flex gap-2">
+          <div class="w-10 h-10 rounded-full bg-surface-mid flex items-center justify-center">
+            <span class="material-symbols-outlined text-primary" style="font-size:18px">call</span>
+          </div>
+          <div class="w-10 h-10 rounded-full bg-surface-mid flex items-center justify-center">
+            <span class="material-symbols-outlined text-primary" style="font-size:18px">chat</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Steps -->
+      <div class="flex items-center gap-1 mb-4">
+        <div class="flex items-center gap-1.5 flex-1">
+          <div class="w-6 h-6 rounded-full bg-success flex items-center justify-center">
+            <span class="material-symbols-outlined text-white" style="font-size:14px">check</span>
+          </div>
+          <span class="text-xs font-semibold text-success">Confirmed</span>
+        </div>
+        <div class="flex-1 h-0.5 bg-success rounded"></div>
+        <div class="flex items-center gap-1.5 flex-1">
+          <div class="w-6 h-6 rounded-full bg-success flex items-center justify-center">
+            <span class="material-symbols-outlined text-white" style="font-size:14px">check</span>
+          </div>
+          <span class="text-xs font-semibold text-success">Picked Up</span>
+        </div>
+        <div class="flex-1 h-0.5 bg-primary rounded"></div>
+        <div class="flex items-center gap-1.5 flex-1">
+          <div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center pulse-dot">
+            <span class="material-symbols-outlined text-white" style="font-size:14px">directions_car</span>
+          </div>
+          <span class="text-xs font-bold text-primary">En Route</span>
+        </div>
+        <div class="flex-1 h-0.5 bg-surface-high rounded"></div>
+        <div class="flex items-center gap-1.5 flex-1">
+          <div class="w-6 h-6 rounded-full bg-surface-high flex items-center justify-center">
+            <span class="material-symbols-outlined text-on-surface-muted" style="font-size:14px">home</span>
+          </div>
+          <span class="text-xs text-on-surface-muted">Arrived</span>
+        </div>
+      </div>
+
+      <!-- Job Details -->
+      <div class="bg-surface-mid rounded-xl p-3 mb-4">
+        <div class="flex items-center justify-between mb-1">
+          <span class="text-xs text-on-surface-muted">Service</span>
+          <span class="text-xs font-semibold text-primary">Plumbing - Leak Repair</span>
+        </div>
+        <div class="flex items-center justify-between mb-1">
+          <span class="text-xs text-on-surface-muted">Address</span>
+          <span class="text-xs font-semibold text-primary">123 Main St</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-on-surface-muted">Est. Cost</span>
+          <span class="text-xs font-bold text-primary">$80 - $120</span>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <button class="w-full h-12 rounded-lg bg-primary text-white font-display font-bold text-sm flex items-center justify-center gap-2">
+        <span class="material-symbols-outlined" style="font-size:18px">chat</span> Message Technician
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 8: CHAT -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">08 - Chat</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <!-- Chat Header -->
+    <div class="flex items-center gap-3 px-4 py-2 border-b border-outline-variant bg-white">
+      <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center">
+        <span class="material-symbols-outlined text-secondary" style="font-size:20px">person</span>
+      </div>
+      <div class="flex-1">
+        <h3 class="font-display text-sm font-bold text-primary">Mike Rodriguez</h3>
+        <p class="text-xs text-success font-medium flex items-center gap-1">
+          <span class="status-dot status-online" style="width:5px;height:5px"></span> Online
+        </p>
+      </div>
+      <div class="w-9 h-9 rounded-full bg-surface-mid flex items-center justify-center">
+        <span class="material-symbols-outlined text-primary" style="font-size:18px">call</span>
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div class="flex-1 px-4 py-3 overflow-y-auto" style="height:calc(100% - 180px)">
+      <!-- Date -->
+      <p class="text-center text-xs text-on-surface-muted mb-3">Today</p>
+
+      <!-- Tech Message -->
+      <div class="flex gap-2 mb-3">
+        <div class="w-7 h-7 rounded-full bg-secondary-container flex items-center justify-center flex-shrink-0">
+          <span class="material-symbols-outlined text-secondary" style="font-size:14px">person</span>
+        </div>
+        <div class="bg-surface-mid rounded-2xl rounded-tl-sm px-3 py-2 max-w-xs">
+          <p class="text-sm text-primary">Hi! I'm on my way to your location. I'll be there in about 12 minutes.</p>
+          <p class="text-xs text-on-surface-muted mt-1">9:38 AM</p>
+        </div>
+      </div>
+
+      <!-- Customer Message -->
+      <div class="flex gap-2 mb-3 justify-end">
+        <div class="bg-primary rounded-2xl rounded-tr-sm px-3 py-2 max-w-xs">
+          <p class="text-sm text-white">Great, thank you! Should I have anything ready?</p>
+          <p class="text-xs text-white/60 mt-1 text-right">9:39 AM</p>
+        </div>
+      </div>
+
+      <!-- Tech Message -->
+      <div class="flex gap-2 mb-3">
+        <div class="w-7 h-7 rounded-full bg-secondary-container flex items-center justify-center flex-shrink-0">
+          <span class="material-symbols-outlined text-secondary" style="font-size:14px">person</span>
+        </div>
+        <div class="bg-surface-mid rounded-2xl rounded-tl-sm px-3 py-2 max-w-xs">
+          <p class="text-sm text-primary">Just make sure the area under the sink is accessible. That's where I'll need to work. I'll bring all the tools and parts.</p>
+          <p className="text-xs text-on-surface-muted mt-1">9:40 AM</p>
+        </div>
+      </div>
+
+      <!-- Customer Message -->
+      <div class="flex gap-2 mb-3 justify-end">
+        <div class="bg-primary rounded-2xl rounded-tr-sm px-3 py-2 max-w-xs">
+          <p class="text-sm text-white">Perfect, I'll clear it out now. See you soon!</p>
+          <p class="text-xs text-white/60 mt-1 text-right">9:41 AM</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input -->
+    <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-outline-variant p-3 flex items-center gap-2">
+      <div class="w-9 h-9 rounded-full bg-surface-mid flex items-center justify-center flex-shrink-0">
+        <span class="material-symbols-outlined text-on-surface-muted" style="font-size:18px">add</span>
+      </div>
+      <div class="flex-1 flex items-center bg-surface-mid rounded-full px-3 py-2">
+        <input class="flex-1 bg-transparent text-sm outline-none" placeholder="Type a message..."/>
+        <span class="material-symbols-outlined text-on-surface-muted" style="font-size:18px">mic</span>
+      </div>
+      <div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+        <span class="material-symbols-outlined text-white" style="font-size:18px">send</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 9: PAYMENT -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">09 - Payment</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <div style="padding:0 16px" class="flex flex-col h-full">
+      <!-- Header -->
+      <div class="flex items-center gap-3 mb-4 pt-2">
+        <div class="w-10 h-10 rounded-full bg-surface-mid flex items-center justify-center">
+          <span class="material-symbols-outlined text-primary" style="font-size:20px">arrow_back</span>
+        </div>
+        <h2 class="font-display text-lg font-bold text-primary">Payment</h2>
+      </div>
+
+      <!-- Success State -->
+      <div class="text-center mb-6">
+        <div class="w-16 h-16 rounded-full bg-success-container flex items-center justify-center mx-auto mb-3">
+          <span class="material-symbols-outlined text-success" style="font-size:32px">check_circle</span>
+        </div>
+        <h3 class="font-display text-xl font-bold text-primary mb-1">Service Completed!</h3>
+        <p class="text-sm text-on-surface-variant">Your plumbing issue has been resolved</p>
+      </div>
+
+      <!-- Invoice -->
+      <div class="bg-white rounded-xl p-4 shadow-sm border border-outline-variant mb-4">
+        <h4 class="font-display text-sm font-bold text-primary mb-3">Invoice Summary</h4>
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm text-on-surface-variant">Service Call Fee</span>
+          <span class="text-sm text-primary">$35.00</span>
+        </div>
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm text-on-surface-variant">Labor (1.5 hrs × $45)</span>
+          <span class="text-sm text-primary">$67.50</span>
+        </div>
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm text-on-surface-variant">Parts (Faucet Washer Kit)</span>
+          <span class="text-sm text-primary">$12.50</span>
+        </div>
+        <div class="h-px bg-outline-variant my-3"></div>
+        <div class="flex items-center justify-between">
+          <span class="text-sm font-bold text-primary">Total</span>
+          <span class="font-display text-xl font-extrabold text-primary">$115.00</span>
+        </div>
+      </div>
+
+      <!-- Escrow Notice -->
+      <div class="bg-tertiary-container rounded-xl p-3 mb-4 flex items-start gap-2">
+        <span class="material-symbols-outlined text-tertiary mt-0.5" style="font-size:18px">shield</span>
+        <div>
+          <p class="text-xs font-semibold text-tertiary-on-container">Escrow Protected</p>
+          <p class="text-xs text-tertiary-on-container/70">Payment is held in escrow until you confirm the work is satisfactory</p>
+        </div>
+      </div>
+
+      <!-- Payment Method -->
+      <h4 class="font-display text-sm font-bold text-primary mb-2">Payment Method</h4>
+      <div class="bg-white rounded-xl p-3 shadow-sm border border-outline-variant mb-4 flex items-center gap-3">
+        <div class="w-10 h-7 bg-primary rounded flex items-center justify-center">
+          <span class="text-white text-xs font-bold">VISA</span>
+        </div>
+        <div class="flex-1">
+          <p class="text-sm font-semibold text-primary">•••• 4242</p>
+          <p class="text-xs text-on-surface-muted">Expires 12/27</p>
+        </div>
+        <span class="material-symbols-outlined text-on-surface-muted" style="font-size:18px">chevron_right</span>
+      </div>
+
+      <div class="mt-auto pb-4 flex gap-3">
+        <button class="flex-1 h-12 rounded-lg bg-surface-mid text-primary font-display font-bold text-sm flex items-center justify-center gap-2 border border-outline">
+          <span class="material-symbols-outlined" style="font-size:18px">flag</span> Report Issue
+        </button>
+        <button class="flex-1 h-12 rounded-lg bg-success text-white font-display font-bold text-sm flex items-center justify-center gap-2 shadow-md">
+          <span class="material-symbols-outlined" style="font-size:18px">check</span> Approve & Pay
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SCREEN 10: RATE & REVIEW -->
+<!-- ============================================ -->
+<div style="position:relative">
+  <div class="screen-label">10 - Rate & Review</div>
+  <div class="screen-frame">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="status-icons">
+        <span class="material-symbols-outlined" style="font-size:14px">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:14px">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px">battery_full</span>
+      </div>
+    </div>
+    <div style="padding:0 16px" class="flex flex-col h-full">
+      <!-- Header -->
+      <div class="flex items-center gap-3 mb-6 pt-2">
+        <div class="w-10 h-10 rounded-full bg-surface-mid flex items-center justify-center">
+          <span class="material-symbols-outlined text-primary" style="font-size:20px">arrow_back</span>
+        </div>
+        <h2 class="font-display text-lg font-bold text-primary">Rate Your Experience</h2>
+      </div>
+
+      <!-- Tech Info -->
+      <div class="text-center mb-6">
+        <div class="w-16 h-16 rounded-full bg-secondary-container flex items-center justify-center mx-auto mb-2">
+          <span class="material-symbols-outlined text-secondary" style="font-size:32px">person</span>
+        </div>
+        <h3 class="font-display text-base font-bold text-primary">Mike Rodriguez</h3>
+        <p class="text-xs text-on-surface-variant">Plumbing - Leak Repair</p>
+      </div>
+
+      <!-- Star Rating -->
+      <div class="flex justify-center gap-2 mb-6">
+        <span class="material-symbols-outlined text-secondary cursor-pointer" style="font-size:40px;font-variation-settings:'FILL' 1">star</span>
+        <span class="material-symbols-outlined text-secondary cursor-pointer" style="font-size:40px;font-variation-settings:'FILL' 1">star</span>
+        <span class="material-symbols-outlined text-secondary cursor-pointer" style="font-size:40px;font-variation-settings:'FILL' 1">star</span>
+        <span class="material-symbols-outlined text-secondary cursor-pointer" style="font-size:40px;font-variation-settings:'FILL' 1">star</span>
+        <span class="material-symbols-outlined text-on-surface-high cursor-pointer" style="font-size:40px">star</span>
+      </div>
+
+      <!-- Quick Tags -->
+      <div class="flex flex-wrap gap-2 justify-center mb-6">
+        <span class="chip bg-success-container text-success-on-container">Punctual</span>
+        <span class="chip bg-success-container text-success-on-container">Professional</span>
+        <span class="chip bg-success-container text-success-on-container">Quality Work</span>
+        <span class="chip bg-surface-mid text-on-surface-variant border border-outline-variant">Fair Price</span>
+        <span class="chip bg-surface-mid text-on-surface-variant border border-outline-variant">Friendly</span>
+      </div>
+
+      <!-- Review Input -->
+      <div class="bg-surface-mid rounded-xl p-3 mb-4 border border-outline-variant">
+        <p class="text-sm text-on-surface-variant">Excellent work! Fixed our kitchen leak quickly and professionally. Highly recommend Mike for any plumbing needs.</p>
+      </div>
+
+      <!-- Tip -->
+      <h4 class="font-display text-sm font-bold text-primary mb-2">Add a Tip (Optional)</h4>
+      <div class="flex gap-2 mb-4">
+        <button class="flex-1 h-10 rounded-lg bg-surface-mid text-on-surface-variant text-sm font-semibold border border-outline-variant">$5</button>
+        <button class="flex-1 h-10 rounded-lg bg-primary text-white text-sm font-bold">$10</button>
+        <button class="flex-1 h-10 rounded-lg bg-surface-mid text-on-surface-variant text-sm font-semibold border border-outline-variant">$20</button>
+        <button class="flex-1 h-10 rounded-lg bg-surface-mid text-on-surface-variant text-sm font-semibold border border-outline-variant">Custom</button>
+      </div>
+
+      <div class="mt-auto pb-4">
+        <button class="w-full h-12 rounded-lg bg-primary text-white font-display font-bold text-sm shadow-md mb-3">
+          Submit Review
+        </button>
+        <button class="w-full h-10 text-sm text-on-surface-muted font-semibold">Skip for now</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div> <!-- End screens-grid -->
+</body>
+</html>

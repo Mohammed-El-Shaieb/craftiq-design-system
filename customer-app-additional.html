@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>CraftIQ — Additional Screens</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        navy: { 50:'#f0f4f8', 100:'#d9e2ec', 200:'#bcccdc', 300:'#9fb3c8', 400:'#829ab1', 500:'#627d98', 600:'#486581', 700:'#334e68', 800:'#243b53', 900:'#102a43', DEFAULT:'#102a43' },
+        ochre: { 50:'#fffbeb', 100:'#fef3c7', 200:'#fde68a', 300:'#fcd34d', 400:'#fbbf24', 500:'#f59e0b', 600:'#d97706', 700:'#b45309', 800:'#92400e', 900:'#78350f', DEFAULT:'#d97706' },
+        trust: { 50:'#eff6ff', 100:'#dbeafe', 200:'#bfdbfe', 300:'#93c5fd', 400:'#60a5fa', 500:'#3b82f6', 600:'#2563eb', 700:'#1d4ed8', 800:'#1e40af', 900:'#1e3a8a', DEFAULT:'#2563eb' },
+        mint: { 50:'#ecfdf5', 100:'#d1fae5', 200:'#a7f3d0', 300:'#6ee7b7', 400:'#34d399', 500:'#10b981', 600:'#059669', 700:'#047857', 800:'#065f46', 900:'#064e3b', DEFAULT:'#059669' },
+        coral: { 50:'#fff1f2', 100:'#ffe4e6', 200:'#fecdd3', 300:'#fda4af', 400:'#fb7185', 500:'#f43f5e', 600:'#e11d48', 700:'#be123c', 800:'#9f1239', 900:'#881337', DEFAULT:'#e11d48' },
+        slate: { 50:'#f8fafc', 100:'#f1f5f9', 200:'#e2e8f0', 300:'#cbd5e1', 400:'#94a3b8', 500:'#64748b', 600:'#475569', 700:'#334155', 800:'#1e293b', 900:'#0f172a', DEFAULT:'#0f172a' },
+      },
+      fontFamily: {
+        display: ['"Plus Jakarta Sans"', 'sans-serif'],
+        body: ['Inter', 'sans-serif'],
+        arabic: ['"Noto Sans Arabic"', 'sans-serif'],
+      },
+      borderRadius: {
+        'xs': '4px', 'sm': '8px', 'md': '12px', 'lg': '16px', 'xl': '20px', '2xl': '24px', 'full': '9999px',
+      },
+    }
+  }
+}
+</script>
+<style>
+@layer base { html,body{width:100%;margin:0;padding:0;min-height:100%} }
+::-webkit-scrollbar{display:none}
+body{min-height:max(884px,100dvh);-webkit-font-smoothing:antialiased}
+
+.screen{width:375px;height:812px;border-radius:40px;border:8px solid #111;overflow:hidden;position:relative;background:#f8fafc;box-shadow:0 25px 80px rgba(0,0,0,.35);flex-shrink:0}
+
+.label{position:absolute;top:-28px;left:0;font:700 11px/1 'Plus Jakarta Sans',sans-serif;color:#64748b;text-transform:uppercase;letter-spacing:.06em}
+
+.grid{display:flex;flex-wrap:wrap;gap:56px;padding:40px;align-items:flex-start}
+
+@keyframes pulse-ring{0%{transform:scale(.8);opacity:1}100%{transform:scale(1.6);opacity:0}}
+.pulse-ring{animation:pulse-ring 2s ease-out infinite}
+@keyframes fade-up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fade-up .35s ease-out both}
+@keyframes fade-in{from{opacity:0}to{opacity:1}}
+.fade-in{animation:fade-in .5s ease-out both}
+@keyframes slide-up{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.slide-up{animation:slide-up .4s ease-out both}
+
+/* Bottom Tab Bar */
+.tab-bar{position:absolute;bottom:0;left:0;right:0;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid #e2e8f0;display:flex;justify-content:space-around;padding:6px 0 22px;z-index:50}
+.tab{display:flex;flex-direction:column;align-items:center;gap:1px;font:600 10px/1 'Plus Jakarta Sans',sans-serif;color:#94a3b8;transition:color .15s}
+.tab.on{color:#102a43}
+.mi,.tab .mi{font-family:'Material Symbols Outlined';font-size:22px;transition:font-variation-settings .15s}
+.tab.on .mi{font-variation-settings:'FILL' 1}
+
+/* Status bar */
+.sb{display:flex;justify-content:space-between;align-items:center;padding:12px 24px 4px;font:600 14px/1 'Plus Jakarta Sans',sans-serif}
+.sb-i{display:flex;gap:4px;align-items:center}
+
+/* Utility */
+.shadow-card{box-shadow:0 1px 3px rgba(15,23,42,.04),0 1px 2px rgba(15,23,42,.02)}
+.shadow-float{box-shadow:0 4px 12px rgba(15,23,42,.07),0 1px 3px rgba(15,23,42,.04)}
+.shadow-lg{box-shadow:0 8px 24px rgba(15,23,42,.1),0 2px 6px rgba(15,23,42,.04)}
+
+/* RTL Support */
+[dir="rtl"] .mi{direction:ltr}
+[dir="rtl"] .text-right{text-align:left}
+[dir="rtl"] .text-left{text-align:right}
+[dir="rtl"] .ml-auto{margin-left:0;margin-right:auto}
+[dir="rtl"] .mr-auto{margin-right:0;margin-left:auto}
+[dir="rtl"] .gap-1{gap:0.25rem}
+[dir="rtl"] .gap-2{gap:0.5rem}
+[dir="rtl"] .gap-3{gap:0.75rem}
+[dir="rtl"] .gap-4{gap:1rem}
+</style>
+</head>
+<body class="bg-slate-900 font-body">
+
+<!-- Language Toggle -->
+<div style="position:fixed;top:20px;right:20px;z-index:100;display:flex;gap:8px">
+  <button onclick="setLang('en')" class="px-4 py-2 rounded-lg bg-white text-navy font-bold text-sm shadow-lg hover:bg-slate-100">EN</button>
+  <button onclick="setLang('ar')" class="px-4 py-2 rounded-lg bg-white text-navy font-bold text-sm shadow-lg hover:bg-slate-100">عربي</button>
+</div>
+
+<div class="grid">
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SPLASH SCREEN                                   -->
+<!-- ═══════════════════════════════════════════════ -->
+<div style="position:relative">
+  <div class="label">S01 — Splash</div>
+  <div class="screen" style="background:linear-gradient(135deg,#102a43 0%,#1e293b 100%)">
+
+    <!-- Logo -->
+    <div class="absolute inset-0 flex flex-col items-center justify-center">
+      <!-- Logo Mark -->
+      <div class="w-20 h-20 rounded-3xl bg-gradient-to-br from-ochre-500 to-ochre-600 flex items-center justify-center shadow-lg mb-6 fade-in">
+        <span class="mi text-white" style="font-size:40px;font-variation-settings:'FILL' 1">handyman</span>
+      </div>
+      <!-- Logo Text -->
+      <div class="fade-in" style="animation-delay:.2s">
+        <h1 class="font-display text-[32px] font-extrabold text-white tracking-tight">Craft<span class="text-ochre-400">IQ</span></h1>
+      </div>
+      <p class="text-white/50 text-sm mt-2 font-medium fade-in" style="animation-delay:.4s">Honest Craftsmanship. Zero Markups.</p>
+      <p class="text-white/50 text-sm font-medium fade-in arabic-text" style="animation-delay:.4s">حرفة صادقة. بدون م每位 markup.</p>
+    </div>
+
+    <!-- Loading -->
+    <div class="absolute bottom-16 left-0 right-0 flex justify-center">
+      <div class="flex gap-1.5">
+        <div class="w-2 h-2 bg-ochre-400 rounded-full animate-bounce" style="animation-delay:0ms"></div>
+        <div class="w-2 h-2 bg-ochre-400 rounded-full animate-bounce" style="animation-delay:150ms"></div>
+        <div class="w-2 h-2 bg-ochre-400 rounded-full animate-bounce" style="animation-delay:300ms"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ONBOARDING PAGE 1                               -->
+<!-- ═══════════════════════════════════════════════ -->
+<div style="position:relative">
+  <div class="label">S02 — Onboarding 1</div>
+  <div class="screen">
+
+    <div class="sb"><span>9:41</span><div class="sb-i"><span class="mi" style="font-size:13px">signal_cellular_alt</span><span class="mi" style="font-size:13px">wifi</span><span class="mi" style="font-size:15px">battery_full</span></div></div>
+
+    <div class="flex flex-col h-full px-6 pt-8">
+      <!-- Illustration -->
+      <div class="flex-1 flex items-center justify-center">
+        <div class="w-48 h-48 rounded-full bg-gradient-to-br from-trust-50 to-trust-100 flex items-center justify-center">
+          <span class="mi text-trust-500" style="font-size:80px">search</span>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="mb-8">
+        <h2 class="font-display text-[24px] font-extrabold text-navy mb-3" data-en="Find Trusted Technicians" data-ar="ابحث عن فنيين موثوقين">Find Trusted Technicians</h2>
+        <p class="text-[14px] text-slate-500 leading-relaxed" data-en="Browse verified professionals in your area. Compare ratings, prices, and reviews before you book." data-ar="تصفح المحترفين الموثوقين في منطقتك. قارن التقييمات والأسعار والمراجعات قبل الحجز.">Browse verified professionals in your area. Compare ratings, prices, and reviews before you book.</p>
+      </div>
+
+      <!-- Dots -->
+      <div class="flex justify-center gap-2 mb-6">
+        <div class="w-8 h-2 bg-navy rounded-full"></div>
+        <div class="w-2 h-2 bg-slate-200 rounded-full"></div>
+        <div class="w-2 h-2 bg-slate-200 rounded-full"></div>
+      </div>
+
+      <!-- CTA -->
+      <button class="w-full h-13 rounded-xl bg-navy text-white font-display text-[15px] font-bold flex items-center justify-center gap-2 mb-4" style="height:52px" data-en="Next" data-ar="التالي">Next <span class="mi" style="font-size:18px">arrow_forward</span></button>
+      <button class="w-full h-10 text-[13px] text-slate-400 font-semibold mb-6" data-en="Skip" data-ar="تخطي">Skip</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ONBOARDING PAGE 2                               -->
+<!-- ═══════════════════════════════════════════════ -->
+<div style="position:relative">
+  <div class="label">S03 — Onboarding 2</div>
+  <div class="screen">
+
+    <div class="sb"><span>9:41</span><div class="sb-i"><span class="mi" style="font-size:13px">signal_cellular_alt</span><span class="mi" style="font-size:13px">wifi</span><span class="mi" style="font-size:15px">battery_full</span></div></div>
+
+    <div class="flex flex-col h-full px-6 pt-8">
+      <!-- Illustration -->
+      <div class="flex-1 flex items-center justify-center">
+        <div class="w-48 h-48 rounded-full bg-gradient-to-br from-ochre-50 to-ochre-100 flex items-center justify-center">
+          <span class="mi text-ochre-500" style="font-size:80px">calendar_month</span>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="mb-8">
+        <h2 class="font-display text-[24px] font-extrabold text-navy mb-3" data-en="Book in Seconds" data-ar="احجز في ثوانٍ">Book in Seconds</h2>
+        <p class="text-[14px] text-slate-500 leading-relaxed" data-en="Schedule at your convenience. Choose ASAP for emergencies or pick a time that works for you." data-ar="حدد موعدك بسهولة. اختر فوري للطوارئ أو حدد وقت يناسبك.">Schedule at your convenience. Choose ASAP for emergencies or pick a time that works for you.</p>
+      </div>
+
+      <!-- Dots -->
+      <div class="flex justify-center gap-2 mb-6">
+        <div class="w-2 h-2 bg-slate-200 rounded-full"></div>
+        <div class="w-8 h-2 bg-navy rounded-full"></div>
+        <div class="w-2 h-2 bg-slate-200 rounded-full"></div>
+      </div>
+
+      <!-- CTA -->
+      <button class="w-full h-13 rounded-xl bg-navy text-white font-display text-[15px] font-bold flex items-center justify-center gap-2 mb-4" style="height:52px" data-en="Next" data-ar="التالي">Next <span class="mi" style="font-size:18px">arrow_forward</span></button>
+      <button class="w-full h-10 text-[13px] text-slate-400 font-semibold mb-6" data-en="Skip" data-ar="تخطي">Skip</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ONBOARDING PAGE 3                               -->
+<!-- ═══════════════════════════════════════════════ -->
+<div style="position:relative">
+  <div class="label">S04 — Onboarding 3</div>
+  <div class="screen">
+
+    <div class="sb"><span>9:41</span><div class="sb-i"><span class="mi" style="font-size:13px">signal_cellular_alt</span><span class="mi" style="font-size:13px">wifi</span><span class="mi" style="font-size:15px">battery_full</span></div></div>
+
+    <div class="flex flex-col h-full px-6 pt-8">
+      <!-- Illustration -->
+      <div class="flex-1 flex items-center justify-center">
+        <div class="w-48 h-48 rounded-full bg-gradient-to-br from-mint-50 to-mint-100 flex items-center justify-center">
+          <span class="mi text-mint-500" style="font-size:80px">shield</span>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="mb-8">
+        <h2 class="font-display text-[24px] font-extrabold text-navy mb-3" data-en="Pay Securely" data-ar="ادفع بأمان">Pay Securely</h2>
+        <p class="text-[14px] text-slate-500 leading-relaxed" data-en="Your payment is held in escrow until the job is done. No risk, no surprises." data-ar="欺诈 مدفوعاتك في حساب ضمان حتى يكتمل العمل. لا مخاطر، لا مفاجآت.">Your payment is held in escrow until the job is done. No risk, no surprises.</p>
+      </div>
+
+      <!-- Dots -->
+      <div class="flex justify-center gap-2 mb-6">
+        <div class="w-2 h-2 bg-slate-200 rounded-full"></div>
+        <div class="w-2 h-2 bg-slate-200 rounded-full"></div>
+        <div class="w-8 h-2 bg-navy rounded-full"></div>
+      </div>
+
+      <!-- CTA -->
+      <button class="w-full h-13 rounded-xl bg-navy text-white font-display text-[15px] font-bold flex items-center justify-center gap-2 mb-4" style="height:52px" data-en="Get Started" data-ar="ابدأ الآن">Get Started <span class="mi" style="font-size:18px">arrow_forward</span></button>
+      <button class="w-full h-10 text-[13px] text-slate-400 font-semibold mb-6" data-en="I already have an account" data-ar="لدي حساب بالفعل">I already have an account</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- NOTIFICATIONS SCREEN                            -->
+<!-- ═══════════════════════════════════════════════ -->
+<div style="position:relative">
+  <div class="label">S05 — Notifications</div>
+  <div class="screen">
+
+    <div class="sb"><span>9:41</span><div class="sb-i"><span class="mi" style="font-size:13px">signal_cellular_alt</span><span class="mi" style="font-size:13px">wifi</span><span class="mi" style="font-size:15px">battery_full</span></div></div>
+
+    <div style="padding:0 20px;height:calc(100% - 50px);overflow-y:auto">
+      <!-- Header -->
+      <div class="flex items-center gap-3 mt-1 mb-4">
+        <button class="w-10 h-10 rounded-full bg-white shadow-card border border-slate-100 flex items-center justify-center">
+          <span class="mi text-navy" style="font-size:20px">arrow_back</span>
+        </button>
+        <h2 class="font-display text-[18px] font-bold text-navy" data-en="Notifications" data-ar="الإشعارات">Notifications</h2>
+      </div>
+
+      <!-- Today -->
+      <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3" data-en="Today" data-ar="اليوم">Today</p>
+
+      <!-- Notification 1 - Active -->
+      <div class="bg-white rounded-2xl p-4 shadow-card border border-slate-100 mb-3 border-l-4 border-l-mint-500">
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-full bg-mint-100 flex items-center justify-center flex-shrink-0">
+            <span class="mi text-mint-600" style="font-size:20px">check_circle</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <h4 class="font-display text-[13px] font-bold text-navy" data-en="Service Completed" data-ar="اكتملت الخدمة">Service Completed</h4>
+            <p class="text-[12px] text-slate-500 mt-0.5" data-en="Your plumbing service with Mike Rodriguez has been completed." data-ar="اكتملت خدمة السباكة مع مايك رودريجيز.">Your plumbing service with Mike Rodriguez has been completed.</p>
+            <p class="text-[10px] text-slate-400 mt-1">2 hours ago</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notification 2 -->
+      <div class="bg-white rounded-2xl p-4 shadow-card border border-slate-100 mb-3">
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-full bg-trust-100 flex items-center justify-center flex-shrink-0">
+            <span class="mi text-trust-600" style="font-size:20px">person</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <h4 class="font-display text-[13px] font-bold text-navy" data-en="Technician En Route" data-ar="الفني في الطريق">Technician En Route</h4>
+            <p class="text-[12px] text-slate-500 mt-0.5" data-en="Mike Rodriguez is on his way to your location. ETA: 12 minutes." data-ar="مايك رودريجيز في طريقه إليك. الوقت المتوقع: 12 دقيقة.">Mike Rodriguez is on his way to your location. ETA: 12 minutes.</p>
+            <p class="text-[10px] text-slate-400 mt-1">5 hours ago</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Yesterday -->
+      <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3 mt-4" data-en="Yesterday" data-ar="أمس">Yesterday</p>
+
+      <!-- Notification 3 -->
+      <div class="bg-white rounded-2xl p-4 shadow-card border border-slate-100 mb-3">
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-full bg-ochre-100 flex items-center justify-center flex-shrink-0">
+            <span class="mi text-ochre-600" style="font-size:20px">star</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <h4 class="font-display text-[13px] font-bold text-navy" data-en="Rate Your Experience" data-ar="قيّم تجربتك">Rate Your Experience</h4>
+            <p class="text-[12px] text-slate-500 mt-0.5" data-en="How was your cleaning service with Ahmed Hassan?" data-ar="كيف كانت خدمة التنظيف مع أحمد حسن؟">How was your cleaning service with Ahmed Hassan?</p>
+            <p class="text-[10px] text-slate-400 mt-1">Yesterday, 4:30 PM</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notification 4 -->
+      <div class="bg-white rounded-2xl p-4 shadow-card border border-slate-100 mb-3">
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-full bg-coral-100 flex items-center justify-center flex-shrink-0">
+            <span class="mi text-coral-600" style="font-size:20px">local_offer</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <h4 class="font-display text-[13px] font-bold text-navy" data-en="Special Offer" data-ar="عرض خاص">Special Offer</h4>
+            <p class="text-[12px] text-slate-500 mt-0.5" data-en="Get 20% off your next electrical service. Use code: ELECTRIC20" data-ar="احصل على خصم 20% على خدمة الكهرباء التالية. الكود: ELECTRIC20">Get 20% off your next electrical service. Use code: ELECTRIC20</p>
+            <p class="text-[10px] text-slate-400 mt-1">Yesterday, 10:00 AM</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="tab-bar">
+      <div class="tab"><span class="mi">home</span><span data-en="Home" data-ar="الرئيسية">Home</span></div>
+      <div class="tab"><span class="mi">search</span><span data-en="Search" data-ar="البحث">Search</span></div>
+      <div class="tab"><span class="mi">receipt_long</span><span data-en="Orders" data-ar="الطلبات">Orders</span></div>
+      <div class="tab"><span class="mi">chat</span><span data-en="Chat" data-ar="المحادثة">Chat</span></div>
+      <div class="tab"><span class="mi">person</span><span data-en="Profile" data-ar="الملف">Profile</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- FAVORITES SCREEN                                -->
+<!-- ═══════════════════════════════════════════════ -->
+<div style="position:relative">
+  <div class="label">S06 — Favorites</div>
+  <div class="screen">
+
+    <div class="sb"><span>9:41</span><div class="sb-i"><span class="mi" style="font-size:13px">signal_cellular_alt</span><span class="mi" style="font-size:13px">wifi</span><span class="mi" style="font-size:15px">battery_full</span></div></div>
+
+    <div style="padding:0 20px;height:calc(100% - 50px);overflow-y:auto">
+      <!-- Header -->
+      <div class="flex items-center gap-3 mt-1 mb-4">
+        <button class="w-10 h-10 rounded-full bg-white shadow-card border border-slate-100 flex items-center justify-center">
+          <span class="mi text-navy" style="font-size:20px">arrow_back</span>
+        </button>
+        <h2 class="font-display text-[18px] font-bold text-navy" data-en="Favorites" data-ar="المفضلة">Favorites</h2>
+      </div>
+
+      <!-- Favorite Technician 1 -->
+      <div class="bg-white rounded-2xl p-4 shadow-card border border-slate-100 mb-3">
+        <div class="flex items-center gap-3">
+          <div class="relative flex-shrink-0">
+            <div class="w-14 h-14 rounded-full bg-trust-100 flex items-center justify-center">
+              <span class="mi text-trust-500" style="font-size:26px">person</span>
+            </div>
+            <span class="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-mint-500 rounded-full border-2 border-white flex items-center justify-center">
+              <span class="mi text-white" style="font-size:10px">check</span>
+            </span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-1">
+              <h4 class="font-display text-[14px] font-bold text-navy">Mike Rodriguez</h4>
+              <span class="mi text-trust-500" style="font-size:12px;font-variation-settings:'FILL' 1">verified</span>
+            </div>
+            <p class="text-[12px] text-slate-400">Master Plumber • 12 yrs</p>
+            <div class="flex items-center gap-1 mt-1">
+              <span class="mi text-ochre-500" style="font-size:12px;font-variation-settings:'FILL' 1">star</span>
+              <span class="text-[12px] font-bold text-navy">4.9</span>
+              <span class="text-[10px] text-slate-400">(324)</span>
+            </div>
+          </div>
+          <div class="flex flex-col items-end gap-2">
+            <button class="w-8 h-8 rounded-full bg-coral-50 flex items-center justify-center">
+              <span class="mi text-coral-500" style="font-size:18px;font-variation-settings:'FILL' 1">favorite</span>
+            </button>
+            <span class="text-[12px] font-extrabold text-navy">$45/hr</span>
+          </div>
+        </div>
+        <div class="flex gap-2 mt-3">
+          <button class="flex-1 h-10 rounded-xl bg-slate-100 text-navy text-[12px] font-bold flex items-center justify-center gap-1">
+            <span class="mi" style="font-size:16px">chat</span> <span data-en="Message" data-ar="رسالة">Message</span>
+          </button>
+          <button class="flex-1 h-10 rounded-xl bg-navy text-white text-[12px] font-bold flex items-center justify-center gap-1">
+            <span class="mi" style="font-size:16px">calendar_month</span> <span data-en="Book" data-ar="احجز">Book</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Favorite Technician 2 -->
+      <div class="bg-white rounded-2xl p-4 shadow-card border border-slate-100 mb-3">
+        <div class="flex items-center gap-3">
+          <div class="relative flex-shrink-0">
+            <div class="w-14 h-14 rounded-full bg-ochre-100 flex items-center justify-center">
+              <span class="mi text-ochre-500" style="font-size:26px">person</span>
+            </div>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-1">
+              <h4 class="font-display text-[14px] font-bold text-navy">Sarah Chen</h4>
+              <span class="mi text-trust-500" style="font-size:12px;font-variation-settings:'FILL' 1">verified</span>
+            </div>
+            <p class="text-[12px] text-slate-400">Electrician • 8 yrs</p>
+            <div class="flex items-center gap-1 mt-1">
+              <span class="mi text-ochre-500" style="font-size:12px;font-variation-settings:'FILL' 1">star</span>
+              <span class="text-[12px] font-bold text-navy">4.8</span>
+              <span class="text-[10px] text-slate-400">(218)</span>
+            </div>
+          </div>
+          <div class="flex flex-col items-end gap-2">
+            <button class="w-8 h-8 rounded-full bg-coral-50 flex items-center justify-center">
+              <span class="mi text-coral-500" style="font-size:18px;font-variation-settings:'FILL' 1">favorite</span>
+            </button>
+            <span class="text-[12px] font-extrabold text-navy">$55/hr</span>
+          </div>
+        </div>
+        <div class="flex gap-2 mt-3">
+          <button class="flex-1 h-10 rounded-xl bg-slate-100 text-navy text-[12px] font-bold flex items-center justify-center gap-1">
+            <span class="mi" style="font-size:16px">chat</span> <span data-en="Message" data-ar="رسالة">Message</span>
+          </button>
+          <button class="flex-1 h-10 rounded-xl bg-navy text-white text-[12px] font-bold flex items-center justify-center gap-1">
+            <span class="mi" style="font-size:16px">calendar_month</span> <span data-en="Book" data-ar="احجز">Book</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="tab-bar">
+      <div class="tab"><span class="mi">home</span><span data-en="Home" data-ar="الرئيسية">Home</span></div>
+      <div class="tab"><span class="mi">search</span><span data-en="Search" data-ar="البحث">Search</span></div>
+      <div class="tab"><span class="mi">receipt_long</span><span data-en="Orders" data-ar="الطلبات">Orders</span></div>
+      <div class="tab"><span class="mi">chat</span><span data-en="Chat" data-ar="المحادثة">Chat</span></div>
+      <div class="tab on"><span class="mi">person</span><span data-en="Profile" data-ar="الملف">Profile</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PAYMENT METHODS SCREEN                          -->
+<!-- ═══════════════════════════════════════════════ -->
+<div style="position:relative">
+  <div class="label">S07 — Payment Methods</div>
+  <div class="screen">
+
+    <div class="sb"><span>9:41</span><div class="sb-i"><span class="mi" style="font-size:13px">signal_cellular_alt</span><span class="mi" style="font-size:13px">wifi</span><span class="mi" style="font-size:15px">battery_full</span></div></div>
+
+    <div style="padding:0 20px;height:calc(100% - 50px);overflow-y:auto">
+      <!-- Header -->
+      <div class="flex items-center gap-3 mt-1 mb-4">
+        <button class="w-10 h-10 rounded-full bg-white shadow-card border border-slate-100 flex items-center justify-center">
+          <span class="mi text-navy" style="font-size:20px">arrow_back</span>
+        </button>
+        <h2 class="font-display text-[18px] font-bold text-navy" data-en="Payment Methods" data-ar="طرق الدفع">Payment Methods</h2>
+      </div>
+
+      <!-- Add New -->
+      <button class="w-full bg-white rounded-2xl p-4 shadow-card border border-dashed border-slate-300 mb-4 flex items-center gap-3">
+        <div class="w-12 h-12 rounded-xl bg-trust-50 flex items-center justify-center">
+          <span class="mi text-trust-500" style="font-size:24px">add</span>
+        </div>
+        <div class="text-left">
+          <p class="font-display text-[14px] font-bold text-navy" data-en="Add New Card" data-ar="إضافة بطاقة جديدة">Add New Card</p>
+          <p class="text-[12px] text-slate-400" data-en="Credit, Debit, or prepaid card" data-ar="ائتمان، خصم، أو بطاقة مسبقة الدفع">Credit, Debit, or prepaid card</p>
+        </div>
+      </button>
+
+      <!-- Card 1 - Default -->
+      <div class="bg-white rounded-2xl p-4 shadow-card border border-slate-100 mb-3">
+        <div class="flex items-center gap-3">
+          <div class="w-14 h-10 bg-navy rounded-lg flex items-center justify-center">
+            <span class="text-white text-[11px] font-bold">VISA</span>
+          </div>
+          <div class="flex-1">
+            <p class="font-display text-[14px] font-bold text-navy">•••• •••• •••• 4242</p>
+            <p class="text-[12px] text-slate-400">Expires 12/27</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded-full bg-mint-50 text-mint-600 text-[10px] font-bold" data-en="DEFAULT" data-ar="افتراضي">DEFAULT</span>
+            <span class="mi text-slate-300" style="font-size:18px">more_vert</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-white rounded-2xl p-4 shadow-card border border-slate-100 mb-3">
+        <div class="flex items-center gap-3">
+          <div class="w-14 h-10 bg-ochre-500 rounded-lg flex items-center justify-center">
+            <span class="text-white text-[11px] font-bold">MC</span>
+          </div>
+          <div class="flex-1">
+            <p class="font-display text-[14px] font-bold text-navy">•••• •••• •••• 8888</p>
+            <p class="text-[12px] text-slate-400">Expires 03/26</p>
+          </div>
+          <span class="mi text-slate-300" style="font-size:18px">more_vert</span>
+        </div>
+      </div>
+
+      <!-- Cash -->
+      <div class="bg-white rounded-2xl p-4 shadow-card border border-slate-100 mb-3">
+        <div class="flex items-center gap-3">
+          <div class="w-14 h-10 bg-mint-500 rounded-lg flex items-center justify-center">
+            <span class="mi text-white" style="font-size:20px">payments</span>
+          </div>
+          <div class="flex-1">
+            <p class="font-display text-[14px] font-bold text-navy" data-en="Cash on Delivery" data-ar="الدفع عند الاستلام">Cash on Delivery</p>
+            <p class="text-[12px] text-slate-400" data-en="Pay when service is complete" data-ar="ادفع عند اكتمال الخدمة">Pay when service is complete</p>
+          </div>
+          <span class="mi text-slate-300" style="font-size:18px">more_vert</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="tab-bar">
+      <div class="tab"><span class="mi">home</span><span data-en="Home" data-ar="الرئيسية">Home</span></div>
+      <div class="tab"><span class="mi">search</span><span data-en="Search" data-ar="البحث">Search</span></div>
+      <div class="tab"><span class="mi">receipt_long</span><span data-en="Orders" data-ar="الطلبات">Orders</span></div>
+      <div class="tab"><span class="mi">chat</span><span data-en="Chat" data-ar="المحادثة">Chat</span></div>
+      <div class="tab on"><span class="mi">person</span><span data-en="Profile" data-ar="الملف">Profile</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SAVED ADDRESSES SCREEN                          -->
+<!-- ═══════════════════════════════════════════════ -->
+<div style="position:relative">
+  <div class="label">S08 — Saved Addresses</div>
+  <div class="screen">
+
+    <div class="sb"><span>9:41</span><div class="sb-i"><span class="mi" style="font-size:13px">signal_cellular_alt</span><span class="mi" style="font-size:13px">wifi</span><span class="mi" style="font-size:15px">battery_full</span></div></div>
+
+    <div style="padding:0 20px;height:calc(100% - 50px);overflow-y:auto">
+      <!-- Header -->
+      <div class="flex items-center gap-3 mt-1 mb-4">
+        <button class="w-10 h-10 rounded-full bg-white shadow-card border border-slate-100 flex items-center justify-center">
+          <span class="mi text-navy" style="font-size:20px">arrow_back</span>
+        </button>
+        <h2 class="font-display text-[18px] font-bold text-navy" data-en="Saved Addresses" data-ar="العناوين المحفوظة">Saved Addresses</h2>
+      </div>
+
+      <!-- Add New -->
+      <button class="w-full bg-white rounded-2xl p-4 shadow-card border border-dashed border-slate-300 mb-4 flex items-center gap-3">
+        <div class="w-12 h-12 rounded-xl bg-mint-50 flex items-center justify-center">
+          <span class="mi text-mint-500" style="font-size:24px">add_location</span>
+        </div>
+        <div class="text-left">
+          <p class="font-display text-[14px] font-bold text-navy" data-en="Add New Address" data-ar="إضافة عنوان جديد">Add New Address</p>
+          <p class="text-[12px] text-slate-400" data-en="Home, office, or other location" data-ar="المنزل، المكتب، أو مكان آخر">Home, office, or other location</p>
+        </div>
+      </button>
+
+      <!-- Address 1 - Home -->
+      <div class="bg-white rounded-2xl p-4 shadow-card border border-slate-100 mb-3">
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-xl bg-ochre-100 flex items-center justify-center flex-shrink-0">
+            <span class="mi text-ochre-600" style="font-size:20px">home</span>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-1">
+              <h4 class="font-display text-[14px] font-bold text-navy" data-en="Home" data-ar="المنزل">Home</h4>
+              <span class="px-2 py-0.5 rounded-full bg-mint-50 text-mint-600 text-[10px] font-bold" data-en="DEFAULT" data-ar="افتراضي">DEFAULT</span>
+            </div>
+            <p class="text-[12px] text-slate-500">123 Main St, Nasr City, Cairo</p>
+            <p class="text-[12px] text-slate-400">Apartment 4B</p>
+          </div>
+          <span class="mi text-slate-300" style="font-size:18px">more_vert</span>
+        </div>
+      </div>
+
+      <!-- Address 2 - Office -->
+      <div class="bg-white rounded-2xl p-4 shadow-card border border-slate-100 mb-3">
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-xl bg-trust-100 flex items-center justify-center flex-shrink-0">
+            <span class="mi text-trust-600" style="font-size:20px">business</span>
+          </div>
+          <div class="flex-1">
+            <h4 class="font-display text-[14px] font-bold text-navy mb-1" data-en="Office" data-ar="المكتب">Office</h4>
+            <p class="text-[12px] text-slate-500">456 Business District, New Cairo</p>
+            <p class="text-[12px] text-slate-400">Floor 12, Unit 1203</p>
+          </div>
+          <span class="mi text-slate-300" style="font-size:18px">more_vert</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="tab-bar">
+      <div class="tab"><span class="mi">home</span><span data-en="Home" data-ar="الرئيسية">Home</span></div>
+      <div class="tab"><span class="mi">search</span><span data-en="Search" data-ar="البحث">Search</span></div>
+      <div class="tab"><span class="mi">receipt_long</span><span data-en="Orders" data-ar="الطلبات">Orders</span></div>
+      <div class="tab"><span class="mi">chat</span><span data-en="Chat" data-ar="المحادثة">Chat</span></div>
+      <div class="tab on"><span class="mi">person</span><span data-en="Profile" data-ar="الملف">Profile</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- HELP & SUPPORT SCREEN                           -->
+<!-- ═══════════════════════════════════════════════ -->
+<div style="position:relative">
+  <div class="label">S09 — Help & Support</div>
+  <div class="screen">
+
+    <div class="sb"><span>9:41</span><div class="sb-i"><span class="mi" style="font-size:13px">signal_cellular_alt</span><span class="mi" style="font-size:13px">wifi</span><span class="mi" style="font-size:15px">battery_full</span></div></div>
+
+    <div style="padding:0 20px;height:calc(100% - 50px);overflow-y:auto">
+      <!-- Header -->
+      <div class="flex items-center gap-3 mt-1 mb-4">
+        <button class="w-10 h-10 rounded-full bg-white shadow-card border border-slate-100 flex items-center justify-center">
+          <span class="mi text-navy" style="font-size:20px">arrow_back</span>
+        </button>
+        <h2 class="font-display text-[18px] font-bold text-navy" data-en="Help & Support" data-ar="المساعدة والدعم">Help & Support</h2>
+      </div>
+
+      <!-- Search -->
+      <div class="flex items-center gap-2.5 bg-white rounded-xl px-3.5 py-3 shadow-card border border-slate-100 mb-5">
+        <span class="mi text-slate-400" style="font-size:18px">search</span>
+        <input class="flex-1 bg-transparent text-[14px] text-navy outline-none placeholder:text-slate-300" data-placeholder-en="Search for help..." data-placeholder-ar="ابحث عن مساعدة..." placeholder="Search for help..."/>
+      </div>
+
+      <!-- Quick Help -->
+      <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3" data-en="Quick Help" data-ar="مساعدة سريعة">Quick Help</p>
+
+      <div class="flex flex-col gap-2 mb-5">
+        <div class="bg-white rounded-xl p-4 flex items-center gap-3 shadow-card border border-slate-100">
+          <div class="w-10 h-10 rounded-xl bg-trust-50 flex items-center justify-center">
+            <span class="mi text-trust-600" style="font-size:20px">help</span>
+          </div>
+          <div class="flex-1">
+            <p class="font-display text-[13px] font-bold text-navy" data-en="How to Book a Service" data-ar="كيف تحجز خدمة">How to Book a Service</p>
+            <p class="text-[11px] text-slate-400" data-en="Step-by-step guide" data-ar="دليل خطوة بخطوة">Step-by-step guide</p>
+          </div>
+          <span class="mi text-slate-300" style="font-size:18px">chevron_right</span>
+        </div>
+
+        <div class="bg-white rounded-xl p-4 flex items-center gap-3 shadow-card border border-slate-100">
+          <div class="w-10 h-10 rounded-xl bg-ochre-50 flex items-center justify-center">
+            <span class="mi text-ochre-600" style="font-size:20px">payments</span>
+          </div>
+          <div class="flex-1">
+            <p class="font-display text-[13px] font-bold text-navy" data-en="Payment & Escrow" data-ar="الدفع والضمان">Payment & Escrow</p>
+            <p class="text-[11px] text-slate-400" data-en="How payments work" data-ar="كيف تعمل المدفوعات">How payments work</p>
+          </div>
+          <span class="mi text-slate-300" style="font-size:18px">chevron_right</span>
+        </div>
+
+        <div class="bg-white rounded-xl p-4 flex items-center gap-3 shadow-card border border-slate-100">
+          <div class="w-10 h-10 rounded-xl bg-mint-50 flex items-center justify-center">
+            <span class="mi text-mint-600" style="font-size:20px">security</span>
+          </div>
+          <div class="flex-1">
+            <p class="font-display text-[13px] font-bold text-navy" data-en="Safety & Trust" data-ar="السلامة والثقة">Safety & Trust</p>
+            <p class="text-[11px] text-slate-400" data-en="Verification process" data-ar="عملية التحقق">Verification process</p>
+          </div>
+          <span class="mi text-slate-300" style="font-size:18px">chevron_right</span>
+        </div>
+
+        <div class="bg-white rounded-xl p-4 flex items-center gap-3 shadow-card border border-slate-100">
+          <div class="w-10 h-10 rounded-xl bg-coral-50 flex items-center justify-center">
+            <span class="mi text-coral-600" style="font-size:20px">gavel</span>
+          </div>
+          <div class="flex-1">
+            <p class="font-display text-[13px] font-bold text-navy" data-en="Disputes & Refunds" data-ar="النزاعات والاسترداد">Disputes & Refunds</p>
+            <p class="text-[11px] text-slate-400" data-en="Resolution process" data-ar="عملية الحل">Resolution process</p>
+          </div>
+          <span class="mi text-slate-300" style="font-size:18px">chevron_right</span>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3" data-en="Contact Us" data-ar="تواصل معنا">Contact Us</p>
+
+      <div class="flex flex-col gap-2">
+        <div class="bg-white rounded-xl p-4 flex items-center gap-3 shadow-card border border-slate-100">
+          <div class="w-10 h-10 rounded-xl bg-navy/10 flex items-center justify-center">
+            <span class="mi text-navy" style="font-size:20px">chat</span>
+          </div>
+          <div class="flex-1">
+            <p class="font-display text-[13px] font-bold text-navy" data-en="Live Chat" data-ar="محادثة مباشرة">Live Chat</p>
+            <p class="text-[11px] text-slate-400" data-en="Available 24/7" data-ar="متاح 24/7">Available 24/7</p>
+          </div>
+          <span class="mi text-slate-300" style="font-size:18px">chevron_right</span>
+        </div>
+
+        <div class="bg-white rounded-xl p-4 flex items-center gap-3 shadow-card border border-slate-100">
+          <div class="w-10 h-10 rounded-xl bg-mint-50 flex items-center justify-center">
+            <span class="mi text-mint-600" style="font-size:20px">call</span>
+          </div>
+          <div class="flex-1">
+            <p class="font-display text-[13px] font-bold text-navy" data-en="Call Us" data-ar="اتصل بنا">Call Us</p>
+            <p class="text-[11px] text-slate-400">+20 123 456 7890</p>
+          </div>
+          <span class="mi text-slate-300" style="font-size:18px">chevron_right</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="tab-bar">
+      <div class="tab"><span class="mi">home</span><span data-en="Home" data-ar="الرئيسية">Home</span></div>
+      <div class="tab"><span class="mi">search</span><span data-en="Search" data-ar="البحث">Search</span></div>
+      <div class="tab"><span class="mi">receipt_long</span><span data-en="Orders" data-ar="الطلبات">Orders</span></div>
+      <div class="tab"><span class="mi">chat</span><span data-en="Chat" data-ar="المحادثة">Chat</span></div>
+      <div class="tab on"><span class="mi">person</span><span data-en="Profile" data-ar="الملف">Profile</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SETTINGS SCREEN                                 -->
+<!-- ═══════════════════════════════════════════════ -->
+<div style="position:relative">
+  <div class="label">S10 — Settings</div>
+  <div class="screen">
+
+    <div class="sb"><span>9:41</span><div class="sb-i"><span class="mi" style="font-size:13px">signal_cellular_alt</span><span class="mi" style="font-size:13px">wifi</span><span class="mi" style="font-size:15px">battery_full</span></div></div>
+
+    <div style="padding:0 20px;height:calc(100% - 50px);overflow-y:auto">
+      <!-- Header -->
+      <div class="flex items-center gap-3 mt-1 mb-4">
+        <button class="w-10 h-10 rounded-full bg-white shadow-card border border-slate-100 flex items-center justify-center">
+          <span class="mi text-navy" style="font-size:20px">arrow_back</span>
+        </button>
+        <h2 class="font-display text-[18px] font-bold text-navy" data-en="Settings" data-ar="الإعدادات">Settings</h2>
+      </div>
+
+      <!-- Account Section -->
+      <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3" data-en="Account" data-ar="الحساب">Account</p>
+
+      <div class="flex flex-col gap-2 mb-5">
+        <div class="bg-white rounded-xl p-4 flex items-center gap-3 shadow-card border border-slate-100">
+          <div class="w-10 h-10 rounded-xl bg-navy/10 flex items-center justify-center">
+            <span class="mi text-navy" style="font-size:20px">person</span>
+          </div>
+          <div class="flex-1">
+            <p class="font-display text-[13px] font-bold text-navy" data-en="Edit Profile" data-ar="تعديل الملف">Edit Profile</p>
+          </div>
+          <span class="mi text-slate-300" style="font-size:18px">chevron_right</span>
+        </div>
+
+        <div class="bg-white rounded-xl p-4 flex items-center gap-3 shadow-card border border-slate-100">
+          <div class="w-10 h-10 rounded-xl bg-trust-50 flex items-center justify-center">
+            <span class="mi text-trust-600" style="font-size:20px">notifications</span>
+          </div>
+          <div class="flex-1">
+            <p class="font-display text-[13px] font-bold text-navy" data-en="Notification Settings" data-ar="إعدادات الإشعارات">Notification Settings</p>
+          </div>
+          <span class="mi text-slate-300" style="font-size:18px">chevron_right</span>
+        </div>
+
+        <div class="bg-white rounded-xl p-4 flex items-center gap-3 shadow-card border border-slate-100">
+          <div class="w-10 h-10 rounded-xl bg-mint-50 flex items-center justify-center">
+            <span class="mi text-mint-600" style="font-size:20px">lock</span>
+          </div>
+          <div class="flex-1">
+            <p class="font-display text-[13px] font-bold text-navy" data-en="Privacy & Security" data-ar="الخصوصية والأمان">Privacy & Security</p>
+          </div>
+          <span class="mi text-slate-300" style="font-size:18px">chevron_right</span>
+        </div>
+      </div>
+
+      <!-- Preferences Section -->
+      <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3" data-en="Preferences" data-ar="التفضيلات">Preferences</p>
+
+      <div class="flex flex-col gap-2 mb-5">
+        <!-- Language Toggle -->
+        <div class="bg-white rounded-xl p-4 flex items-center gap-3 shadow-card border border-slate-100">
+          <div class="w-10 h-10 rounded-xl bg-ochre-50 flex items-center justify-center">
+            <span class="mi text-ochre-600" style="font-size:20px">language</span>
+          </div>
+          <div class="flex-1">
+            <p class="font-display text-[13px] font-bold text-navy" data-en="Language" data-ar="اللغة">Language</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-[12px] text-slate-500 font-medium">English</span>
+            <div class="w-10 h-6 bg-navy rounded-full flex items-center p-1">
+              <div class="w-4 h-4 bg-white rounded-full ml-auto"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dark Mode -->
+        <div class="bg-white rounded-xl p-4 flex items-center gap-3 shadow-card border border-slate-100">
+          <div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center">
+            <span class="mi text-slate-600" style="font-size:20px">dark_mode</span>
+          </div>
+          <div class="flex-1">
+            <p class="font-display text-[13px] font-bold text-navy" data-en="Dark Mode" data-ar="الوضع الداكن">Dark Mode</p>
+          </div>
+          <div class="w-10 h-6 bg-slate-200 rounded-full flex items-center p-1">
+            <div class="w-4 h-4 bg-white rounded-full"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Support Section -->
+      <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3" data-en="Support" data-ar="الدعم">Support</p>
+
+      <div class="flex flex-col gap-2">
+        <div class="bg-white rounded-xl p-4 flex items-center gap-3 shadow-card border border-slate-100">
+          <div class="w-10 h-10 rounded-xl bg-coral-50 flex items-center justify-center">
+            <span class="mi text-coral-600" style="font-size:20px">help</span>
+          </div>
+          <div class="flex-1">
+            <p class="font-display text-[13px] font-bold text-navy" data-en="Help Center" data-ar="مركز المساعدة">Help Center</p>
+          </div>
+          <span class="mi text-slate-300" style="font-size:18px">chevron_right</span>
+        </div>
+
+        <div class="bg-white rounded-xl p-4 flex items-center gap-3 shadow-card border border-slate-100">
+          <div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center">
+            <span class="mi text-slate-600" style="font-size:20px">description</span>
+          </div>
+          <div class="flex-1">
+            <p class="font-display text-[13px] font-bold text-navy" data-en="Terms & Conditions" data-ar="الشروط والأحكام">Terms & Conditions</p>
+          </div>
+          <span class="mi text-slate-300" style="font-size:18px">chevron_right</span>
+        </div>
+
+        <div class="bg-white rounded-xl p-4 flex items-center gap-3 shadow-card border border-slate-100">
+          <div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center">
+            <span class="mi text-slate-600" style="font-size:20px">privacy_tip</span>
+          </div>
+          <div class="flex-1">
+            <p class="font-display text-[13px] font-bold text-navy" data-en="Privacy Policy" data-ar="سياسة الخصوصية">Privacy Policy</p>
+          </div>
+          <span class="mi text-slate-300" style="font-size:18px">chevron_right</span>
+        </div>
+      </div>
+
+      <!-- Version -->
+      <p class="text-center text-[11px] text-slate-300 mt-6 mb-4">CraftIQ v1.0.0</p>
+
+    </div>
+
+    <div class="tab-bar">
+      <div class="tab"><span class="mi">home</span><span data-en="Home" data-ar="الرئيسية">Home</span></div>
+      <div class="tab"><span class="mi">search</span><span data-en="Search" data-ar="البحث">Search</span></div>
+      <div class="tab"><span class="mi">receipt_long</span><span data-en="Orders" data-ar="الطلبات">Orders</span></div>
+      <div class="tab"><span class="mi">chat</span><span data-en="Chat" data-ar="المحادثة">Chat</span></div>
+      <div class="tab on"><span class="mi">person</span><span data-en="Profile" data-ar="الملف">Profile</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- EMPTY STATE - NO ORDERS                         -->
+<!-- ═══════════════════════════════════════════════ -->
+<div style="position:relative">
+  <div class="label">S11 — Empty: No Orders</div>
+  <div class="screen">
+
+    <div class="sb"><span>9:41</span><div class="sb-i"><span class="mi" style="font-size:13px">signal_cellular_alt</span><span class="mi" style="font-size:13px">wifi</span><span class="mi" style="font-size:15px">battery_full</span></div></div>
+
+    <div class="flex flex-col h-full px-6">
+      <h2 class="font-display text-[20px] font-extrabold text-navy mt-1 mb-4" data-en="My Orders" data-ar="طلباتي">My Orders</h2>
+
+      <!-- Empty State -->
+      <div class="flex-1 flex flex-col items-center justify-center">
+        <div class="w-32 h-32 rounded-full bg-slate-100 flex items-center justify-center mb-4">
+          <span class="mi text-slate-300" style="font-size:64px">receipt_long</span>
+        </div>
+        <h3 class="font-display text-[18px] font-bold text-navy mb-2" data-en="No orders yet" data-ar="لا توجد طلبات بعد">No orders yet</h3>
+        <p class="text-[14px] text-slate-400 text-center mb-6" data-en="When you book a service, it will appear here." data-ar="عند حجز خدمة، ستظهر هنا.">When you book a service, it will appear here.</p>
+        <button class="px-6 h-12 rounded-xl bg-navy text-white font-display text-[14px] font-bold flex items-center justify-center gap-2">
+          <span class="mi" style="font-size:18px">search</span> <span data-en="Browse Services" data-ar="تصفح الخدمات">Browse Services</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="tab-bar">
+      <div class="tab"><span class="mi">home</span><span data-en="Home" data-ar="الرئيسية">Home</span></div>
+      <div class="tab"><span class="mi">search</span><span data-en="Search" data-ar="البحث">Search</span></div>
+      <div class="tab on"><span class="mi">receipt_long</span><span data-en="Orders" data-ar="الطلبات">Orders</span></div>
+      <div class="tab"><span class="mi">chat</span><span data-en="Chat" data-ar="المحادثة">Chat</span></div>
+      <div class="tab"><span class="mi">person</span><span data-en="Profile" data-ar="الملف">Profile</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- EMPTY STATE - NO FAVORITES                      -->
+<!-- ═══════════════════════════════════════════════ -->
+<div style="position:relative">
+  <div class="label">S12 — Empty: No Favorites</div>
+  <div class="screen">
+
+    <div class="sb"><span>9:41</span><div class="sb-i"><span class="mi" style="font-size:13px">signal_cellular_alt</span><span class="mi" style="font-size:13px">wifi</span><span class="mi" style="font-size:15px">battery_full</span></div></div>
+
+    <div style="padding:0 20px;height:calc(100% - 50px);overflow-y:auto">
+      <!-- Header -->
+      <div class="flex items-center gap-3 mt-1 mb-4">
+        <button class="w-10 h-10 rounded-full bg-white shadow-card border border-slate-100 flex items-center justify-center">
+          <span class="mi text-navy" style="font-size:20px">arrow_back</span>
+        </button>
+        <h2 class="font-display text-[18px] font-bold text-navy" data-en="Favorites" data-ar="المفضلة">Favorites</h2>
+      </div>
+
+      <!-- Empty State -->
+      <div class="flex-1 flex flex-col items-center justify-center" style="min-height:500px">
+        <div class="w-32 h-32 rounded-full bg-slate-100 flex items-center justify-center mb-4">
+          <span class="mi text-slate-300" style="font-size:64px">favorite</span>
+        </div>
+        <h3 class="font-display text-[18px] font-bold text-navy mb-2" data-en="No favorites yet" data-ar="لا توجد مفضلات بعد">No favorites yet</h3>
+        <p class="text-[14px] text-slate-400 text-center mb-6" data-en="Save technicians you trust for quick booking later." data-ar="احفظ الفنيين whom you trust للحجز السريع لاحقاً.">Save technicians you trust for quick booking later.</p>
+        <button class="px-6 h-12 rounded-xl bg-navy text-white font-display text-[14px] font-bold flex items-center justify-center gap-2">
+          <span class="mi" style="font-size:18px">search</span> <span data-en="Find Technicians" data-ar="ابحث عن فنيين">Find Technicians</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="tab-bar">
+      <div class="tab"><span class="mi">home</span><span data-en="Home" data-ar="الرئيسية">Home</span></div>
+      <div class="tab"><span class="mi">search</span><span data-en="Search" data-ar="البحث">Search</span></div>
+      <div class="tab"><span class="mi">receipt_long</span><span data-en="Orders" data-ar="الطلبات">Orders</span></div>
+      <div class="tab"><span class="mi">chat</span><span data-en="Chat" data-ar="المحادثة">Chat</span></div>
+      <div class="tab on"><span class="mi">person</span><span data-en="Profile" data-ar="الملف">Profile</span></div>
+    </div>
+
+  </div>
+</div>
+
+</div> <!-- end grid -->
+
+<script>
+// Language Toggle
+let currentLang = 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  const html = document.documentElement;
+
+  if (lang === 'ar') {
+    html.setAttribute('dir', 'rtl');
+    html.setAttribute('lang', 'ar');
+    document.body.classList.add('font-arabic');
+
+    // Update all translatable elements
+    document.querySelectorAll('[data-ar]').forEach(el => {
+      el.textContent = el.getAttribute('data-ar');
+    });
+
+    // Update placeholders
+    document.querySelectorAll('[data-placeholder-ar]').forEach(el => {
+      el.placeholder = el.getAttribute('data-placeholder-ar');
+    });
+  } else {
+    html.setAttribute('dir', 'ltr');
+    html.setAttribute('lang', 'en');
+    document.body.classList.remove('font-arabic');
+
+    // Update all translatable elements
+    document.querySelectorAll('[data-en]').forEach(el => {
+      el.textContent = el.getAttribute('data-en');
+    });
+
+    // Update placeholders
+    document.querySelectorAll('[data-placeholder-en]').forEach(el => {
+      el.placeholder = el.getAttribute('data-placeholder-en');
+    });
+  }
+}
+</script>
+
+</body>
+</html>
