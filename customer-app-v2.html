@@ -32,24 +32,18 @@ tailwind.config = {
 </script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  ::-webkit-scrollbar { display: none; }
   body {
     background: #0f172a;
     font-family: 'Inter', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 70px 20px 40px;
-    overflow-x: hidden;
-    overflow-y: auto;
+    min-height: max(884px, 100dvh);
   }
   .grid {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: 60px;
-    align-items: center;
-    width: 100%;
-    max-width: 1400px;
+    padding: 40px;
+    align-items: flex-start;
   }
   .nav-bar {
     position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
@@ -70,15 +64,15 @@ tailwind.config = {
   .nav-btn.active { background: #2563eb; color: #fff; border-color: #2563eb; }
   .screen {
     position: relative; width: 375px; height: 812px;
-    border-radius: 40px; border: 8px solid #111;
+    border-radius: 40px; border: 8px solid #1a1a1a;
     overflow: hidden; background: #fff; flex-shrink: 0;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
   }
   .label {
-    position: absolute; top: -28px; left: 50%; transform: translateX(-50%);
-    font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
-    text-transform: uppercase; color: #94a3b8;
-    font-family: 'Inter', sans-serif; white-space: nowrap;
+    position: absolute; top: -30px; left: 0;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+    text-transform: uppercase; color: #64748b;
+    font-family: 'Plus Jakarta Sans', sans-serif; white-space: nowrap;
   }
   .sb {
     height: 54px; display: flex; align-items: flex-end;
