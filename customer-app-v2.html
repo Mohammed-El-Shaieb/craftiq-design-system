@@ -37,7 +37,7 @@ tailwind.config = {
     background: #0f172a;
     font-family: 'Inter', sans-serif;
     min-height: max(884px, 100dvh);
-    padding-top: 60px;
+    width: 100%;
   }
   .grid {
     display: flex;
@@ -46,25 +46,7 @@ tailwind.config = {
     padding: 40px;
     align-items: flex-start;
     justify-content: center;
-    width: 100%;
   }
-  .nav-bar {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
-    background: rgba(15,23,42,0.95); backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    padding: 10px 16px; display: flex; gap: 6px;
-    overflow-x: auto; scrollbar-width: none;
-  }
-  .nav-bar::-webkit-scrollbar { display: none; }
-  .nav-btn {
-    flex-shrink: 0; padding: 6px 12px; border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05);
-    color: #94a3b8; font-size: 11px; font-weight: 600;
-    font-family: 'Inter', sans-serif; cursor: pointer;
-    white-space: nowrap; transition: all 0.2s; text-decoration: none;
-  }
-  .nav-btn:hover { background: rgba(37,99,235,0.2); color: #fff; border-color: rgba(37,99,235,0.4); }
-  .nav-btn.active { background: #2563eb; color: #fff; border-color: #2563eb; }
   .screen {
     position: relative; width: 375px; height: 812px;
     border-radius: 40px; border: 8px solid #1a1a1a;
@@ -109,28 +91,6 @@ tailwind.config = {
 </style>
 </head>
 <body>
-
-<nav class="nav-bar" id="navBar">
-  <a href="#r01" class="nav-btn active">R01 Role</a>
-  <a href="#r02" class="nav-btn">R02 Splash</a>
-  <a href="#r03" class="nav-btn">R03 Onboard 1</a>
-  <a href="#r04" class="nav-btn">R04 Onboard 2</a>
-  <a href="#r05" class="nav-btn">R05 Onboard 3</a>
-  <a href="#r06" class="nav-btn">R06 Auth</a>
-  <a href="#c01" class="nav-btn">C01 Home</a>
-  <a href="#c02" class="nav-btn">C02 Search</a>
-  <a href="#c03" class="nav-btn">C03 Categories</a>
-  <a href="#c04" class="nav-btn">C04 Profile</a>
-  <a href="#c05" class="nav-btn">C05 Booking</a>
-  <a href="#c07" class="nav-btn">C07 Orders</a>
-  <a href="#c08" class="nav-btn">C08 Chat</a>
-  <a href="#c09" class="nav-btn">C09 Review</a>
-  <a href="#c16" class="nav-btn">C16 My Profile</a>
-  <a href="#c17" class="nav-btn">C17 Sign In</a>
-  <a href="#c18" class="nav-btn">C18 Edit Profile</a>
-  <a href="#c19" class="nav-btn">C19 Settings</a>
-  <a href="#c20" class="nav-btn">C20 Help</a>
-</nav>
 
 <div class="grid">
 
@@ -754,38 +714,6 @@ document.addEventListener('DOMContentLoaded', function() {
     L.marker([30.0480,31.2320],{icon:icon}).addTo(map);
     setTimeout(function(){map.invalidateSize();},100);
   }
-});
-</script>
-
-<!-- Scroll Spy -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var navBar = document.getElementById('navBar');
-  var navBtns = navBar.querySelectorAll('.nav-btn');
-  var sections = [];
-  navBtns.forEach(function(btn) {
-    var id = btn.getAttribute('href').replace('#','');
-    var el = document.getElementById(id);
-    if(el) sections.push({id:id, el:el, btn:btn});
-  });
-  function updateNav() {
-    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    var viewCenter = scrollTop + window.innerHeight / 2;
-    var closest = null; var closestDist = Infinity;
-    sections.forEach(function(s) {
-      var rect = s.el.getBoundingClientRect();
-      var elCenter = rect.top + rect.height/2 + scrollTop;
-      var dist = Math.abs(elCenter - viewCenter);
-      if(dist < closestDist) { closestDist = dist; closest = s; }
-    });
-    if(closest) {
-      navBtns.forEach(function(b){b.classList.remove('active')});
-      closest.btn.classList.add('active');
-      closest.btn.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
-    }
-  }
-  window.addEventListener('scroll', updateNav);
-  updateNav();
 });
 </script>
 
